@@ -19,7 +19,7 @@ export class MemoryComponent implements OnInit {
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
     this.gameState = new GameState()
-    this.startGame(this.cards, this.gameState)
+    this.startGame(this.shuffleCards(this.cards), this.gameState)
   }
 
 
@@ -32,10 +32,29 @@ export class MemoryComponent implements OnInit {
     });
   }
 
+  shuffleCards(deck: string[]): string[] {
+    // if it's 1 or 0 items, just return
+    if (deck.length <= 1) return deck;
+
+    // For each index in deck
+    for (let i = 0; i < deck.length; i++) {
+
+      // choose a random not-yet-placed item to place there
+      // must be an item AFTER the current item, because the stuff
+      // before has all already been placed
+      const randomChoiceIndex = getRandom(i, deck.length - 1);
+
+      // place our random choice in the spot by swapping
+      [deck[i], deck[randomChoiceIndex]] = [deck[randomChoiceIndex], deck[i]];
+
+      function getRandom(floor: number, ceiling: number) {
+        return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
+      }
+    }
+    return deck;
+  }
+
   revealCard(i: number, array: string[], gameState: GameState) {
-    console.log(i)
-    console.log(gameState.oneVisible)
-    console.log(gameState.visibleNr)
     let cards = array
 
     const card = document.getElementById('c' + i)
@@ -57,7 +76,7 @@ export class MemoryComponent implements OnInit {
         gameState.oneVisible = true
         gameState.lock = false
         console.log('visible' + i)
-      } 
+      }
       else {
         // second card
         if (cards[gameState.visibleNr] == cards[i]) {
@@ -66,13 +85,7 @@ export class MemoryComponent implements OnInit {
             hide2Cards(i, gameState.visibleNr)
           }, 750);
 
-          gameState.pairsLeft--;
-          if (gameState.pairsLeft == 0) {
-            let board = document.getElementById('board')
-            board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
-          }
-          gameState.lock = false;
-          
+        
         }
 
         else {
@@ -80,35 +93,37 @@ export class MemoryComponent implements OnInit {
           setTimeout(function () {
             restore2Cards(i, gameState.visibleNr)
           }, 1000);
-          gameState.lock = false;
           
         }
       }
-
       gameState.turnCounter++
       document.getElementById('score').innerHTML = 'Turn counter: ' + gameState.turnCounter
 
-
       function hide2Cards(first: number, second: number) {
-        console.log(first, second)
         document.getElementById('c' + first).style.opacity = '0'
         document.getElementById('c' + second).style.opacity = '0'
 
+        gameState.pairsLeft--;
+        if (gameState.pairsLeft == 0) {
+          let board = document.getElementById('board')
+          board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
+        }
         gameState.oneVisible = false
+        gameState.lock = false;
       }
 
       function restore2Cards(first: number, second: number) {
         let cardsToRestore: number[] = [first, second]
-        console.log(cardsToRestore)
 
         cardsToRestore.forEach((number) => {
-          
           let card = document.getElementById('c' + number)
           card.style.backgroundImage = 'url("../../assets/img/karta.png")'
           card.classList.add('card')
           card.classList.remove('cardA')
         });
+
         gameState.oneVisible = false
+        gameState.lock = false;
       }
     }
   }
