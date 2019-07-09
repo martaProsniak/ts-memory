@@ -13,17 +13,53 @@ export class MemoryComponent implements OnInit {
   cards: string[]
   gameState: GameState
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() { 
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
-    this.gameState = new GameState()
-    this.startGame(this.shuffleCards(this.cards), this.gameState)
   }
 
+  ngOnInit() {
+    this.draw()
+    this.gameState = new GameState()
+    console.log (this.gameState)
+    this.startNewGame(this.shuffleCards(this.cards), this.gameState)
+  }
 
-  startGame(cards: string[], gameState: GameState) {
+  start(){
+    this.ngOnInit()
+  }
+
+  draw(){
+    let board = document.getElementById('board')
+    // clear board before starting a new game
+    board.innerHTML = ''
+
+    for (let i = 0; i<this.cards.length; i++){
+      let cardBox = document.createElement('div')
+      cardBox.classList.add('card')
+      cardBox.setAttribute('id', 'c'+i)
+
+      cardBox.style.width = '125px'
+      cardBox.style.height = '125px'
+      cardBox.style.display = 'inline-block'
+      cardBox.style.margin = '3px'
+      cardBox.style.backgroundImage = 'url("../../assets/img/karta.png")'
+      cardBox.style.border = '4px solid #51c8b2'
+      cardBox.style.borderRadius = '4px'
+      cardBox.style.cursor = 'pointer'
+      cardBox.style.filter = 'brightness(80%)'
+      cardBox.style.transition = 'all .3s ease-in-out'
+
+      board.appendChild(cardBox)
+    }
+    let scoreBox = document.createElement('div')
+    scoreBox.classList.add('score')
+    scoreBox.setAttribute('id', 'score')
+    scoreBox.innerHTML = 'Turn counter: 0'
+    board.appendChild(scoreBox)
+  }
+
+  startNewGame(cards: string[], gameState: GameState) {
     let revealCard = this.revealCard
     cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
@@ -39,6 +75,7 @@ export class MemoryComponent implements OnInit {
     // For each index in deck
     for (let i = 0; i < deck.length; i++) {
 
+      // https://basarat.gitbooks.io/algorithms/content/docs/shuffling.html
       // choose a random not-yet-placed item to place there
       // must be an item AFTER the current item, because the stuff
       // before has all already been placed
@@ -69,13 +106,11 @@ export class MemoryComponent implements OnInit {
       card.classList.add('cardA')
       card.classList.remove('card')
 
-
       if (gameState.oneVisible == false) {
         // first card
         gameState.visibleNr = i
         gameState.oneVisible = true
         gameState.lock = false
-        console.log('visible' + i)
       }
       else {
         // second card
@@ -84,20 +119,16 @@ export class MemoryComponent implements OnInit {
           setTimeout(function () {
             hide2Cards(i, gameState.visibleNr)
           }, 750);
-
-        
         }
-
         else {
           // fail
           setTimeout(function () {
             restore2Cards(i, gameState.visibleNr)
           }, 1000);
-          
         }
+        gameState.turnCounter++
+        document.getElementById('score').innerHTML = 'Turn counter: ' + gameState.turnCounter
       }
-      gameState.turnCounter++
-      document.getElementById('score').innerHTML = 'Turn counter: ' + gameState.turnCounter
 
       function hide2Cards(first: number, second: number) {
         document.getElementById('c' + first).style.opacity = '0'
