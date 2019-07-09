@@ -10,49 +10,40 @@ export class MemoryComponent implements OnInit {
 
   content: Memory
   cards: string[]
-  oneVisible: boolean
-  turnCounter: number
-  visibleNr: number
-  lock: boolean
-  pairsLeft: number
 
   constructor() { }
 
   ngOnInit() {
-    this.content = require ('../../assets/memory.json');
-    this.cards = this.content.cards
-    console.log(this.content)
-
+    this.content = require('../../assets/memory.json');
+    this.cards = Array.from(this.content.cards)
+    this.startGame(this.cards)
   }
 
-  setGameState() {
-    this.oneVisible = false
-    this.turnCounter = 0
-    this.lock = false
-    this.pairsLeft = 6
-  }
 
-  startGame(){
+  startGame(cards: string[]) {
     let revealCard = this.revealCard
-    this.cards.forEach((card, index) => {
-      document.getElementById('c'+index).addEventListener(
-        'click', function() {revealCard(index);}
+    cards.forEach((card, index, Array ) => {
+      document.getElementById('c' + index).addEventListener(
+        'click', function () { revealCard(index, Array); }
       )
     });
   }
 
-  shuffleCards(){
+  revealCard(i: number, array: string[]) {
+    let oneVisible = false
+    let turnCounter = 0
+    let visibleNr: number
+    let lock = false
+    let pairsLeft = 6
+    let cards = array
 
-  }
-
-  revealCard(i) {
     const card = document.getElementById('c' + i)
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
-    if (opacityValue != 0 && this.lock == false) {
-      this.lock = true
-      let image = 'url(' + this.cards[i] + ')'
+    if (opacityValue != 0 && lock == false) {
+      lock = true
+      let image = 'url(' + cards[i] + ')'
       console.log(image)
 
       card.style.backgroundImage = image;
@@ -60,42 +51,43 @@ export class MemoryComponent implements OnInit {
       card.classList.remove('card')
 
 
-      if (this.oneVisible == false) {
+      if (oneVisible == false) {
         // first card
-        this.visibleNr = i
-        this.oneVisible = true
-        this.lock = false
+        visibleNr = i
+        oneVisible = true
+        lock = false
       } else {
         // second card
-        if (this.cards[this.visibleNr] == this.cards[i]) {
+        if (cards[visibleNr] == cards[i]) {
           // pair
           setTimeout(function () {
-            this.hide2Cards(i, this.visibleNr)
-          }, 750)
+            this.hide2Cards(i, visibleNr)
+          }, 750);
+
+          pairsLeft--;
+          if (pairsLeft == 0) {
+            let board = document.getElementById('board')
+            board.innerHTML = '<h1>You win!<br>Done in ' + turnCounter + ' turns</h1>'
+          }
+
+          lock = false;
         } else {
           // fail
           setTimeout(function () {
-            this.restore2Cards(i, this.visibleNr)
-          }, 1000)
+            this.restore2Cards(i, visibleNr)
+          }, 1000);
+          lock = false;
         }
       }
 
-      this.turnCounter++
-      document.getElementById('score').innerHTML = 'Turn counter: ' + this.turnCounter
+      turnCounter++
+      document.getElementById('score').innerHTML = 'Turn counter: ' + turnCounter
     }
   }
 
   hide2Cards(first: number, second: number) {
     document.getElementById('c' + first).style.opacity = '0'
     document.getElementById('c' + second).style.opacity = '0'
-
-    this.pairsLeft--;
-
-    if (this.pairsLeft == 0) {
-      let board = document.getElementById('board')
-      board.innerHTML = '<h1>You win!<br>Done in ' + this.turnCounter + ' turns</h1>'
-    }
-    this.lock = false;
   }
 
   restore2Cards(first: number, second: number) {
@@ -107,8 +99,6 @@ export class MemoryComponent implements OnInit {
       card.classList.add('card')
       card.classList.remove('cardA')
     }
-
-    this.lock = false;
   }
 
 }
