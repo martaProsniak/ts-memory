@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Memory } from '../models/memory';
+import { GameState } from '../models/game-state';
 
 @Component({
   selector: 'app-memory',
@@ -10,95 +11,107 @@ export class MemoryComponent implements OnInit {
 
   content: Memory
   cards: string[]
+  gameState: GameState
 
   constructor() { }
 
   ngOnInit() {
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
-    this.startGame(this.cards)
+    this.gameState = new GameState()
+    this.startGame(this.cards, this.gameState)
   }
 
 
-  startGame(cards: string[]) {
+  startGame(cards: string[], gameState: GameState) {
     let revealCard = this.revealCard
-    cards.forEach((card, index, Array ) => {
+    cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
-        'click', function () { revealCard(index, Array); }
+        'click', function () { revealCard(index, Array, gameState); }
       )
     });
   }
 
-  revealCard(i: number, array: string[]) {
-    let oneVisible = false
-    let turnCounter = 0
-    let visibleNr: number
-    let lock = false
-    let pairsLeft = 6
+  revealCard(i: number, array: string[], gameState: GameState) {
+    console.log(i)
+    console.log(gameState.oneVisible)
+    console.log(gameState.visibleNr)
     let cards = array
 
     const card = document.getElementById('c' + i)
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
-    if (opacityValue != 0 && lock == false) {
-      lock = true
+    if (opacityValue != 0 && gameState.lock == false) {
+      gameState.lock = true
       let image = 'url(' + cards[i] + ')'
-      console.log(image)
 
       card.style.backgroundImage = image;
       card.classList.add('cardA')
       card.classList.remove('card')
 
 
-      if (oneVisible == false) {
+      if (gameState.oneVisible == false) {
         // first card
-        visibleNr = i
-        oneVisible = true
-        lock = false
-      } else {
+        gameState.visibleNr = i
+        gameState.oneVisible = true
+        gameState.lock = false
+        console.log('visible' + i)
+      } 
+      else {
         // second card
-        if (cards[visibleNr] == cards[i]) {
+        if (cards[gameState.visibleNr] == cards[i]) {
           // pair
           setTimeout(function () {
-            this.hide2Cards(i, visibleNr)
+            hide2Cards(i, gameState.visibleNr)
           }, 750);
 
-          pairsLeft--;
-          if (pairsLeft == 0) {
+          gameState.pairsLeft--;
+          if (gameState.pairsLeft == 0) {
             let board = document.getElementById('board')
-            board.innerHTML = '<h1>You win!<br>Done in ' + turnCounter + ' turns</h1>'
+            board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
           }
+          gameState.lock = false;
+          
+        }
 
-          lock = false;
-        } else {
+        else {
           // fail
           setTimeout(function () {
-            this.restore2Cards(i, visibleNr)
+            restore2Cards(i, gameState.visibleNr)
           }, 1000);
-          lock = false;
+          gameState.lock = false;
+          
         }
       }
 
-      turnCounter++
-      document.getElementById('score').innerHTML = 'Turn counter: ' + turnCounter
+      gameState.turnCounter++
+      document.getElementById('score').innerHTML = 'Turn counter: ' + gameState.turnCounter
+
+
+      function hide2Cards(first: number, second: number) {
+        console.log(first, second)
+        document.getElementById('c' + first).style.opacity = '0'
+        document.getElementById('c' + second).style.opacity = '0'
+
+        gameState.oneVisible = false
+      }
+
+      function restore2Cards(first: number, second: number) {
+        let cardsToRestore: number[] = [first, second]
+        console.log(cardsToRestore)
+
+        cardsToRestore.forEach((number) => {
+          
+          let card = document.getElementById('c' + number)
+          card.style.backgroundImage = 'url("../../assets/img/karta.png")'
+          card.classList.add('card')
+          card.classList.remove('cardA')
+        });
+        gameState.oneVisible = false
+      }
     }
   }
 
-  hide2Cards(first: number, second: number) {
-    document.getElementById('c' + first).style.opacity = '0'
-    document.getElementById('c' + second).style.opacity = '0'
-  }
-
-  restore2Cards(first: number, second: number) {
-    let cardsToRestore: number[] = [first, second]
-
-    for (let i = 0; i < cardsToRestore.length; i++) {
-      let card = document.getElementById('c' + i)
-      card.style.backgroundImage = 'url("../../assets/img/karta.png")'
-      card.classList.add('card')
-      card.classList.remove('cardA')
-    }
-  }
 
 }
