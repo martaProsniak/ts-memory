@@ -42,7 +42,7 @@ export class MemoryComponent implements OnInit {
       cardBox.style.width = '125px'
       cardBox.style.height = '125px'
       cardBox.style.display = 'inline-block'
-      cardBox.style.margin = '3px'
+      cardBox.style.margin = '7.5px'
       cardBox.style.backgroundImage = 'url("../../assets/img/karta.png")'
       cardBox.style.border = '4px solid #51c8b2'
       cardBox.style.borderRadius = '4px'
