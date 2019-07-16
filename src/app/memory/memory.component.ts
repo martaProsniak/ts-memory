@@ -51,15 +51,7 @@ export class MemoryComponent implements OnInit {
       cardBox.style.transition = 'all .3s ease-in-out'
       cardBox.style.boxShadow = '1px 1px 1px 0px #021533';
 
-      cardBox.onmouseover = function(){
-        cardBox.style.border = '4px solid #035599'
-        cardBox.style.filter = 'brightness(100%)'
-      }
 
-      cardBox.onmouseleave = function(){
-        cardBox.style.border = '4px solid #152e55'
-        cardBox.style.filter = 'brightness(80%)'
-      }
 
       board.appendChild(cardBox)
     }
@@ -109,7 +101,7 @@ export class MemoryComponent implements OnInit {
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
-    if (opacityValue != 0 && !gameState.lock) {
+    if (opacityValue != 0 && !(gameState.lock)) {
       gameState.lock = true
       let image = 'url(' + cards[i] + ')'
 
@@ -125,7 +117,10 @@ export class MemoryComponent implements OnInit {
       }
       else {
         // second card
-        if (cards[gameState.visibleNr] == cards[i]) {
+        if (cards[gameState.visibleNr] == cards[i] &&
+          !(gameState.visibleNr == i)) {
+          console.log(cards[i]);
+          console.log(cards[gameState.visibleNr]);
           // pair
           setTimeout(function () {
             hide2Cards(i, gameState.visibleNr)
