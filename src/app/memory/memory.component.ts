@@ -113,12 +113,17 @@ export class MemoryComponent implements OnInit {
         // first card
         gameState.visibleNr = i
         gameState.oneVisible = true
-        gameState.lock = false
+        gameState.lock = false;
       }
       else {
         // second card
-        if (cards[gameState.visibleNr] == cards[i] &&
-          !(gameState.visibleNr == i)) {
+        if(gameState.visibleNr == i){
+          gameState.oneVisible = true;
+          gameState.lock = false;
+          return;
+        }
+        if (cards[gameState.visibleNr] == cards[i])
+        {
           console.log(cards[i]);
           console.log(cards[gameState.visibleNr]);
           // pair
