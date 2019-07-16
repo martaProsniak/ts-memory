@@ -1,13 +1,11 @@
-a:link    { color: #209781; text-decoration: none; }
-a:visited { color: #209781; }
-a:active  { color: #209781; }
-a:hover   { color: #E9B64A; }
-
 .memory-game{
 	width: 650px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #efefef;
+	background-color: #bbd6dd;
+	border-left: #13162d 5px solid;
+	border-right: #13162d 5px solid;
+	
 }
 
 h1{
@@ -19,7 +17,7 @@ h1{
 	margin-bottom: 20px;
 	padding-top: 10px;
 	background-image: radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633);
-	color: #e4dcdc;
+	color: #c2e1e9;
 }
 
 
@@ -39,10 +37,26 @@ h1{
 	position: relative;
 }
 
-.card:hover
+.gameContainer__button{
+	-webkit-box-shadow: 1px 2px 1px 0px #021533;
+	-moz-box-shadow: 1px 2px 1px 0px #021533;
+	box-shadow: 1px 2px 1px 0px #021533;
+	border: 1px solid #152e55;
+	transition: all .3s ease-in-out;	
+}
+
+.gameContainer__button:hover{
+	color: #efefef;
+	cursor: pointer;
+}
+
+.card-hover
 {
-	border: 4px solid #E9B64A;
+	border: 4px solid #035599;
 	filter: brightness(100%);
+	-webkit-box-shadow: 1px 2px 1px 0px #021533;
+-moz-box-shadow: 1px 2px 1px 0px #021533;
+box-shadow: 1px 2px 1px 0px #021533;
 }
 
 .cardA
@@ -51,9 +65,9 @@ h1{
 	height: 125px;
 	display: inline-block;
 	margin: 2px;
-	background-image: url("../../assets/img/karta.png");
+	background-image: url("../../assets/img/card.png");
 	object-fit: fill;
-	border: 4px solid #E9B64A;
+	border: 4px solid #152e55;
 	border-radius: 4px;
 	cursor: default;
 	filter: brightness(100%);
@@ -68,7 +82,7 @@ h1{
 
 .gameContainer__button{
 	background-image: radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633);
-	color: #e4dcdc;
+	color: #d6ecf1;
 	font-size: 20px;
 	font-family: 'Jura', sans-serif;
 	height: 40px;

@@ -43,12 +43,23 @@ export class MemoryComponent implements OnInit {
       cardBox.style.height = '125px'
       cardBox.style.display = 'inline-block'
       cardBox.style.margin = '7.5px'
-      cardBox.style.backgroundImage = 'url("../../assets/img/karta.png")'
-      cardBox.style.border = '4px solid #51c8b2'
+      cardBox.style.backgroundImage = 'url("../../assets/img/card.png")'
+      cardBox.style.border = '4px solid #152e55'
       cardBox.style.borderRadius = '4px'
       cardBox.style.cursor = 'pointer'
       cardBox.style.filter = 'brightness(80%)'
       cardBox.style.transition = 'all .3s ease-in-out'
+      cardBox.style.boxShadow = '1px 1px 1px 0px #021533';
+
+      cardBox.onmouseover = function(){
+        cardBox.style.border = '4px solid #035599'
+        cardBox.style.filter = 'brightness(100%)'
+      }
+
+      cardBox.onmouseleave = function(){
+        cardBox.style.border = '4px solid #152e55'
+        cardBox.style.filter = 'brightness(80%)'
+      }
 
       board.appendChild(cardBox)
     }
@@ -150,7 +161,7 @@ export class MemoryComponent implements OnInit {
 
       cardsToRestore.forEach((number) => {
         let card = document.getElementById('c' + number)
-        card.style.backgroundImage = 'url("../../assets/img/karta.png")'
+        card.style.backgroundImage = 'url("../../assets/img/card.png")'
         card.classList.add('card')
         card.classList.remove('cardA')
       });
