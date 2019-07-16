@@ -98,7 +98,7 @@ export class MemoryComponent implements OnInit {
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
-    if (opacityValue != 0 && gameState.lock == false) {
+    if (opacityValue != 0 && !gameState.lock) {
       gameState.lock = true
       let image = 'url(' + cards[i] + ')'
 
@@ -130,34 +130,34 @@ export class MemoryComponent implements OnInit {
         document.getElementById('score').innerHTML = 'Turn counter: ' + gameState.turnCounter
       }
 
-      function hide2Cards(first: number, second: number) {
-        document.getElementById('c' + first).style.opacity = '0'
-        document.getElementById('c' + second).style.opacity = '0'
+    }
+    
+    function hide2Cards(first: number, second: number) {
+      document.getElementById('c' + first).style.opacity = '0'
+      document.getElementById('c' + second).style.opacity = '0'
 
-        gameState.pairsLeft--;
-        if (gameState.pairsLeft == 0) {
-          let board = document.getElementById('board')
-          board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
-        }
-        gameState.oneVisible = false
-        gameState.lock = false;
+      gameState.pairsLeft--;
+      if (gameState.pairsLeft == 0) {
+        let board = document.getElementById('board')
+        board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
       }
+      gameState.oneVisible = false
+      gameState.lock = false;
+    }
 
-      function restore2Cards(first: number, second: number) {
-        let cardsToRestore: number[] = [first, second]
+    function restore2Cards(first: number, second: number) {
+      let cardsToRestore: number[] = [first, second]
 
-        cardsToRestore.forEach((number) => {
-          let card = document.getElementById('c' + number)
-          card.style.backgroundImage = 'url("../../assets/img/karta.png")'
-          card.classList.add('card')
-          card.classList.remove('cardA')
-        });
+      cardsToRestore.forEach((number) => {
+        let card = document.getElementById('c' + number)
+        card.style.backgroundImage = 'url("../../assets/img/karta.png")'
+        card.classList.add('card')
+        card.classList.remove('cardA')
+      });
 
-        gameState.oneVisible = false
-        gameState.lock = false;
-      }
+      gameState.oneVisible = false
+      gameState.lock = false;
     }
   }
-
 
 }
