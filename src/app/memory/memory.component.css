@@ -3,21 +3,25 @@ a:visited { color: #209781; }
 a:active  { color: #209781; }
 a:hover   { color: #E9B64A; }
 
+.memory-game{
+	width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #efefef;
+}
+
 h1{
 	font-size: 64px;
 	font-weight: 400;
 	text-align: center;
-	letter-spacing: 5px;
-	margin-top: 20px;
-	margin-bottom: 0px;
+	letter-spacing: 10px;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	padding-top: 10px;
+	background-image: radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633);
+	color: #e4dcdc;
 }
 
-p{
-	text-align: center;
-	margin-top: 5px;
-	margin-bottom: 25px;
-	letter-spacing: 2px;
-}
 
 .gameContainer__board
 {
@@ -31,7 +35,7 @@ p{
 	width: 600px;
 	margin-left: auto;
 	margin-right: auto;
-	height: 100px;
+	height: 40px;
 	position: relative;
 }
 
@@ -46,7 +50,7 @@ p{
 	width: 125px;
 	height: 125px;
 	display: inline-block;
-	margin: 3px;
+	margin: 2px;
 	background-image: url("../../assets/img/karta.png");
 	object-fit: fill;
 	border: 4px solid #E9B64A;
@@ -63,13 +67,13 @@ p{
 }
 
 .gameContainer__button{
-	background-color: #26282E;
-	color: #209781;
-    font-family: 'Lobster', sans-serif;
-	font-size: 24px;
+	background-image: radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633);
+	color: #e4dcdc;
+	font-size: 20px;
+	font-family: 'Jura', sans-serif;
 	height: 40px;
 	position: absolute;
-  	top: 50%;
+  	top: 25%;
   	left: 50%;
   	transform: translate(-50%, -50%);
 }
