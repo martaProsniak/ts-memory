@@ -1,12 +1,15 @@
-<header>
-    <h1>Gwent Memory Test</h1>
-    <p>Inspired by <a href="https://www.playgwent.com/pl" target="_blank">Gwent - The Witcher Card Game</a></p>
-</header>
+<section id="memory-game" class="memory-game">
+    <header>
+        <h1>SPACE MEMORY</h1>
+    </header>
 
-<main>
-    <article class="gameContainer">
-        <div class="gameContainer__board" id="board">
-        </div>
-        <div class='gameContainer__buttonBox'><button class='gameContainer__button'(click)="start()">Start new game</button></div>
-    </article>
-</main>
+    <main>
+        <article class="gameContainer">
+            <div class='gameContainer__buttonBox'>
+                <button class='gameContainer__button' (click)="start()">New game</button>
+            </div>
+            <div class="gameContainer__board" id="board">
+            </div>
+        </article>
+    </main>
+</section>
