@@ -12,8 +12,10 @@ export class MemoryComponent implements OnInit {
   content: Memory
   cards: string[]
   gameState: GameState
+  bestScore: number
+  static bestScore: number = 0;
 
-  constructor() { 
+  constructor() {
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
   }
@@ -21,23 +23,22 @@ export class MemoryComponent implements OnInit {
   ngOnInit() {
     this.draw()
     this.gameState = new GameState()
-    console.log (this.gameState)
     this.startNewGame(this.shuffleCards(this.cards), this.gameState)
   }
 
-  start(){
+  start() {
     this.ngOnInit()
   }
 
-  draw(){
+  draw() {
     let board = document.getElementById('board')
     // clear board before starting a new game
     board.innerHTML = ''
 
-    for (let i = 0; i<this.cards.length; i++){
+    for (let i = 0; i < this.cards.length; i++) {
       let cardBox = document.createElement('div')
       cardBox.classList.add('card')
-      cardBox.setAttribute('id', 'c'+i)
+      cardBox.setAttribute('id', 'c' + i)
 
       cardBox.style.width = '125px'
       cardBox.style.height = '125px'
@@ -117,13 +118,12 @@ export class MemoryComponent implements OnInit {
       }
       else {
         // check if not the same as the visible one
-        if(gameState.visibleNr == i){
+        if (gameState.visibleNr == i) {
           gameState.oneVisible = true;
           gameState.lock = false;
           return;
         }
-        if (cards[gameState.visibleNr] == cards[i])
-        {
+        if (cards[gameState.visibleNr] == cards[i]) {
           // pair
           setTimeout(function () {
             hide2Cards(i, gameState.visibleNr)
@@ -140,14 +140,14 @@ export class MemoryComponent implements OnInit {
       }
 
     }
-    
+
     function hide2Cards(first: number, second: number) {
       document.getElementById('c' + first).style.opacity = '0'
       document.getElementById('c' + second).style.opacity = '0'
 
       gameState.pairsLeft--;
       if (gameState.pairsLeft == 0) {
-        createWinAlert()
+        MemoryComponent.createWinAlert(gameState)
       }
       gameState.oneVisible = false
       gameState.lock = false
@@ -167,26 +167,32 @@ export class MemoryComponent implements OnInit {
       gameState.lock = false;
     }
 
-    function createWinAlert(){
-      let board = document.getElementById('board')
-        board.innerHTML = ''
-        let winAlert = document.createElement('div')
-        winAlert.style.width = '60%'
-        winAlert.style.height = '500px'
-        winAlert.style.position = 'relative'
-        winAlert.style.marginLeft = 'auto'
-        winAlert.style.marginRight = 'auto'
-
-        let winAlertWrapper = document.createElement('div')
-        winAlertWrapper.style.position = 'absolute';
-        winAlertWrapper.style.top = '50%'
-        winAlertWrapper.style.left = '50%'
-        winAlertWrapper.style.transform = 'translate(-50%, -50%)'
-
-        winAlertWrapper.innerHTML = 'You win!<br>Done in ' + gameState.turnCounter + ' turns'
-        board.appendChild(winAlert)
-        winAlert.appendChild(winAlertWrapper)
-    }
   }
 
+  static createWinAlert(gameState: GameState) {
+    console.log(MemoryComponent.bestScore)
+    if (MemoryComponent.bestScore === 0 || MemoryComponent.bestScore > gameState.turnCounter) {
+      MemoryComponent.bestScore = gameState.turnCounter
+      console.log(MemoryComponent.bestScore)
+    }
+
+    let board = document.getElementById('board')
+    board.innerHTML = ''
+    let winAlert = document.createElement('div')
+    winAlert.style.width = '60%'
+    winAlert.style.height = '500px'
+    winAlert.style.position = 'relative'
+    winAlert.style.marginLeft = 'auto'
+    winAlert.style.marginRight = 'auto'
+
+    let winAlertWrapper = document.createElement('div')
+    winAlertWrapper.style.position = 'absolute';
+    winAlertWrapper.style.top = '50%'
+    winAlertWrapper.style.left = '50%'
+    winAlertWrapper.style.transform = 'translate(-50%, -50%)'
+
+    winAlertWrapper.innerHTML = 'You win!<br>Done in ' + gameState.turnCounter + ' turns'
+    board.appendChild(winAlert)
+    winAlert.appendChild(winAlertWrapper)
+  }
 }
