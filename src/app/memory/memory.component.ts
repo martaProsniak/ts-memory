@@ -116,7 +116,7 @@ export class MemoryComponent implements OnInit {
         gameState.lock = false;
       }
       else {
-        // second card
+        // check if not the same as the visible one
         if(gameState.visibleNr == i){
           gameState.oneVisible = true;
           gameState.lock = false;
@@ -124,8 +124,6 @@ export class MemoryComponent implements OnInit {
         }
         if (cards[gameState.visibleNr] == cards[i])
         {
-          console.log(cards[i]);
-          console.log(cards[gameState.visibleNr]);
           // pair
           setTimeout(function () {
             hide2Cards(i, gameState.visibleNr)
@@ -149,11 +147,10 @@ export class MemoryComponent implements OnInit {
 
       gameState.pairsLeft--;
       if (gameState.pairsLeft == 0) {
-        let board = document.getElementById('board')
-        board.innerHTML = '<h1>You win!<br>Done in ' + gameState.turnCounter + ' turns</h1>'
+        createWinAlert()
       }
       gameState.oneVisible = false
-      gameState.lock = false;
+      gameState.lock = false
     }
 
     function restore2Cards(first: number, second: number) {
@@ -168,6 +165,27 @@ export class MemoryComponent implements OnInit {
 
       gameState.oneVisible = false
       gameState.lock = false;
+    }
+
+    function createWinAlert(){
+      let board = document.getElementById('board')
+        board.innerHTML = ''
+        let winAlert = document.createElement('div')
+        winAlert.style.width = '60%'
+        winAlert.style.height = '500px'
+        winAlert.style.position = 'relative'
+        winAlert.style.marginLeft = 'auto'
+        winAlert.style.marginRight = 'auto'
+
+        let winAlertWrapper = document.createElement('div')
+        winAlertWrapper.style.position = 'absolute';
+        winAlertWrapper.style.top = '50%'
+        winAlertWrapper.style.left = '50%'
+        winAlertWrapper.style.transform = 'translate(-50%, -50%)'
+
+        winAlertWrapper.innerHTML = 'You win!<br>Done in ' + gameState.turnCounter + ' turns'
+        board.appendChild(winAlert)
+        winAlert.appendChild(winAlertWrapper)
     }
   }
 
