@@ -5,5 +5,6 @@ body
     font-family: 'Orbitron', sans-serif;
     font-size: 28px;
     background-image: url("./assets/img/background2.jpg");
-    opacity: 0.95;
+    background-size: auto;
+    opacity: 0.9;
 }
