@@ -202,13 +202,13 @@ export class MemoryComponent implements OnInit {
     cardBox.style.border = '2px solid #d5e1eb'
     cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
-    cardBox.style.filter = 'brightness(80%)'
+    cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in-out'
     cardBox.style.boxShadow = '2px 3px 3px 0px #021533'
     
     cardBox.addEventListener('mouseover', function (event)
     {
-      cardBox.style.transform = 'scale(0.97)'
+      cardBox.style.transform = 'scale(0.95)'
     })
 
     cardBox.addEventListener('mouseleave', function (event)

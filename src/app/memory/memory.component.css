@@ -3,6 +3,8 @@
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
 	background-color: #bbd6dd;
 	border-left: #13162d 5px solid;
 	border-right: #13162d 5px solid;
@@ -18,7 +20,7 @@ h1{
 	margin-bottom: 20px;
 	padding-top: 10px;
 	color: #c2e1e9;
-	background-color: #100c21;
+	background-color: #11021f;
 }
 
 
@@ -49,7 +51,7 @@ h1{
 .gameContainer__button:hover{
 	color: #efefef;
 	cursor: pointer;
-	filter: brightness(120%);
+	filter: brightness(150%);
 }
 
 .card-hover
@@ -67,15 +69,15 @@ h1{
 }
 
 .gameContainer__button{
-	background-image: radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633);
-	color: #d6ecf1;
+	color: #efefef;
 	font-size: 20px;
 	font-family: 'Orbitron', sans-serif;
 	height: 40px;
 	position: absolute;
   	top: 25%;
   	left: 50%;
-  	transform: translate(-50%, -50%);
+	  transform: translate(-50%, -50%);
+	background-color: #11021f;
 }
 
 .memory-footer{
@@ -85,7 +87,7 @@ h1{
 
 footer{
 	width: 100%;
-	background-color: #021533;
+	background-color: #11021f;
 	font-size: 16px;
 	color: #c2e1e9;
 	text-align: center;
