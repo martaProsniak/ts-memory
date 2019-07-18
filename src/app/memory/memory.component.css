@@ -1,39 +1,42 @@
 .memory-game{
-	width: 650px;
+	min-width: 400px;
+	max-width: 900px;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5%;
 	margin-bottom: 5%;
 	background-color: #bbd6dd;
-	border-left: #13162d 5px solid;
-	border-right: #13162d 5px solid;
+	-webkit-box-shadow: 1px 1px 1px 1px #13162d;
+	-moz-box-shadow: 1px 1px 1px 1px #13162d;
+	box-shadow: 1px 1px 1px 1px #13162d;
 }
 
-h1{
+.header__text{
 	width: 100%;
-	font-size: 64px;
+	min-width: 400px;
+	font-size: 58px;
 	font-weight: 600;
 	text-align: center;
 	letter-spacing: 20px;
 	margin-top: 0px;
 	margin-bottom: 20px;
-	padding-top: 10px;
+	padding: 20px;
 	color: #c2e1e9;
 	background-color: #11021f;
+	overflow: hidden;
 }
 
 
 .gameContainer__board
 {
-	width: 600px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
 
 .gameContainer__buttonBox{
-	width: 600px;
 	margin-left: auto;
 	margin-right: auto;
 	height: 40px;
@@ -46,6 +49,15 @@ h1{
 	box-shadow: 1px 2px 1px 0px #021533;
 	border: 1px solid #152e55;
 	transition: all .3s ease-in-out;	
+	color: #efefef;
+	font-size: 20px;
+	font-family: 'Orbitron', sans-serif;
+	height: 40px;
+	position: absolute;
+	  top: 25%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	background-color: #11021f;
 }
 
 .gameContainer__button:hover{
@@ -54,11 +66,9 @@ h1{
 	filter: brightness(150%);
 }
 
-.card-hover
-{
-	border: 2px solid #d5e1eb;
-	filter: brightness(100%);
-
+.gameContainer__rowWrapper{
+	display: flex;
+	
 }
 
 .score
@@ -68,17 +78,6 @@ h1{
 	letter-spacing: 2px;
 }
 
-.gameContainer__button{
-	color: #efefef;
-	font-size: 20px;
-	font-family: 'Orbitron', sans-serif;
-	height: 40px;
-	position: absolute;
-  	top: 25%;
-  	left: 50%;
-	  transform: translate(-50%, -50%);
-	background-color: #11021f;
-}
 
 .memory-footer{
 	width: 100%;
@@ -98,4 +97,8 @@ footer{
 .link{
 	text-decoration: none;
 	color: #c2e1e9;
+}
+
+.link:hover{
+	color: #c01ab8;
 }

@@ -1,6 +1,6 @@
 <section id="memory-game" class="memory-game">
     <header>
-        <h1>SPACE MEMORY</h1>
+        <h1 class="header__text">SPACE MEMORY</h1>
     </header>
 
     <main>
@@ -8,14 +8,16 @@
             <div class='gameContainer__buttonBox'>
                 <button class='gameContainer__button' (click)="start()">New game</button>
             </div>
-            <div class="gameContainer__board" id="board">
+            <div class="gameContainer__rowWrapper row">
+                <div class="gameContainer__board" id="board">
+                </div>
             </div>
         </article>
     </main>
     <footer class="memory-footer">
         Created by
         <a class='link' href="https://martaprosniak-resume.firebaseapp.com/" target="_blank">Marta Prośniak</a><br>
-        Icons made by 
-        <a class='link' href="https://www.flaticon.com/packs/space-6" target="_blank">Freepik from www.flaticon.com</a>   
+        Icons made by
+        <a class='link' href="https://www.flaticon.com/packs/space-6" target="_blank">Freepik from www.flaticon.com</a>
     </footer>
 </section>
