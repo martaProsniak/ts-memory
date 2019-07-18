@@ -210,8 +210,13 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in-out'
     cardBox.style.boxShadow = '2px 3px 3px 0px #021533'
+    cardBox.style.flexShrink = '2'
     cardBox.classList.add('shake-little')
     cardBox.classList.add('shake-freeze')
+    cardBox.classList.add('col-xs-3')
+    cardBox.classList.add('col-lg-4')
+    cardBox.classList.add('col-xl-2')
+    
     
     cardBox.addEventListener('mouseover', function (event)
     {

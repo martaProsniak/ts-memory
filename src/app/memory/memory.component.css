@@ -1,6 +1,6 @@
 .memory-game{
-	min-width: 400px;
-	max-width: 930px;
+	min-width: 450px;
+	width: 60%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -72,7 +72,7 @@
 	cursor: pointer;
 	background-image: url("../../assets/img/card.png");
 	filter: brightness(120%)
-;}
+}
 
 .gameContainer__rowWrapper{
 	display: flex;
