@@ -61,6 +61,9 @@ export class MemoryComponent implements OnInit {
   }
 
   shuffleCards(deck: string[]): string[] {
+    function getRandom(floor: number, ceiling: number) {
+      return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
+    }
     // if it's 1 or 0 items, just return
     if (deck.length <= 1) return deck;
 
@@ -76,9 +79,6 @@ export class MemoryComponent implements OnInit {
       // place our random choice in the spot by swapping
       [deck[i], deck[randomChoiceIndex]] = [deck[randomChoiceIndex], deck[i]];
 
-      function getRandom(floor: number, ceiling: number) {
-        return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
-      }
     }
     return deck;
   }
