@@ -95,7 +95,8 @@ export class MemoryComponent implements OnInit {
       let image = 'url(' + cards[i] + ')'
 
       card.style.backgroundImage = image;
-     
+      card.style.filter = 'brightness(100%)'
+
 
       if (MemoryComponent.gameState.oneVisible == false) {
         // first card
@@ -146,8 +147,6 @@ export class MemoryComponent implements OnInit {
       cardsToRestore.forEach((number) => {
         let card = document.getElementById('c' + number)
         card.style.backgroundImage = 'url("../../assets/img/card.png")'
-        card.classList.add('card')
-        card.classList.remove('cardA')
       });
 
       MemoryComponent.gameState.oneVisible = false
@@ -163,8 +162,8 @@ export class MemoryComponent implements OnInit {
     }
     MemoryComponent.drawWinAlert();
   }
-  
-  static drawWinAlert(){
+
+  static drawWinAlert() {
     let board = document.getElementById('board')
     board.innerHTML = ''
     let winAlert = document.createElement('div')
@@ -173,7 +172,7 @@ export class MemoryComponent implements OnInit {
     winAlert.style.position = 'relative'
     winAlert.style.marginLeft = 'auto'
     winAlert.style.marginRight = 'auto'
-  
+
     let winAlertWrapper = document.createElement('div')
     winAlertWrapper.style.position = 'absolute';
     winAlertWrapper.style.top = '50%'
@@ -183,7 +182,7 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.backgroundImage = 'radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633)'
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
-    
+
     let winAlertText = document.createElement('h3')
     winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
     winAlertText.style.width = '100%'
@@ -194,17 +193,33 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.appendChild(winAlertText)
   }
 
-  styleCards(cardBox: any){
+  styleCards(cardBox: any) {
     cardBox.style.width = '125px'
     cardBox.style.height = '125px'
     cardBox.style.display = 'inline-block'
     cardBox.style.margin = '7.5px'
     cardBox.style.backgroundImage = 'url("../../assets/img/card.png")'
-    cardBox.style.border = '4px solid #152e55'
-    cardBox.style.borderRadius = '4px'
+    cardBox.style.border = '2px solid #d5e1eb'
+    cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
-    cardBox.style.filter = 'brightness(90%)'
-    cardBox.style.transition = 'all .3s ease-in-out'
-    cardBox.style.boxShadow = '1px 1px 1px 0px #021533';
+    cardBox.style.filter = 'brightness(80%)'
+    cardBox.style.transition = 'all .2s ease-in-out'
+    cardBox.style.boxShadow = '2px 3px 3px 0px #021533'
+    
+    cardBox.addEventListener('mouseover', function (event)
+    {
+      cardBox.style.transform = 'scale(0.97)'
+    })
+
+    cardBox.addEventListener('mouseleave', function (event)
+    {
+      cardBox.style.transform = 'scale(1)'
+    })
+
+    cardBox.addEventListener('mouseup', function (event)
+    {
+      cardBox.style.transform = 'scale(1)'
+      cardBox.style.filter = 'brightness(100%)'
+    })
   }
 }

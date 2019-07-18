@@ -49,19 +49,20 @@ h1{
 .gameContainer__button:hover{
 	color: #efefef;
 	cursor: pointer;
+	filter: brightness(120%);
 }
 
 .card-hover
 {
-	border: 2px solid #035599;
+	border: 2px solid #d5e1eb;
 	filter: brightness(100%);
 
 }
 
-
 .score
 {
-	margin-top: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	letter-spacing: 2px;
 }
 
@@ -77,4 +78,22 @@ h1{
   	transform: translate(-50%, -50%);
 }
 
+.memory-footer{
+	width: 100%;
 
+}
+
+footer{
+	width: 100%;
+	background-color: #021533;
+	font-size: 16px;
+	color: #c2e1e9;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.link{
+	text-decoration: none;
+	color: #c2e1e9;
+}
