@@ -165,14 +165,16 @@ export class MemoryComponent implements OnInit {
 
   static drawWinAlert() {
     let board = document.getElementById('board')
+    let boardStyle = getComputedStyle(board);
+    let boardHeight = boardStyle['height']
     board.innerHTML = ''
     let winAlert = document.createElement('div')
     winAlert.style.width = '80%'
-    winAlert.style.height = '500px'
+    winAlert.style.height = boardHeight
     winAlert.style.position = 'relative'
     winAlert.style.marginLeft = 'auto'
     winAlert.style.marginRight = 'auto'
-
+    
     let winAlertWrapper = document.createElement('div')
     winAlertWrapper.style.position = 'absolute';
     winAlertWrapper.style.top = '50%'
@@ -182,12 +184,15 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.backgroundImage = 'radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633)'
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
-
+    
     let winAlertText = document.createElement('h3')
     winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
     winAlertText.style.width = '100%'
     winAlertText.style.fontSize = '26px'
     winAlertText.style.color = '#d6ecf1'
+    winAlertText.classList.add('shake-little')
+    winAlertText.classList.add('shake-constant')
+    winAlertText.classList.add('shake-constant-hover')
     board.appendChild(winAlert)
     winAlert.appendChild(winAlertWrapper)
     winAlertWrapper.appendChild(winAlertText)
@@ -205,6 +210,8 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in-out'
     cardBox.style.boxShadow = '2px 3px 3px 0px #021533'
+    cardBox.classList.add('shake-little')
+    cardBox.classList.add('shake-freeze')
     
     cardBox.addEventListener('mouseover', function (event)
     {
@@ -214,6 +221,7 @@ export class MemoryComponent implements OnInit {
     cardBox.addEventListener('mouseleave', function (event)
     {
       cardBox.style.transform = 'scale(1)'
+      
     })
 
     cardBox.addEventListener('mouseup', function (event)
