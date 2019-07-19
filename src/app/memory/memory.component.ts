@@ -23,10 +23,10 @@ export class MemoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    MemoryComponent.song.play()
     this.drawBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
+    MemoryComponent.song.play()
   }
 
   start() {
@@ -59,6 +59,8 @@ export class MemoryComponent implements OnInit {
   }
 
   startNewGame(cards: string[]) {
+    MemoryComponent.song.pause()
+    MemoryComponent.song.currentTime = 0
     let revealCard = this.revealCard
     cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
@@ -169,8 +171,6 @@ export class MemoryComponent implements OnInit {
       console.log(this.bestScore)
     }
     MemoryComponent.drawWinAlert();
-    MemoryComponent.song.pause()
-    MemoryComponent.song.currentTime = 0
   }
 
   static drawWinAlert() {
