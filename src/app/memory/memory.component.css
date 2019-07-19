@@ -1,11 +1,11 @@
 .memory-game{
-	min-width: 450px;
+	min-width: 350px;
 	width: 60%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-top: 2%;
+	margin-bottom: 2%;
 	background-color: #bbd6dd;
 	-webkit-box-shadow: 1px 1px 1px 1px #13162d;
 	-moz-box-shadow: 1px 1px 1px 1px #13162d;
@@ -14,7 +14,7 @@
 
 .game__header{
 	width: 100%;
-	min-width: 400px;
+	min-width: 350px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 	background-color: #11021f;
@@ -25,7 +25,7 @@
 	font-size: 58px;
 	font-weight: 600;
 	text-align: center;
-	letter-spacing: 20px;
+	letter-spacing: 10px;
 	padding: 20px;
 	color: #c2e1e9;
 	margin: 0;
@@ -35,7 +35,8 @@
 
 .gameContainer__board
 {
-	width: 100%;
+	width: 600px;
+	min-width: 320px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -95,7 +96,7 @@
 footer{
 	width: 100%;
 	background-color: #11021f;
-	font-size: 16px;
+	font-size: 14px;
 	color: #c2e1e9;
 	text-align: center;
 	padding-top: 15px;
