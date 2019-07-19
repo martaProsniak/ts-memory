@@ -11,15 +11,21 @@ export class MemoryComponent implements OnInit {
 
   content: Memory
   cards: string[]
-  public static gameState: GameState
+  song: any
+  static gameState: GameState
   static bestScore: number = 0;
 
   constructor() {
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
+    this.song = new Audio()
+    this.song.src = '../../assets/song.wav'
   }
 
   ngOnInit() {
+    this.song.pause()
+    this.song.currentTime = 0
+    this.song.play()
     this.drawBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
@@ -28,6 +34,7 @@ export class MemoryComponent implements OnInit {
   start() {
     this.ngOnInit()
   }
+
 
   drawBoard() {
     let board = document.getElementById('board')
@@ -139,6 +146,7 @@ export class MemoryComponent implements OnInit {
       }
       MemoryComponent.gameState.oneVisible = false
       MemoryComponent.gameState.lock = false
+
     }
 
     function restore2Cards(first: number, second: number) {
@@ -161,6 +169,7 @@ export class MemoryComponent implements OnInit {
       console.log(this.bestScore)
     }
     MemoryComponent.drawWinAlert();
+ 
   }
 
   static drawWinAlert() {
