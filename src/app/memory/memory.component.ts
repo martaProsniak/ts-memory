@@ -11,21 +11,19 @@ export class MemoryComponent implements OnInit {
 
   content: Memory
   cards: string[]
-  song: any
+  static song: any
   static gameState: GameState
   static bestScore: number = 0;
 
   constructor() {
     this.content = require('../../assets/memory.json');
     this.cards = Array.from(this.content.cards)
-    this.song = new Audio()
-    this.song.src = '../../assets/song.wav'
+    MemoryComponent.song = new Audio()
+    MemoryComponent.song.src = '../../assets/song.wav'
   }
 
   ngOnInit() {
-    this.song.pause()
-    this.song.currentTime = 0
-    this.song.play()
+    MemoryComponent.song.play()
     this.drawBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
@@ -171,7 +169,8 @@ export class MemoryComponent implements OnInit {
       console.log(this.bestScore)
     }
     MemoryComponent.drawWinAlert();
- 
+    MemoryComponent.song.pause()
+    MemoryComponent.song.currentTime = 0
   }
 
   static drawWinAlert() {
@@ -195,6 +194,7 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.backgroundImage = 'radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633)'
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
+    winAlertWrapper.style.textAlign = 'center'
     
     let winAlertText = document.createElement('h3')
     winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
