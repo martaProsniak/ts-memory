@@ -54,6 +54,8 @@ export class MemoryComponent implements OnInit {
     let scoreBox = document.createElement('div')
     scoreBox.classList.add('score')
     scoreBox.setAttribute('id', 'score')
+    scoreBox.style.marginLeft = 'auto'
+    scoreBox.style.marginRight = 'auto'
     scoreBox.innerHTML = 'Turn counter: 0'
     board.appendChild(scoreBox)
   }
@@ -208,10 +210,10 @@ export class MemoryComponent implements OnInit {
   }
 
   styleCards(cardBox: any) {
-    cardBox.style.width = '125px'
+    cardBox.style.maxWidth = '125px'
     cardBox.style.height = '125px'
-    cardBox.style.display = 'inline-block'
-    cardBox.style.margin = '10px'
+    
+    cardBox.style.margin = '2%'
     cardBox.style.backgroundImage = 'url("../../assets/img/card.png")'
     cardBox.style.border = '2px solid #d5e1eb'
     cardBox.style.borderRadius = '3px'
@@ -223,8 +225,8 @@ export class MemoryComponent implements OnInit {
     cardBox.classList.add('shake-little')
     cardBox.classList.add('shake-constant')
     cardBox.classList.add('shake-constant--hover')
-    cardBox.classList.add('col-xs-3')
-    cardBox.classList.add('col-lg-4')
+    cardBox.classList.add('col-xs-6')
+    cardBox.classList.add('col-md-4')
     
     
     cardBox.addEventListener('mouseover', function (event)
