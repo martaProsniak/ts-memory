@@ -23,22 +23,37 @@ export class MemoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.drawBoard()
+   this.start();
+  }
+
+  start() {
+    this.updateBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
     MemoryComponent.song.play()
   }
 
-  start() {
-    this.ngOnInit()
-  }
-
-
-  drawBoard() {
+  updateBoard() {
     let board = document.getElementById('board')
     // clear board before starting a new game
     board.innerHTML = ''
 
+    this.drawCards(board);
+    this.drawScoreBox(board)
+  }
+
+  drawScoreBox(container: any){
+    let scoreBox = document.createElement('div')
+    scoreBox.classList.add('score')
+    scoreBox.setAttribute('id', 'score')
+    scoreBox.style.marginLeft = 'auto'
+    scoreBox.style.marginRight = 'auto'
+    scoreBox.innerHTML = 'Turn counter: 0'
+   
+    container.appendChild(scoreBox)
+  }
+
+  drawCards(container: any){
     for (let i = 0; i < this.cards.length; i++) {
       let cardBox = document.createElement('div')
       cardBox.classList.add('card')
@@ -46,27 +61,23 @@ export class MemoryComponent implements OnInit {
 
       this.styleCards(cardBox)
 
-      board.appendChild(cardBox)
+      container.appendChild(cardBox)
     }
-
-    let scoreBox = document.createElement('div')
-    scoreBox.classList.add('score')
-    scoreBox.setAttribute('id', 'score')
-    scoreBox.style.marginLeft = 'auto'
-    scoreBox.style.marginRight = 'auto'
-    scoreBox.innerHTML = 'Turn counter: 0'
-    board.appendChild(scoreBox)
   }
 
   startNewGame(cards: string[]) {
-    MemoryComponent.song.pause()
-    MemoryComponent.song.currentTime = 0
+    this.resetMusic();
     let revealCard = this.revealCard
     cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
         'click', function () { revealCard(index, Array); }
       )
     });
+  }
+
+  resetMusic(){
+    MemoryComponent.song.pause()
+    MemoryComponent.song.currentTime = 0
   }
 
   shuffleCards(deck: string[]): string[] {
