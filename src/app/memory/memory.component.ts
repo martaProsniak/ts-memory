@@ -12,6 +12,7 @@ export class MemoryComponent implements OnInit {
   content: Memory
   cards: string[]
   static song: any
+  static isMusicOn: boolean;
   static gameState: GameState
   static bestScore: number = 0;
 
@@ -20,6 +21,7 @@ export class MemoryComponent implements OnInit {
     this.cards = Array.from(this.content.cards)
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
+    MemoryComponent.isMusicOn = true;
   }
 
   ngOnInit() {
@@ -30,7 +32,9 @@ export class MemoryComponent implements OnInit {
     this.updateBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
-    MemoryComponent.song.play()
+    if (MemoryComponent.isMusicOn){
+      MemoryComponent.song.play()
+    }
   }
 
   displayHello(){
@@ -93,6 +97,21 @@ export class MemoryComponent implements OnInit {
   resetMusic() {
     MemoryComponent.song.pause()
     MemoryComponent.song.currentTime = 0
+  }
+
+  controlMusic(){
+    let target = event.target as HTMLButtonElement
+    console.log(target)
+    if (MemoryComponent.isMusicOn){
+      MemoryComponent.song.pause()
+      MemoryComponent.song.currentTime = 0
+      MemoryComponent.isMusicOn = false;
+      target.innerHTML = 'Music: off'
+    } else {
+      MemoryComponent.isMusicOn = true;
+      target.innerHTML = 'Music: on'
+    }
+    
   }
 
   shuffleCards(deck: string[]): string[] {
