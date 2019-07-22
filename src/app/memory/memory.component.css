@@ -50,12 +50,11 @@
 }
 
 .gameContainer__buttonBox{
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0;
-	height: 75px;
-	position: relative;
-	border-bottom: 1px solid #152e55;
+	padding: 2%;
+	border-top: 1px solid #152e55;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .gameContainer__button{
@@ -65,13 +64,9 @@
 	border: 1px solid #152e55;
 	transition: all .3s ease-in-out;	
 	color: #efefef;
-	font-size: 20px;
+	font-size: 0.6em;
 	font-family: 'Orbitron', sans-serif;
 	height: 40px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	background-color: #11021f;
 }
 

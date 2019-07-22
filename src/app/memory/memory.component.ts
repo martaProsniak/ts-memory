@@ -23,7 +23,7 @@ export class MemoryComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.start();
+    this.displayHello()
   }
 
   start() {
@@ -31,6 +31,21 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
     MemoryComponent.song.play()
+  }
+
+  displayHello(){
+    let board = document.getElementById('board')
+
+    let textElement = document.createElement('div');
+    let startText = "Long time ago in a galaxy far far away...<br><br>A brave adventurous started his cosmic journey...<br><br>Unfortunately...<br><br>He lost his way!<br><br>Now he must solve the puzzle and match all cards to turn on an autopilot...<br><br>...but his memory has always been a little poor...<br><br>And everything shakes all the time!<br><br>Would you help him?"
+    textElement.innerHTML = startText;
+    textElement.style.fontSize = '0.7em'
+    textElement.style.textAlign = 'center'
+    textElement.style.letterSpacing = '2px'
+    textElement.style.padding = '3%'
+
+    board.appendChild(textElement)
+
   }
 
   updateBoard() {
@@ -42,18 +57,18 @@ export class MemoryComponent implements OnInit {
     this.drawScoreBox(board)
   }
 
-  drawScoreBox(container: any){
+  drawScoreBox(container: any) {
     let scoreBox = document.createElement('div')
     scoreBox.classList.add('score')
     scoreBox.setAttribute('id', 'score')
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
     scoreBox.innerHTML = 'Turn counter: 0'
-   
+
     container.appendChild(scoreBox)
   }
 
-  drawCards(container: any){
+  drawCards(container: any) {
     for (let i = 0; i < this.cards.length; i++) {
       let cardBox = document.createElement('div')
       cardBox.classList.add('card')
@@ -75,7 +90,7 @@ export class MemoryComponent implements OnInit {
     });
   }
 
-  resetMusic(){
+  resetMusic() {
     MemoryComponent.song.pause()
     MemoryComponent.song.currentTime = 0
   }
@@ -124,29 +139,27 @@ export class MemoryComponent implements OnInit {
         MemoryComponent.gameState.oneVisible = true
         MemoryComponent.gameState.lock = false;
       }
-      else {
-        // check if not the same as the visible one
-        if (MemoryComponent.gameState.visibleNr == i) {
-          MemoryComponent.gameState.oneVisible = true;
-          MemoryComponent.gameState.lock = false;
-          return;
-        }
-        if (cards[MemoryComponent.gameState.visibleNr] == cards[i]) {
-          // pair
-          setTimeout(function () {
-            hide2Cards(i, MemoryComponent.gameState.visibleNr)
-          }, 750);
-        }
-        else {
-          // fail
-          setTimeout(function () {
-            restore2Cards(i, MemoryComponent.gameState.visibleNr)
-          }, 1000);
-        }
-        MemoryComponent.gameState.turnCounter++
-        document.getElementById('score').innerHTML = 'Turn counter: ' + MemoryComponent.gameState.turnCounter
+      // check if not the same as the visible one
+      if (MemoryComponent.gameState.visibleNr == i) {
+        MemoryComponent.gameState.oneVisible = true;
+        MemoryComponent.gameState.lock = false;
+        return;
       }
 
+      if (cards[MemoryComponent.gameState.visibleNr] == cards[i]) {
+        // pair
+        setTimeout(function () {
+          hide2Cards(i, MemoryComponent.gameState.visibleNr)
+        }, 750);
+      }
+      else {
+        // fail
+        setTimeout(function () {
+          restore2Cards(i, MemoryComponent.gameState.visibleNr)
+        }, 1000);
+      }
+      MemoryComponent.gameState.turnCounter++
+      document.getElementById('score').innerHTML = 'Turn counter: ' + MemoryComponent.gameState.turnCounter
     }
 
     function hide2Cards(first: number, second: number) {
@@ -173,8 +186,8 @@ export class MemoryComponent implements OnInit {
       MemoryComponent.gameState.oneVisible = false
       MemoryComponent.gameState.lock = false;
     }
-
   }
+
 
   static endGame() {
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
@@ -195,7 +208,7 @@ export class MemoryComponent implements OnInit {
     winAlert.style.position = 'relative'
     winAlert.style.marginLeft = 'auto'
     winAlert.style.marginRight = 'auto'
-    
+
     let winAlertWrapper = document.createElement('div')
     winAlertWrapper.style.position = 'absolute';
     winAlertWrapper.style.top = '50%'
@@ -206,7 +219,7 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.textAlign = 'center'
-    
+
     let winAlertText = document.createElement('h3')
     winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
     winAlertText.style.width = '100%'
@@ -223,7 +236,7 @@ export class MemoryComponent implements OnInit {
   styleCards(cardBox: any) {
     cardBox.style.maxWidth = '125px'
     cardBox.style.height = '125px'
-    
+
     cardBox.style.margin = '2%'
     cardBox.style.backgroundImage = 'url("../../assets/img/card.png")'
     cardBox.style.border = '2px solid #d5e1eb'
@@ -238,21 +251,18 @@ export class MemoryComponent implements OnInit {
     cardBox.classList.add('shake-constant--hover')
     cardBox.classList.add('col-xs-6')
     cardBox.classList.add('col-md-4')
-    
-    
-    cardBox.addEventListener('mouseover', function (event)
-    {
+
+
+    cardBox.addEventListener('mouseover', function (event) {
       cardBox.style.transform = 'scale(0.95)'
     })
 
-    cardBox.addEventListener('mouseleave', function (event)
-    {
+    cardBox.addEventListener('mouseleave', function (event) {
       cardBox.style.transform = 'scale(1)'
-      
+
     })
 
-    cardBox.addEventListener('mouseup', function (event)
-    {
+    cardBox.addEventListener('mouseup', function (event) {
       cardBox.style.transform = 'scale(1)'
       cardBox.style.filter = 'brightness(100%)'
     })
