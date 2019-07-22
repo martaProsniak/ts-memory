@@ -41,7 +41,7 @@ export class MemoryComponent implements OnInit {
     let board = document.getElementById('board')
 
     let textElement = document.createElement('div');
-    let startText = "Long time ago in a galaxy far far away...<br><br>A young, brave adventurer started his cosmic journey...<br><br>Unfortunately...<br><br>He lost his way!<br><br>Now he must solve the puzzle and match all cards to turn on an autopilot...<br><br>...but his memory has always been a little poor...<br><br>And everything shakes all the time!<br><br>Would you help him?"
+    let startText = "A long time ago in a galaxy far far away...<br><br>A young, brave adventurer started his cosmic journey<br><br>Unfortunately...<br><br>...he lost his way!<br><br>Now he must solve the puzzle and match all cards to turn on the autopilot...<br><br>...but his memory has always been a little poor...<br><br>...and everything shakes all the time!<br><br>Would you help him?"
     textElement.innerHTML = startText;
     textElement.style.fontSize = '0.7em'
     textElement.style.textAlign = 'center'
@@ -199,7 +199,7 @@ export class MemoryComponent implements OnInit {
 
       cardsToRestore.forEach((number) => {
         let card = document.getElementById('c' + number)
-        card.style.backgroundImage = 'url("../../assets/img/card.png")'
+        card.style.backgroundImage = 'url("../../assets/img/card3.png")'
       });
 
       MemoryComponent.gameState.oneVisible = false
@@ -234,7 +234,7 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.left = '50%'
     winAlertWrapper.style.transform = 'translate(-50%, -50%)'
     winAlertWrapper.style.width = '100%'
-    winAlertWrapper.style.backgroundImage = 'radial-gradient(circle, #100c21, #13162d, #161d3a, #172547, #152e55, #152e57, #152e5a, #162e5c, #1b2552, #1f1b48, #20113e, #210633)'
+    winAlertWrapper.style.backgroundColor= '#0e0b20'
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.textAlign = 'center'
@@ -242,8 +242,9 @@ export class MemoryComponent implements OnInit {
     let winAlertText = document.createElement('h3')
     winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
     winAlertText.style.width = '100%'
-    winAlertText.style.fontSize = '26px'
-    winAlertText.style.color = '#d6ecf1'
+    winAlertText.style.height = '100%'
+    winAlertText.style.fontSize = '1.5em'
+    winAlertText.style.color = '#cce9f9'
     winAlertText.classList.add('shake-little')
     winAlertText.classList.add('shake-constant')
     winAlertText.classList.add('shake-constant-hover')
@@ -257,8 +258,8 @@ export class MemoryComponent implements OnInit {
     cardBox.style.height = '125px'
 
     cardBox.style.margin = '2%'
-    cardBox.style.backgroundImage = 'url("../../assets/img/card.png")'
-    cardBox.style.border = '2px solid #d5e1eb'
+    cardBox.style.backgroundImage = 'url("../../assets/img/card3.png")'
+    cardBox.style.border = '2px solid #13162d'
     cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(90%)'

@@ -1,13 +1,12 @@
 .memory-game{
 	min-width: 320px;
 	max-width: 600px;
-
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 2%;
 	margin-bottom: 2%;
-	background-color: #bbd6dd;
+	background-color: #cce9f9;
 	-webkit-box-shadow: 1px 1px 1px 1px #13162d;
 	-moz-box-shadow: 1px 1px 1px 1px #13162d;
 	box-shadow: 1px 1px 1px 1px #13162d;
@@ -18,16 +17,16 @@
 	min-width: 320px;
 	margin-top: 0px;
 	margin-bottom: 0px;
-	background-color: #11021f;
+	background-color: #0e0b20;
 }
 
 .header__text{
-	font-size: 58px;
+	font-size: 2em;
 	font-weight: 600;
 	text-align: center;
-	letter-spacing: 1ng bui0px;
+	letter-spacing: 2px;
 	padding: 20px;
-	color: #c2e1e9;
+	color: #cce9f9;
 	margin: 0;
 	overflow: hidden;
 }
@@ -64,17 +63,17 @@
 	box-shadow: 1px 2px 1px 0px #021533;
 	border: 1px solid #152e55;
 	transition: all .3s ease-in-out;	
-	color: #efefef;
+	color: #cce9f9;
 	font-size: 0.6em;
 	font-family: 'Orbitron', sans-serif;
 	height: 40px;
-	background-color: #11021f;
+	background-color: #0e0b20;
 }
 
 .gameContainer__button:hover{
-	color: #efefef;
+	color: #cce9f9;
 	cursor: pointer;
-	background-image: url("../../assets/img/card.png");
+	background-color: #4b1296;
 	filter: brightness(120%)
 }
 
@@ -86,9 +85,9 @@
 
 footer{
 	width: 100%;
-	background-color: #11021f;
+	background-color: #0e0b20;
 	font-size: 14px;
-	color: #c2e1e9;
+	color: #cce9f9;
 	text-align: center;
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -96,7 +95,7 @@ footer{
 
 .link{
 	text-decoration: none;
-	color: #c2e1e9;
+	color: #cce9f9;
 }
 
 .link:hover{
