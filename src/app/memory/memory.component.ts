@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Memory } from '../models/memory';
 import { GameState } from '../models/game-state';
+import { Card } from './card';
 
 @Component({
   selector: 'app-memory',
@@ -10,7 +11,7 @@ import { GameState } from '../models/game-state';
 export class MemoryComponent implements OnInit {
 
   content: Memory
-  cards: string[]
+  cards: Card[];
   static song: any
   static isMusicOn: boolean;
   static gameState: GameState
@@ -18,7 +19,6 @@ export class MemoryComponent implements OnInit {
 
   constructor() {
     this.content = require('../../assets/memory.json');
-    this.cards = Array.from(this.content.cards)
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
     MemoryComponent.isMusicOn = true;
@@ -26,10 +26,25 @@ export class MemoryComponent implements OnInit {
 
   ngOnInit() {
     this.displayHello()
+    this.cards = this.loadCards();
+    console.log(this.cards)
+    console.log(this.content)
+  }
+
+  loadCards(): Card[] {
+    let cardsArray = Array.from(this.content.cards);
+    let cards = new Array;
+    cardsArray.forEach(card => {
+      let cardToLoad = new Card()
+      cardToLoad.face = card
+      cardToLoad.revers = '../../assets/img/card3.png'
+      cards.push(cardToLoad);
+    });
+    return cards;
   }
 
   start() {
-    this.updateBoard()
+    this.drawBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(this.cards))
     if (MemoryComponent.isMusicOn){
@@ -52,7 +67,7 @@ export class MemoryComponent implements OnInit {
 
   }
 
-  updateBoard() {
+  drawBoard() {
     let board = document.getElementById('board')
     // clear board before starting a new game
     board.innerHTML = ''
@@ -75,16 +90,17 @@ export class MemoryComponent implements OnInit {
   drawCards(container: any) {
     for (let i = 0; i < this.cards.length; i++) {
       let cardBox = document.createElement('div')
-      cardBox.classList.add('card')
       cardBox.setAttribute('id', 'c' + i)
-
+      // setting starting background of a card
+      let image = 'url(' + this.cards[i].revers + ')'
+      cardBox.style.backgroundImage = image;
       this.styleCards(cardBox)
 
       container.appendChild(cardBox)
     }
   }
 
-  startNewGame(cards: string[]) {
+  startNewGame(cards: Card[]) {
     this.resetMusic();
     let revealCard = this.revealCard
     cards.forEach((card, index, Array) => {
@@ -114,7 +130,7 @@ export class MemoryComponent implements OnInit {
     
   }
 
-  shuffleCards(deck: string[]): string[] {
+  shuffleCards(deck: Card[]): Card[] {
     function getRandom(floor: number, ceiling: number) {
       return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
     }
@@ -137,7 +153,7 @@ export class MemoryComponent implements OnInit {
     return deck;
   }
 
-  revealCard(i: number, array: string[]) {
+  revealCard(i: number, array: Card[]) {
     let cards = array
 
     const card = document.getElementById('c' + i)
@@ -146,7 +162,7 @@ export class MemoryComponent implements OnInit {
 
     if (opacityValue != 0 && !(MemoryComponent.gameState.lock)) {
       MemoryComponent.gameState.lock = true
-      let image = 'url(' + cards[i] + ')'
+      let image = 'url(' + cards[i].face + ')'
 
       card.style.backgroundImage = image;
       card.style.filter = 'brightness(100%)'
@@ -258,7 +274,6 @@ export class MemoryComponent implements OnInit {
     cardBox.style.height = '125px'
 
     cardBox.style.margin = '2%'
-    cardBox.style.backgroundImage = 'url("../../assets/img/card3.png")'
     cardBox.style.border = '2px solid #13162d'
     cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
