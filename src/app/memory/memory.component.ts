@@ -27,8 +27,6 @@ export class MemoryComponent implements OnInit {
   ngOnInit() {
     this.displayHello()
     MemoryComponent.cards = this.loadCards();
-    console.log(MemoryComponent.cards)
-    console.log(this.content)
   }
 
   loadCards(): Card[] {
@@ -121,7 +119,6 @@ export class MemoryComponent implements OnInit {
 
   controlMusic(){
     let target = event.target as HTMLButtonElement
-    console.log(target)
     if (MemoryComponent.isMusicOn){
       MemoryComponent.song.pause()
       MemoryComponent.song.currentTime = 0
