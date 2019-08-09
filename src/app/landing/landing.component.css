@@ -11,12 +11,3 @@
     margin-right: auto;
 }
 
-.board-start{
-    transition: all 15s ease-in;
-}
-
-.board-end{
-    position: relative;
-    top: 10px;
-    transition: all 15s ease-in;
-}

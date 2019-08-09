@@ -7,7 +7,8 @@ import { MemoryComponent } from '../memory/memory.component';
 
 const appRoutes: Routes = [
   { path: '', component: MemoryComponent},
-  { path: 'landing', component: LandingComponent}
+  { path: 'landing', component: LandingComponent},
+  { path: 'game', component: MemoryComponent}
 ];
 
 @NgModule({

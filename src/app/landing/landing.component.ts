@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeInterval } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -16,38 +16,35 @@ export class LandingComponent implements OnInit {
   tickDuration: number = 10
   static interval;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.prepareBoard();
     LandingComponent.interval = setInterval(this.changeBoardPosition , this.tickDuration)
-    console.log(this.textsToDisplay);
   }
 
   changeBoardPosition(){
     const board = document.getElementById('board')
-    const speed = 1000
+    const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
-    const acceleration = 10
-    console.log(time)
     let boardCurrentPosition = board.offsetTop;
 
-    if (boardCurrentPosition <= 150){
+    if (boardCurrentPosition <= 120){
       board.style.top = boardCurrentPosition + 'px'
       clearInterval(LandingComponent.interval)
       return
     }
 
-    let boardNewPosition = boardCurrentPosition - speed * time + ((acceleration*time*time) / 2)
-
-    console.log(boardCurrentPosition, boardNewPosition)
-
+    let boardNewPosition = boardCurrentPosition - speed * time + ((time*time) / 2)
     board.style.top = boardNewPosition + 'px'
+    
   }
-
+  
 
   prepareBoard() {
+    let play = this.play.bind(this);
+    console.log(play)
     const board = document.getElementById('board')
     setBoardStartPosition()
 
@@ -55,6 +52,8 @@ export class LandingComponent implements OnInit {
       const sentence = this.textsToDisplay[i]
       displayText(sentence)
     }
+
+    showButton()
 
     function displayText(sentence: string){
         board.className = "board-start"
@@ -71,7 +70,20 @@ export class LandingComponent implements OnInit {
       board.style.left = '10%'
       board.style.transition = 'all 0.1s ease-in'
     }
-     
+
+    function showButton(){
+      const playBtn = document.createElement('button')
+      playBtn.innerHTML = "Play"
+      playBtn.addEventListener('click', function (event) {
+        play();
+      })
+      board.appendChild(playBtn)
+    }
+
+  }
+
+  play(){
+    this.router.navigate(['/game'])
   }
 
 }
