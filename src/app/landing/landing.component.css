@@ -1,0 +1,24 @@
+.container{
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+#board{
+    width: 80%;
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.board-start{
+    position: absolute;
+    top: 700px;
+    transition: all 15s ease-in;
+}
+
+.board-end{
+    position: relative;
+    top: 10px;
+    transition: all 15s ease-in;
+}

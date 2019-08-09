@@ -4,7 +4,7 @@ body
 	color: #0e0b20;
     font-family: 'Orbitron', sans-serif;
     font-size: 28px;
-    background-image: url("./assets/img/background2.jpg");
-    background-size: auto;
-    opacity: 0.9;
+    background: url(./assets/img/nasa.jpg);
+    background-size: cover;
+    
 }
