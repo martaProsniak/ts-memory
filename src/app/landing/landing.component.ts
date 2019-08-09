@@ -73,13 +73,22 @@ export class LandingComponent implements OnInit {
 
     function showButton(){
       const playBtn = document.createElement('button')
-      playBtn.innerHTML = "Play"
-      playBtn.addEventListener('click', function (event) {
-        play();
+      playBtn.innerHTML = "PLAY"
+      
+      playBtn.style.width = '30%'
+      playBtn.style.background = 'transparent'
+      playBtn.style.marginTop = '25px'
+      playBtn.style.color = 'white'
+      playBtn.style.fontSize = '1.5rem'
+      playBtn.style.border = 'none'
+      playBtn.style.fontFamily = '"Orbitron", sans-serif'
+
+      playBtn.addEventListener('onmouseover', function(event){
+        playBtn.style.cursor = 'pointer'
       })
+
       board.appendChild(playBtn)
     }
-
   }
 
   play(){
