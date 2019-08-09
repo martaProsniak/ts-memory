@@ -81,8 +81,11 @@ export class MemoryComponent implements OnInit {
       cardBox.setAttribute('id', 'c' + i)
 
       // setting up initial background of a card
-      let initialImage = 'url(' + revers + ')'
-      cardBox.style.backgroundImage = initialImage;
+      let initialImage = revers 
+      let cardImage = document.createElement('img')
+      cardImage.setAttribute('src', initialImage);
+      cardImage.setAttribute('id', 'img' + i)
+      cardBox.appendChild(cardImage)
       this.styleCards(cardBox)
 
       container.appendChild(cardBox)
@@ -145,14 +148,16 @@ export class MemoryComponent implements OnInit {
 
     // check card opacity
     const card = document.getElementById('c' + i)
+    const cardImage = document.getElementById('img' + i)
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
     if (opacityValue != 0 && MemoryComponent.gameState.lock == false) {
       MemoryComponent.gameState.lock = true
-      let image = 'url(' + cards[i].face + ')'
+      let image = cards[i].face
 
-      card.style.backgroundImage = image;
+      cardImage.setAttribute('src', image)
+      console.log(image)
       card.style.filter = 'brightness(100%)'
 
       // check if one card is visible
@@ -202,8 +207,8 @@ export class MemoryComponent implements OnInit {
     let cardsToRestore: number[] = [first, second]
 
     cardsToRestore.forEach((number) => {
-      let card = document.getElementById('c' + number)
-      card.style.backgroundImage = 'url(' + MemoryComponent.cards[number].revers + ')';
+      let cardImage = document.getElementById('img' + number)
+      cardImage.setAttribute('src', MemoryComponent.cards[number].revers)
     });
 
     MemoryComponent.gameState.oneVisible = false
@@ -271,8 +276,7 @@ export class MemoryComponent implements OnInit {
     cardBox.classList.add('shake-little')
     cardBox.classList.add('shake-constant')
     cardBox.classList.add('shake-constant--hover')
-    cardBox.classList.add('col-xs-6')
-    cardBox.classList.add('col-md-4')
+    cardBox.classList.add('col-xs-3')
 
 
     cardBox.addEventListener('mouseover', function (event) {
