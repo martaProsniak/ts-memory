@@ -1,0 +1,27 @@
+.container{
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.memory-footer{
+    width: 100%;
+	background-color: #0e0b20;
+	font-size: 14px;
+	color: #cce9f9;
+	text-align: center;
+	padding-top: 15px;
+    padding-bottom: 15px;
+    position: fixed;
+    bottom: 0;
+}
+
+
+.link{
+	text-decoration: none;
+	color: #cce9f9;
+}
+
+.link:hover{
+	color: #c01ab8;
+}

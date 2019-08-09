@@ -72,22 +72,22 @@ export class LandingComponent implements OnInit {
     }
 
     function showButton(){
-      const playBtn = document.createElement('button')
-      playBtn.innerHTML = "PLAY"
+      const playLink = document.createElement('a')
+      playLink.innerHTML = "PLAY"
       
-      playBtn.style.width = '30%'
-      playBtn.style.background = 'transparent'
-      playBtn.style.marginTop = '25px'
-      playBtn.style.color = 'white'
-      playBtn.style.fontSize = '1.5rem'
-      playBtn.style.border = 'none'
-      playBtn.style.fontFamily = '"Orbitron", sans-serif'
+      playLink.style.width = '30%'
+      playLink.style.background = 'transparent'
+      playLink.style.marginTop = '25px'
+      playLink.style.color = 'white'
+      playLink.style.fontSize = '1.5rem'
+      playLink.style.border = 'none'
+      playLink.style.fontFamily = '"Orbitron", sans-serif'
 
-      playBtn.addEventListener('onmouseover', function(event){
-        playBtn.style.cursor = 'pointer'
+      playLink.addEventListener('click', function (event) {
+        play();
       })
 
-      board.appendChild(playBtn)
+      board.appendChild(playLink)
     }
   }
 

@@ -25,8 +25,8 @@ export class MemoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayHello()
     MemoryComponent.cards = this.loadCards();
+    this.start()
   }
 
   loadCards(): Card[] {
@@ -52,20 +52,6 @@ export class MemoryComponent implements OnInit {
     }
   }
 
-  displayHello(){
-    let board = document.getElementById('board')
-
-    let textElement = document.createElement('div');
-    let startText = "A long time ago in a galaxy far far away...<br><br>A young, brave adventurer started his cosmic journey<br><br>Unfortunately...<br><br>...he lost his way!<br><br>Now he must solve the puzzle and match all cards to turn on the autopilot...<br><br>...but his memory has always been a little poor...<br><br>...and everything shakes all the time!<br><br>Would you help him?"
-    textElement.innerHTML = startText;
-    textElement.style.fontSize = '0.7em'
-    textElement.style.textAlign = 'center'
-    textElement.style.letterSpacing = '2px'
-    textElement.style.padding = '3%'
-
-    board.appendChild(textElement)
-
-  }
 
   drawBoard() {
     let board = document.getElementById('board')
