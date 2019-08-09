@@ -12,8 +12,6 @@
 }
 
 .board-start{
-    position: absolute;
-    top: 700px;
     transition: all 15s ease-in;
 }
 
