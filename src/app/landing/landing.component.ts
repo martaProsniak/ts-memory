@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -13,12 +14,13 @@ export class LandingComponent implements OnInit {
       "...but his memory has always been a little poor...", "...and everything shakes all the time!",
       "Would you help him?"]
   tickDuration: number = 10
+  static interval;
 
   constructor() { }
 
   ngOnInit() {
     this.prepareBoard();
-    setInterval(this.changeBoardPosition , this.tickDuration)
+    LandingComponent.interval = setInterval(this.changeBoardPosition , this.tickDuration)
     console.log(this.textsToDisplay);
   }
 
@@ -33,7 +35,8 @@ export class LandingComponent implements OnInit {
 
     if (boardCurrentPosition <= 150){
       board.style.top = boardCurrentPosition + 'px'
-      return;
+      clearInterval(LandingComponent.interval)
+      return
     }
 
     let boardNewPosition = boardCurrentPosition - speed * time + ((acceleration*time*time) / 2)

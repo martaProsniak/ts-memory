@@ -1,5 +1,13 @@
-body
-{
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+    }
+
+body{
 	margin: 0;
 	color: #0e0b20;
     font-family: 'Orbitron', sans-serif;
