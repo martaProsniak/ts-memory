@@ -66,6 +66,7 @@ export class MemoryComponent implements OnInit {
     scoreBox.style.marginRight = 'auto'
     scoreBox.style.marginTop = '30px'
     scoreBox.innerHTML = 'Turn counter: 0'
+    scoreBox.style.fontSize = '24px;'
 
     container.appendChild(scoreBox)
   }
@@ -91,6 +92,16 @@ export class MemoryComponent implements OnInit {
         cardImage.style.objectFit = 'cover'
         cardImage.style.border = '1px black solid'
         cardImage.style.borderRadius = '50%'
+        cardImage.className = 'cardImage'
+
+        cardImage.addEventListener('mouseover', function(){
+          cardImage.style.boxShadow = '0px 0px 20px 0px #2faac0'
+        })
+    
+        cardImage.addEventListener('mouseout', function(){
+          cardImage.style.boxShadow = 'none'
+        })
+
         return cardImage;
       }
   }
@@ -160,7 +171,6 @@ export class MemoryComponent implements OnInit {
       let image = cards[i].face
 
       cardImage.setAttribute('src', image)
-      card.style.filter = 'brightness(100%)'
 
       // check if one card is visible
       if (MemoryComponent.gameState.oneVisible == false) {
@@ -182,7 +192,6 @@ export class MemoryComponent implements OnInit {
       }
       else {
         // fail
-        console.log('fail');
         setTimeout(function () {
           MemoryComponent.restore2Cards(i, MemoryComponent.gameState.visibleNr)
         }, 1000);
@@ -221,7 +230,6 @@ export class MemoryComponent implements OnInit {
   static endGame() {
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
-      console.log(this.bestScore)
     }
     MemoryComponent.drawWinAlert();
     MemoryComponent.song.play();
@@ -267,8 +275,8 @@ export class MemoryComponent implements OnInit {
   styleCards(cardBox: any) {
     cardBox.style.textAlign = 'center'
     cardBox.style.cursor = 'pointer'
-    cardBox.style.filter = 'brightness(90%)'
-    cardBox.style.transition = 'all .2s ease-in'
+    cardBox.style.filter = 'brightness(80%)'
+    cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
     'col-xs-4', 'col-sm-3')

@@ -11,7 +11,7 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: row wrap;
     position: relative;
     top: 100px;
@@ -32,6 +32,12 @@
 @media(min-width:1024px){
     .gameContainer__board{
         width: 680px;
+    }
+}
+
+@media(min-width:1440px){
+    .gameContainer__board{
+        width: 750px;
     }
 }
 
@@ -57,10 +63,10 @@
     height: 50px;
     width: 200px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: 0.2em;
-    color: white;
-    background: #0087bd;
+    color: rgb(7, 0, 100);
+    background: #2faac0;
     transition: all 0.3s ease-in-out;
     margin-left: 5%;
     margin-right: 5%;
@@ -71,7 +77,10 @@
 }
 
 .memory-button:hover{
-    background: #00658d;
+    background: #26899b;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
+
+
