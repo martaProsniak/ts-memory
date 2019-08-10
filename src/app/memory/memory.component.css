@@ -25,19 +25,19 @@
 
 @media(min-width:768px){
     .gameContainer__board{
-        width: 580px;
+        width: 75%;
     }
 }
 
 @media(min-width:1024px){
     .gameContainer__board{
-        width: 680px;
+        width: 55%;
     }
 }
 
 @media(min-width:1440px){
     .gameContainer__board{
-        width: 750px;
+        width: 45%;
     }
 }
 

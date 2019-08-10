@@ -331,7 +331,7 @@ export class MemoryComponent implements OnInit {
   styleCards(cardBox: any) {
     cardBox.style.textAlign = 'center'
     cardBox.style.cursor = 'pointer'
-    cardBox.style.filter = '/pightness(80%)'
+    cardBox.style.filter = 'brightness(80%)'
     cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
