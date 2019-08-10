@@ -271,22 +271,8 @@ export class MemoryComponent implements OnInit {
     cardBox.style.transition = 'all .2s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
-    'col-xs-3')
+    'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
 
-
-    cardBox.addEventListener('mouseover', function (event) {
-      cardBox.style.transform = 'scale(0.95)'
-    })
-
-    cardBox.addEventListener('mouseleave', function (event) {
-      cardBox.style.transform = 'scale(1)'
-
-    })
-
-    cardBox.addEventListener('mouseup', function (event) {
-      cardBox.style.transform = 'scale(1)'
-      cardBox.style.filter = 'brightness(100%)'
-    })
   }
 }
