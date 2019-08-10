@@ -66,20 +66,20 @@ export class LandingComponent implements OnInit {
     }
 
     function displayImage(source: string){
-      const heroBox = document.createElement('div')
-      heroBox.style.width = '75px'
-      heroBox.style.height = 'auto'
-      heroBox.style.marginRight = 'auto'
-      heroBox.style.marginLeft = 'auto'
-      heroBox.style.padding = '0'
+      const imageBox = document.createElement('div')
+      imageBox.style.width = '75px'
+      imageBox.style.height = 'auto'
+      imageBox.style.marginRight = 'auto'
+      imageBox.style.marginLeft = 'auto'
+      imageBox.style.padding = '0'
 
       const heroImg = document.createElement('img')
       heroImg.setAttribute('src', source)
       heroImg.style.width = '100%'
       heroImg.style.height = '100%'
       
-      heroBox.appendChild(heroImg)
-      intro.appendChild(heroBox)
+      imageBox.appendChild(heroImg)
+      intro.appendChild(imageBox)
     }
 
     function setIntroStartPosition(){

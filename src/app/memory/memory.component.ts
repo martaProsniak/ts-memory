@@ -241,8 +241,7 @@ export class MemoryComponent implements OnInit {
       this.bestScore = this.gameState.turnCounter
     }
     let gameResult = this.gameState.turnCounter < this.gameState.maxTurnCount
-    let message = MemoryComponent.chooseAlertTextAfterGame(gameResult, this.bestScore)
-    this.displayAlert(message);
+    this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
   }
 
@@ -252,7 +251,7 @@ export class MemoryComponent implements OnInit {
     }
   }
 
-  static displayAlert(message: string) {
+  static displayAlert(result: boolean, bestScore: number) {
     let board = document.getElementById('board')
     let boardStyle = getComputedStyle(board);
     let boardHeight = boardStyle['height']
@@ -262,7 +261,7 @@ export class MemoryComponent implements OnInit {
     //clear board
     board.innerHTML = ''
     //set new message
-    alertBoxText.innerHTML = message
+    alertBoxText.innerHTML = MemoryComponent.chooseMessageAfterGame(result, bestScore)
     
     alertBox.style.width = '80%'
     alertBox.style.height = boardHeight
@@ -288,16 +287,44 @@ export class MemoryComponent implements OnInit {
     board.appendChild(alertBox)
     alertBox.appendChild(alertBoxWrapper)
     alertBoxWrapper.appendChild(alertBoxText)
+    alertBoxWrapper.appendChild(MemoryComponent.displayImage(MemoryComponent.chooseImageAfterGame(result)))
   }
 
-  static chooseAlertTextAfterGame(result: boolean, bestScore: number): string{
-    let alertAfterGame: string;
+  static chooseMessageAfterGame(result: boolean, bestScore: number): string{
+    let message: string;
     if(result){
-      alertAfterGame = 'Congratulations!<br>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + 'turns!<br>Your best score so far is: ' + bestScore;
+      message = 'Congratulations!<br>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + 'turns!<br>Your best score so far is: ' + bestScore;
     } else {
-      alertAfterGame = 'Oh no! You\'ve crashed escaping the aliens!<br>I\'s miracle you\'ve survived<br>Fortunately you\'ve landed in the lake on some awesome planet<br>Some short green gnome helped you repair the ship and you\'re ready to try again.'
+      message = 'Oh no! You\'ve crashed escaping the aliens!<br>I\'s miracle you\'ve survived<br>Fortunately you\'ve landed in the lake on some awesome planet<br>Some short green gnome helped you repair the ship and you\'re ready to try again.'
     }
-    return alertAfterGame;
+    return message;
+  }
+
+  static chooseImageAfterGame(result: boolean): string{
+    let imgSource: string;
+    if(result){
+      imgSource = '../../assets/img/astronaut.png'
+    } else {
+      imgSource = '../../assets/img/alien.png'
+    }
+    return imgSource;
+  }
+
+  static displayImage(source: string){
+    const imageBox = document.createElement('div')
+    imageBox.style.width = '75px'
+    imageBox.style.height = 'auto'
+    imageBox.style.marginRight = 'auto'
+    imageBox.style.marginLeft = 'auto'
+    imageBox.style.padding = '0'
+
+    const heroImg = document.createElement('img')
+    heroImg.setAttribute('src', source)
+    heroImg.style.width = '100%'
+    heroImg.style.height = '100%'
+    
+    imageBox.appendChild(heroImg)
+    return imageBox;
   }
 
   styleCards(cardBox: any) {
