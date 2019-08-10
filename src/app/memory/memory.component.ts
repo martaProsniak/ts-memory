@@ -49,7 +49,6 @@ export class MemoryComponent implements OnInit {
     this.startNewGame(this.shuffleCards(MemoryComponent.cards))
   }
 
-
   drawBoard() {
     let board = document.getElementById('board')
     // clear board before starting a new game
@@ -60,7 +59,6 @@ export class MemoryComponent implements OnInit {
 
   drawScoreBox(container: any) {
     let scoreBox = document.createElement('div')
-    scoreBox.classList.add('score')
     scoreBox.setAttribute('id', 'score')
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
@@ -68,6 +66,7 @@ export class MemoryComponent implements OnInit {
     scoreBox.innerHTML = 'Turns till end: ?'
     scoreBox.style.fontSize = '24px;'
     scoreBox.style.letterSpacing = '0.1em'
+    scoreBox.style.color = '#93efff'
 
     container.appendChild(scoreBox)
   }
@@ -83,31 +82,32 @@ export class MemoryComponent implements OnInit {
       container.appendChild(cardBox)
     }
 
-      function setCardImage(i: number){
-        let initialImage = revers 
-        const cardImage = document.createElement('img')
-        cardImage.setAttribute('src', initialImage);
-        cardImage.setAttribute('id', 'img' + i)
-        cardImage.style.width = '95%'
-        cardImage.style.height = '95%'
-        cardImage.style.objectFit = 'cover'
-        cardImage.style.border = '1px black solid'
-        cardImage.style.borderRadius = '50%'
-        cardImage.className = 'cardImage'
+    function setCardImage(i: number) {
+      let initialImage = revers
+      const cardImage = document.createElement('img')
+      cardImage.setAttribute('src', initialImage);
+      cardImage.setAttribute('id', 'img' + i)
+      cardImage.style.width = '95%'
+      cardImage.style.height = '95%'
+      cardImage.style.objectFit = 'cover'
+      cardImage.style.border = '1px black solid'
+      cardImage.style.borderRadius = '50%'
+      cardImage.className = 'cardImage'
 
-        cardImage.addEventListener('mouseover', function(){
-          cardImage.style.boxShadow = '0px 0px 20px 0px #2faac0'
-        })
-    
-        cardImage.addEventListener('mouseout', function(){
-          cardImage.style.boxShadow = 'none'
-        })
+      cardImage.addEventListener('mouseover', function () {
+        cardImage.style.boxShadow = '0px 0px 20px 0px #2faac0'
+      })
 
-        return cardImage;
-      }
+      cardImage.addEventListener('mouseout', function () {
+        cardImage.style.boxShadow = 'none'
+      })
+
+      return cardImage;
+    }
   }
 
   startNewGame(cards: Card[]) {
+    this.resetMusic()
     cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
         'click', function () { MemoryComponent.revealCard(index, Array); }
@@ -120,9 +120,9 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.song.currentTime = 0
   }
 
-  controlMusic(){
+  controlMusic() {
     let target = event.target as HTMLButtonElement
-    if (MemoryComponent.isMusicOn){
+    if (MemoryComponent.isMusicOn) {
       MemoryComponent.song.pause()
       MemoryComponent.song.currentTime = 0
       MemoryComponent.isMusicOn = false;
@@ -131,7 +131,7 @@ export class MemoryComponent implements OnInit {
       MemoryComponent.isMusicOn = true;
       target.innerHTML = 'MUSIC: ON'
     }
-    
+
   }
 
   shuffleCards(deck: Card[]): Card[] {
@@ -154,31 +154,30 @@ export class MemoryComponent implements OnInit {
   }
 
   static revealCard(i: number, array: Card[]) {
-    let cards = array
-
-    // check card opacity
     const card = document.getElementById('c' + i)
     const cardImage = document.getElementById('img' + i)
-
+    let cards = array
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
     if (opacityValue != 0 && MemoryComponent.gameState.lock == false) {
-      MemoryComponent.gameState.lock = true
+      //change card image to face
       let image = cards[i].face
-
       cardImage.setAttribute('src', image)
 
-      // check if one card is visible
+      //lock the game in case one card is already visible
+      MemoryComponent.gameState.lock = true
+
+      // if no card was visible -> unlock game and check visible card
       if (MemoryComponent.gameState.oneVisible == false) {
         MemoryComponent.gameState.visibleNr = i
         MemoryComponent.gameState.oneVisible = true
-        MemoryComponent.gameState.lock = false;
+        MemoryComponent.unlockGame();
       }
       // check if the most recently revealed card is the same as the visible one
       if (MemoryComponent.gameState.visibleNr == i) {
         MemoryComponent.gameState.oneVisible = true;
-        MemoryComponent.gameState.lock = false;
+        MemoryComponent.unlockGame();
         return;
       }
 
@@ -196,11 +195,16 @@ export class MemoryComponent implements OnInit {
 
       MemoryComponent.gameState.turnCounter++
 
-      if(MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount){
+      if (MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount) {
         MemoryComponent.endGame();
       }
+
       document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
     }
+  }
+
+  static unlockGame(){
+    MemoryComponent.gameState.lock = false;
   }
 
   static hide2Cards(first: number, second: number) {
@@ -216,7 +220,7 @@ export class MemoryComponent implements OnInit {
 
   }
 
-  static restore2Cards(first: number, second: number){
+  static restore2Cards(first: number, second: number) {
     let cardsToRestore: number[] = [first, second]
 
     cardsToRestore.forEach((number) => {
@@ -228,50 +232,68 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.gameState.lock = false;
   }
 
-
   static endGame() {
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
     }
-    MemoryComponent.drawWinAlert();
-    MemoryComponent.song.play();
+    let gameResult = this.gameState.turnCounter < this.gameState.maxTurnCount
+    let message = MemoryComponent.chooseAlertTextAfterGame(gameResult, this.bestScore)
+    this.displayAlert(message);
+    MemoryComponent.playSong(gameResult)
   }
 
-  static drawWinAlert() {
+  static playSong(gameResult: boolean){
+    if (gameResult){
+      MemoryComponent.song.play();
+    }
+  }
+
+  static displayAlert(message: string) {
     let board = document.getElementById('board')
     let boardStyle = getComputedStyle(board);
     let boardHeight = boardStyle['height']
+    let alertBox = document.createElement('div')
+    let alertBoxWrapper = document.createElement('div')
+    let alertBoxText = document.createElement('h4')
+    //clear board
     board.innerHTML = ''
-    let winAlert = document.createElement('div')
-    winAlert.style.width = '80%'
-    winAlert.style.height = boardHeight
-    winAlert.style.position = 'relative'
-    winAlert.style.marginLeft = 'auto'
-    winAlert.style.marginRight = 'auto'
+    //set new message
+    alertBoxText.innerHTML = message
+    
+    alertBox.style.width = '80%'
+    alertBox.style.height = boardHeight
+    alertBox.style.position = 'relative'
+    alertBox.style.marginLeft = 'auto'
+    alertBox.style.marginRight = 'auto'
 
-    let winAlertWrapper = document.createElement('div')
-    winAlertWrapper.style.position = 'absolute';
-    winAlertWrapper.style.top = '50%'
-    winAlertWrapper.style.left = '50%'
-    winAlertWrapper.style.transform = 'translate(-50%, -50%)'
-    winAlertWrapper.style.width = '100%'
-    winAlertWrapper.style.backgroundColor= 'transparent'
-    winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
-    winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
-    winAlertWrapper.style.textAlign = 'center'
+    alertBoxWrapper.style.position = 'absolute';
+    alertBoxWrapper.style.top = '50%'
+    alertBoxWrapper.style.left = '50%'
+    alertBoxWrapper.style.transform = 'translate(-50%, -50%)'
+    alertBoxWrapper.style.width = '100%'
+    alertBoxWrapper.style.backgroundColor = 'transparent'
+    alertBoxWrapper.style.textAlign = 'center'
 
-    let winAlertText = document.createElement('h3')
-    winAlertText.innerHTML = 'You win!<br>Done in ' + MemoryComponent.gameState.turnCounter + ' turns<br>Best score so far: ' + this.bestScore
-    winAlertText.style.width = '100%'
-    winAlertText.style.height = '100%'
-    winAlertText.style.fontSize = '1.5em'
-    winAlertText.style.color = 'white'
-    winAlertText.classList.add('shake-little')
-    winAlertText.classList.add('shake-constant')
-    winAlertText.classList.add('shake-constant-hover')
-    board.appendChild(winAlert)
-    winAlert.appendChild(winAlertWrapper)
-    winAlertWrapper.appendChild(winAlertText)
+    alertBoxText.style.width = '100%'
+    alertBoxText.style.height = '100%'
+    alertBoxText.style.fontSize = '1.25em'
+    alertBoxText.style.color = 'white'
+    alertBoxText.classList.add('shake-little')
+    alertBoxText.classList.add('shake-constant')
+    alertBoxText.classList.add('shake-constant-hover')
+    board.appendChild(alertBox)
+    alertBox.appendChild(alertBoxWrapper)
+    alertBoxWrapper.appendChild(alertBoxText)
+  }
+
+  static chooseAlertTextAfterGame(result: boolean, bestScore: number): string{
+    let alertAfterGame: string;
+    if(result){
+      alertAfterGame = 'Congratulations!<br>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + 'turns!<br>Your best score so far is: ' + bestScore;
+    } else {
+      alertAfterGame = 'Oh no! You\'ve crashed escaping the aliens!<br>I\'s miracle you\'ve survived<br>Fortunately you\'ve landed in the lake on some awesome planet<br>Some short green gnome helped you repair the ship and you\'re ready to try again.'
+    }
+    return alertAfterGame;
   }
 
   styleCards(cardBox: any) {
@@ -280,8 +302,8 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(80%)'
     cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
-    cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
-    'col-xs-4', 'col-sm-3')
+    cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
+      'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
 }

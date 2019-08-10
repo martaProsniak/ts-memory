@@ -2,15 +2,15 @@
     width: 100%;
 }
 .play-button{
-    height: 50px;
+    height: 75px;
     width: 80%;;
-    -webkit-box-shadow: 1px 1px 10px 0px #2d71f0c4;
-    -moz-box-shadow: 1px 1px 10px 0px #2d71f0c4;
-    box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    -webkit-box-shadow: 1px 1px 10px 0px #2faac0;
+    -moz-box-shadow: 1px 1px 10px 0px #2faac0;
+    box-shadow: 1px 1px 10px 0px #2faac0;
     border: 1px rgb(44, 44, 44) solid;
     border-radius: 10px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
+    font-size: 28px;
     letter-spacing: 0.2em;
     color: #dbe1ec;
     background: #161616;
