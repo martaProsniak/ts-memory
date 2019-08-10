@@ -4,18 +4,43 @@
     text-align: center;
 }
 
+.memory-header{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+
+.memory-title{
+	font-size: 2.5rem;
+	letter-spacing: 0.2em;
+	margin: 0;
+}
+
+@media(min-width:500px){
+    .memory-title{
+        font-size: 3rem;
+    }
+}
+
+@media(min-width:1024px){
+    .memory-title{
+        font-size: 4rem;
+    }
+}
+
 .memory-footer{
     width: 100%;
 	background-color: #0e0b20;
-	font-size: 14px;
+	font-size: 0.5rem;
 	color: #cce9f9;
 	text-align: center;
 	padding-top: 15px;
-    padding-bottom: 15px;
-    position: fixed;
-    bottom: 0;
-}
+	padding-bottom: 15px;
+	position: fixed;
+	bottom: 0;
 
+
+}
 
 .link{
 	text-decoration: none;

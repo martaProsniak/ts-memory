@@ -263,20 +263,12 @@ export class MemoryComponent implements OnInit {
 
   styleCards(cardBox: any) {
     cardBox.style.textAlign = 'center'
-
-    cardBox.style.marginTop = '10px'
-    cardBox.style.marginLeft = '5px'
-    cardBox.style.marginRight = '5px'
-    cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in'
-    cardBox.classList.add('shake-little')
-    cardBox.classList.add('shake-constant')
-    cardBox.classList.add('shake-constant--hover')
-    cardBox.classList.add('col-xs-3')
-
-    
+    cardBox.style.marginTop = '5%'
+    cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
+    'col-xs-3')
 
 
     cardBox.addEventListener('mouseover', function (event) {
