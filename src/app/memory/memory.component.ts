@@ -21,7 +21,7 @@ export class MemoryComponent implements OnInit {
     this.content = require('../../assets/memory.json');
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
-    MemoryComponent.isMusicOn = true;
+    // MemoryComponent.isMusicOn = true;
   }
 
   ngOnInit() {
@@ -47,9 +47,6 @@ export class MemoryComponent implements OnInit {
     this.drawBoard()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(MemoryComponent.cards))
-    if (MemoryComponent.isMusicOn){
-      MemoryComponent.song.play()
-    }
   }
 
 
@@ -57,7 +54,6 @@ export class MemoryComponent implements OnInit {
     let board = document.getElementById('board')
     // clear board before starting a new game
     board.innerHTML = ''
-
     this.drawCards(board);
     this.drawScoreBox(board)
   }
@@ -79,17 +75,21 @@ export class MemoryComponent implements OnInit {
     for (let i = 0; i < MemoryComponent.cards.length; i++) {
       let cardBox = document.createElement('div')
       cardBox.setAttribute('id', 'c' + i)
-
-      // setting up initial background of a card
-      let initialImage = revers 
-      let cardImage = document.createElement('img')
-      cardImage.setAttribute('src', initialImage);
-      cardImage.setAttribute('id', 'img' + i)
-      cardBox.appendChild(cardImage)
+      cardBox.appendChild(setCardImage(i))
       this.styleCards(cardBox)
-
       container.appendChild(cardBox)
     }
+
+      function setCardImage(i: number){
+        let initialImage = revers 
+        const cardImage = document.createElement('img')
+        cardImage.setAttribute('src', initialImage);
+        cardImage.setAttribute('id', 'img' + i)
+        cardImage.style.width = '100%'
+        cardImage.style.height = '100%'
+        cardImage.style.objectFit = 'cover'
+        return cardImage;
+      }
   }
 
   startNewGame(cards: Card[]) {
@@ -149,6 +149,7 @@ export class MemoryComponent implements OnInit {
     // check card opacity
     const card = document.getElementById('c' + i)
     const cardImage = document.getElementById('img' + i)
+
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
@@ -157,7 +158,6 @@ export class MemoryComponent implements OnInit {
       let image = cards[i].face
 
       cardImage.setAttribute('src', image)
-      console.log(image)
       card.style.filter = 'brightness(100%)'
 
       // check if one card is visible
@@ -262,21 +262,21 @@ export class MemoryComponent implements OnInit {
   }
 
   styleCards(cardBox: any) {
-    cardBox.style.maxWidth = '125px'
-    cardBox.style.height = '125px'
+    cardBox.style.textAlign = 'center'
 
-    cardBox.style.margin = '2%'
-    cardBox.style.border = '2px solid #13162d'
+    cardBox.style.marginTop = '10px'
+    cardBox.style.marginLeft = '5px'
+    cardBox.style.marginRight = '5px'
     cardBox.style.borderRadius = '3px'
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(90%)'
-    cardBox.style.transition = 'all .2s ease-in-out'
-    cardBox.style.boxShadow = '2px 3px 3px 0px #021533'
-    cardBox.style.flexShrink = '2'
+    cardBox.style.transition = 'all .2s ease-in'
     cardBox.classList.add('shake-little')
     cardBox.classList.add('shake-constant')
     cardBox.classList.add('shake-constant--hover')
     cardBox.classList.add('col-xs-3')
+
+    
 
 
     cardBox.addEventListener('mouseover', function (event) {
