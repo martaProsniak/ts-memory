@@ -32,7 +32,7 @@ export class MemoryComponent implements OnInit {
   loadCards(): Card[] {
     let cardsFromContent = Array.from(this.content.cards);
     let cards = new Array;
-    const revers = '../../assets/img/card.png'
+    const revers = '../../assets/img/alien.png'
 
     cardsFromContent.forEach(card => {
       let cardToLoad = new Card()
@@ -270,8 +270,6 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in'
     cardBox.style.marginTop = '20px'
-    cardBox.style.border = '1px black solid'
-    cardBox.style.borderRadius = '50%'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
     'col-xs-3')
     cardBox.style.background = 'transparent'

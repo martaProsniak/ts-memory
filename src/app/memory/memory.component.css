@@ -13,40 +13,56 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: row wrap;
+    position: relative;
+    top: 100px;
 }
 
 @media(min-width:768px){
     .gameContainer__board{
-        width: 500px;
+        width: 580px;
     }
 }
 
 @media(min-width:1024px){
     .gameContainer__board{
-        width: 600px;
+        width: 680px;
     }
 }
 
-.memory-button{
-    margin: 10px;
-    height: 30px;
-    width: 100px;
-    -webkit-box-shadow: 1px 1px 10px 0px #ce0abdc4;
-    -moz-box-shadow: 1px 1px 10px 0px #ff00ea;
-    box-shadow: 1px 1px 10px 0px #ff00ea;
+.memory-buttonsBox{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 75px;
+    -webkit-box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    -moz-box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    box-shadow: 1px 1px 10px 0px #2d71f0c4;
     border: 1px rgb(44, 44, 44) solid;
     border-radius: 10px;
+    background: #161616;
+}
+
+.memory-button{
+    height: 50px;
+    width: 150px;
+  
     font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
+    font-size: 20px;
     letter-spacing: 0.2em;
-    color: white;
+    color: #dbe1ec;
+    
+ 
+    transform: translateX(-50%);
+    transition: all 0.2s ease-in;
 }
 
-.memory-button--play{
-    background: #161616d7;
-}
-
-.memory-button--music{
-    background: #ebebeb;
-    color: #0c0c0c;
+.memory-button:hover{
+    background: #050505;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    box-shadow: 1px 1px 15px 0px #2d71f0c4;
 }
