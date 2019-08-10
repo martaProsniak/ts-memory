@@ -44,24 +44,30 @@
 }
 
 .memory-footer{
-    width: 100%;
-	background-color: #0e0b20;
-	font-size: 0.5rem;
+    width: 80%;
+	-webkit-box-shadow: 1px 1px 10px 0px #2faac0;
+    -moz-box-shadow: 1px 1px 10px 0px #2faac0;
+    box-shadow: 1px 1px 10px 0px #2faac0;
+    border: 1px rgb(44, 44, 44) solid;
+    border-radius: 10px;
+    background: #161616;
+	font-size: 0.6rem;
 	color: #cce9f9;
 	text-align: center;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	position: fixed;
-	bottom: 0;
-
-
+	bottom: -10px;
+	left: 50%;
+    transform: translateX(-50%);
 }
 
 .link{
 	text-decoration: none;
-	color: #cce9f9;
+	color: #82d9e9;
+	transition: color 0.2s ease-in;
 }
 
 .link:hover{
-	color: #c01ab8;
+	color: #2faac0;
 }

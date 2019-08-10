@@ -19,25 +19,25 @@
 
 @media(min-width:375px){
     .gameContainer__board{
-        width: 350px;
+        width: 290px;
     }
 }
 
 @media(min-width:768px){
     .gameContainer__board{
-        width: 75%;
+        width: 70%;
     }
 }
 
-@media(min-width:1024px){
+@media(min-width:950px){
     .gameContainer__board{
         width: 55%;
     }
 }
 
-@media(min-width:1440px){
+@media(min-width:1200px){
     .gameContainer__board{
-        width: 45%;
+        width: 42%;
     }
 }
 
