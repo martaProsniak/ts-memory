@@ -153,54 +153,58 @@ export class MemoryComponent implements OnInit {
     return deck;
   }
 
-  static revealCard(i: number, array: Card[]) {
-    const card = document.getElementById('c' + i)
-    const cardImage = document.getElementById('img' + i)
+  static revealCard(index: number, array: Card[]) {
+    const card = document.getElementById('c' + index)
+    const cardImage = document.getElementById('img' + index)
     let cards = array
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
 
     if (opacityValue != 0 && MemoryComponent.gameState.lock == false) {
       //change card image to face
-      let image = cards[i].face
+      let image = cards[index].face
       cardImage.setAttribute('src', image)
-
-      //lock the game in case one card is already visible
-      MemoryComponent.gameState.lock = true
-
-      // if no card was visible -> unlock game and check visible card
-      if (MemoryComponent.gameState.oneVisible == false) {
-        MemoryComponent.gameState.visibleNr = i
-        MemoryComponent.gameState.oneVisible = true
-        MemoryComponent.unlockGame();
-      }
-      // check if the most recently revealed card is the same as the visible one
-      if (MemoryComponent.gameState.visibleNr == i) {
-        MemoryComponent.gameState.oneVisible = true;
-        MemoryComponent.unlockGame();
-        return;
-      }
-
-      if (cards[MemoryComponent.gameState.visibleNr].face == cards[i].face) {
-        setTimeout(function () {
-          MemoryComponent.hide2Cards(i, MemoryComponent.gameState.visibleNr)
-        }, 750);
-      }
-      else {
-        // fail
-        setTimeout(function () {
-          MemoryComponent.restore2Cards(i, MemoryComponent.gameState.visibleNr)
-        }, 1000);
-      }
-
-      MemoryComponent.gameState.turnCounter++
-
-      if (MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount) {
-        MemoryComponent.endGame();
-      }
-
-      document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
     }
+
+    MemoryComponent.reactOnRevealedCard(index, cards)
+  }
+
+  static reactOnRevealedCard(index: number, cards: Card[]){
+    //lock the game in case one card is already visible
+    MemoryComponent.gameState.lock = true
+
+    // if no card was visible -> unlock game and check visible card
+    if (MemoryComponent.gameState.oneVisible == false) {
+      MemoryComponent.gameState.visibleNr = index
+      MemoryComponent.gameState.oneVisible = true
+      MemoryComponent.unlockGame();
+    }
+    // check if the most recently revealed card is the same as the visible one
+    if (MemoryComponent.gameState.visibleNr == index) {
+      MemoryComponent.gameState.oneVisible = true;
+      MemoryComponent.unlockGame();
+      return;
+    }
+
+    if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
+      setTimeout(function () {
+        MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr)
+      }, 750);
+    }
+    else {
+      // fail
+      setTimeout(function () {
+        MemoryComponent.restore2Cards(index, MemoryComponent.gameState.visibleNr)
+      }, 1000);
+    }
+
+    MemoryComponent.gameState.turnCounter++
+
+    if (MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount) {
+      MemoryComponent.endGame();
+    }
+
+    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static unlockGame(){
