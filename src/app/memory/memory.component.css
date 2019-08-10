@@ -38,7 +38,7 @@
     border-radius: 10px;
     font-family: 'Orbitron', sans-serif;
     font-size: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
     color: white;
 }
 
@@ -48,5 +48,5 @@
 
 .memory-button--music{
     background: #ebebeb;
-    color: #161616;
+    color: #0c0c0c;
 }

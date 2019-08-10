@@ -10,63 +10,84 @@ export class LandingComponent implements OnInit {
 
   textsToDisplay: string[] =
     ["A long time ago in a galaxy far far away...", "A young, brave adventurer started his cosmic journey...",
-      "Unfortunately...", "...he lost his way!", "Now he must solve the puzzle and match all cards to turn on the autopilot...",
-      "...but his memory has always been a little poor...", "...and everything shakes all the time!",
-      "Would you help him?"]
+      "Unfortunately... he lost his way!", "Now he must crack the password by matching all pairs to turn on the autopilot...",
+      "...everything's shaking and the aliens are following him!", "Would you help him?"]
   tickDuration: number = 10
   static interval;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.prepareBoard();
-    LandingComponent.interval = setInterval(this.changeBoardPosition , this.tickDuration)
+    this.prepareIntro();
+    LandingComponent.interval = setInterval(this.changeIntroPosition , this.tickDuration)
   }
 
-  changeBoardPosition(){
-    const board = document.getElementById('board')
+  changeIntroPosition(){
+    const intro = document.getElementById('intro')
     const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
-    let boardCurrentPosition = board.offsetTop;
+    let introFinalPosition = 75
+    let introCurrentPosition = intro.offsetTop;
 
-    if (boardCurrentPosition <= 120){
-      board.style.top = boardCurrentPosition + 'px'
+    if (introCurrentPosition <= introFinalPosition){
+      intro.style.top = introCurrentPosition + 'px'
       clearInterval(LandingComponent.interval)
       return
     }
 
-    let boardNewPosition = boardCurrentPosition - speed * time + ((time*time) / 2)
-    board.style.top = boardNewPosition + 'px'
+    let introNewPosition = introCurrentPosition - speed * time + ((time*time) / 2)
+    intro.style.top = introNewPosition + 'px'
     
   }
   
 
-  prepareBoard() {
-    let play = this.play.bind(this);
-    console.log(play)
-    const board = document.getElementById('board')
-    setBoardStartPosition()
+  prepareIntro() {
+    const intro = document.getElementById('intro')
+    let astronautSrc = '../../assets/img/astronaut.png'
+    let alienSrc = '../../assets/img/alien.png'
+    setIntroStartPosition()
+    displayImage(astronautSrc)
 
     for (let i = 0; i < this.textsToDisplay.length; i++) {
       const sentence = this.textsToDisplay[i]
       displayText(sentence)
     }
+    displayImage(alienSrc)
 
     function displayText(sentence: string){
-        board.className = "board-start"
+        intro.className = "intro-start"
         const textBox = document.createElement('h3')
         textBox.innerHTML = sentence
         textBox.style.textAlign = 'center'
+        textBox.style.marginBottom = '5%'
         
-        board.appendChild(textBox);
+        intro.appendChild(textBox);
     }
 
-    function setBoardStartPosition(){
-      board.style.position = 'absolute'
-      board.style.top = '100%'
-      board.style.left = '10%'
-      board.style.transition = 'all 0.1s ease-in'
+    function displayImage(source: string){
+      const heroBox = document.createElement('div')
+      heroBox.style.width = '75px'
+      heroBox.style.height = 'auto'
+      heroBox.style.marginRight = 'auto'
+      heroBox.style.marginLeft = 'auto'
+      heroBox.style.padding = '0'
+
+      const heroImg = document.createElement('img')
+      heroImg.setAttribute('src', source)
+      heroImg.style.width = '100%'
+      heroImg.style.height = '100%'
+      
+      heroBox.appendChild(heroImg)
+      intro.appendChild(heroBox)
+    }
+
+    function setIntroStartPosition(){
+      intro.style.position = 'absolute'
+      intro.style.top = '100%'
+      intro.style.left = '50%'
+      intro.style.transform = 'translateX(-50%)'
+      intro.style.transition = 'all 0.1s ease-in'
     }
   }
 

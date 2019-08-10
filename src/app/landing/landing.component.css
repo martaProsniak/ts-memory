@@ -1,8 +1,34 @@
-#board{
-    width: 80%;
-    font-size: 1rem;
-    margin-left: auto;
-    margin-right: auto;
+.intro{
+    width: 100%;
 }
+.play-button{
+    height: 50px;
+    width: 80%;;
+    -webkit-box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    -moz-box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    box-shadow: 1px 1px 10px 0px #2d71f0c4;
+    border: 1px rgb(44, 44, 44) solid;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    color: #dbe1ec;
+    background: #161616;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.2s ease-in;
+}
+
+.play-button:hover{
+    background: #050505;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    box-shadow: 1px 1px 15px 0px #2d71f0c4;
+}
+
 
 
