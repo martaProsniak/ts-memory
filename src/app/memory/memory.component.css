@@ -11,7 +11,7 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: row wrap;
     position: relative;
     top: 100px;
@@ -48,27 +48,30 @@
     border: 1px rgb(44, 44, 44) solid;
     border-radius: 10px;
     background: #161616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .memory-button{
     height: 50px;
-    width: 150px;
-  
+    width: 200px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0.2em;
-    color: #dbe1ec;
-    
- 
-    transform: translateX(-50%);
-    transition: all 0.2s ease-in;
+    color: white;
+    background: #0087bd;
+    transition: all 0.3s ease-in-out;
+    margin-left: 5%;
+    margin-right: 5%;
+    -webkit-box-shadow: 1px 1px 10px 0px #00025ef3;
+    -moz-box-shadow: 1px 1px 10px 0px #00025ef3;
+    box-shadow: 1px 1px 10px 0px #00025ef3;
+    border: 2px #111111 solid;
 }
 
 .memory-button:hover{
-    background: #050505;
+    background: #00658d;
     cursor: pointer;
-    transition: all 0.2s ease-in;
-    -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
-    -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
-    box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    transition: all 0.3s ease-in-out;
 }
