@@ -65,8 +65,9 @@ export class MemoryComponent implements OnInit {
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
     scoreBox.style.marginTop = '30px'
-    scoreBox.innerHTML = 'Turn counter: 0'
+    scoreBox.innerHTML = 'Turns till end: ?'
     scoreBox.style.fontSize = '24px;'
+    scoreBox.style.letterSpacing = '0.1em'
 
     container.appendChild(scoreBox)
   }
@@ -143,10 +144,6 @@ export class MemoryComponent implements OnInit {
     // For each index in deck
     for (let i = 0; i < deck.length; i++) {
 
-      // https://basarat.gitbooks.io/algorithms/content/docs/shuffling.html
-      // choose a random not-yet-placed item to place there
-      // must be an item AFTER the current item, because the stuff
-      // before has all already been placed
       const randomChoiceIndex = getRandom(i, deck.length - 1);
 
       // place our random choice in the spot by swapping
@@ -196,8 +193,13 @@ export class MemoryComponent implements OnInit {
           MemoryComponent.restore2Cards(i, MemoryComponent.gameState.visibleNr)
         }, 1000);
       }
+
       MemoryComponent.gameState.turnCounter++
-      document.getElementById('score').innerHTML = 'Turn counter: ' + MemoryComponent.gameState.turnCounter
+
+      if(MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount){
+        MemoryComponent.endGame();
+      }
+      document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
     }
   }
 
@@ -281,6 +283,5 @@ export class MemoryComponent implements OnInit {
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
     'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
-
   }
 }
