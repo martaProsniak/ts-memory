@@ -53,8 +53,6 @@ export class LandingComponent implements OnInit {
       displayText(sentence)
     }
 
-    showButton()
-
     function displayText(sentence: string){
         board.className = "board-start"
         const textBox = document.createElement('h3')
@@ -69,25 +67,6 @@ export class LandingComponent implements OnInit {
       board.style.top = '100%'
       board.style.left = '10%'
       board.style.transition = 'all 0.1s ease-in'
-    }
-
-    function showButton(){
-      const playLink = document.createElement('a')
-      playLink.innerHTML = "PLAY"
-      
-      playLink.style.width = '30%'
-      playLink.style.background = 'transparent'
-      playLink.style.marginTop = '25px'
-      playLink.style.color = 'white'
-      playLink.style.fontSize = '1.5rem'
-      playLink.style.border = 'none'
-      playLink.style.fontFamily = '"Orbitron", sans-serif'
-
-      playLink.addEventListener('click', function (event) {
-        play();
-      })
-
-      board.appendChild(playLink)
     }
   }
 

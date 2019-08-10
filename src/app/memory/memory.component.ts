@@ -21,7 +21,7 @@ export class MemoryComponent implements OnInit {
     this.content = require('../../assets/memory.json');
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
-    // MemoryComponent.isMusicOn = true;
+    MemoryComponent.isMusicOn = true;
   }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class MemoryComponent implements OnInit {
   loadCards(): Card[] {
     let cardsFromContent = Array.from(this.content.cards);
     let cards = new Array;
-    const revers = '../../assets/img/card3.png'
+    const revers = '../../assets/img/card.png'
 
     cardsFromContent.forEach(card => {
       let cardToLoad = new Card()
@@ -64,6 +64,7 @@ export class MemoryComponent implements OnInit {
     scoreBox.setAttribute('id', 'score')
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
+    scoreBox.style.marginTop = '30px'
     scoreBox.innerHTML = 'Turn counter: 0'
 
     container.appendChild(scoreBox)
@@ -85,15 +86,16 @@ export class MemoryComponent implements OnInit {
         const cardImage = document.createElement('img')
         cardImage.setAttribute('src', initialImage);
         cardImage.setAttribute('id', 'img' + i)
-        cardImage.style.width = '100%'
-        cardImage.style.height = '100%'
+        cardImage.style.width = '95%'
+        cardImage.style.height = '95%'
         cardImage.style.objectFit = 'cover'
+        cardImage.style.border = '1px black solid'
+        cardImage.style.borderRadius = '50%'
         return cardImage;
       }
   }
 
   startNewGame(cards: Card[]) {
-    this.resetMusic();
     cards.forEach((card, index, Array) => {
       document.getElementById('c' + index).addEventListener(
         'click', function () { MemoryComponent.revealCard(index, Array); }
@@ -112,10 +114,10 @@ export class MemoryComponent implements OnInit {
       MemoryComponent.song.pause()
       MemoryComponent.song.currentTime = 0
       MemoryComponent.isMusicOn = false;
-      target.innerHTML = 'Music: off'
+      target.innerHTML = 'MUSIC: OFF'
     } else {
       MemoryComponent.isMusicOn = true;
-      target.innerHTML = 'Music: on'
+      target.innerHTML = 'MUSIC: ON'
     }
     
   }
@@ -222,6 +224,7 @@ export class MemoryComponent implements OnInit {
       console.log(this.bestScore)
     }
     MemoryComponent.drawWinAlert();
+    MemoryComponent.song.play();
   }
 
   static drawWinAlert() {
@@ -242,7 +245,7 @@ export class MemoryComponent implements OnInit {
     winAlertWrapper.style.left = '50%'
     winAlertWrapper.style.transform = 'translate(-50%, -50%)'
     winAlertWrapper.style.width = '100%'
-    winAlertWrapper.style.backgroundColor= '#0e0b20'
+    winAlertWrapper.style.backgroundColor= 'transparent'
     winAlertWrapper.style.boxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.webkitBoxShadow = '1px 2px 1px 0px #021533'
     winAlertWrapper.style.textAlign = 'center'
@@ -252,7 +255,7 @@ export class MemoryComponent implements OnInit {
     winAlertText.style.width = '100%'
     winAlertText.style.height = '100%'
     winAlertText.style.fontSize = '1.5em'
-    winAlertText.style.color = '#cce9f9'
+    winAlertText.style.color = 'white'
     winAlertText.classList.add('shake-little')
     winAlertText.classList.add('shake-constant')
     winAlertText.classList.add('shake-constant-hover')
@@ -266,9 +269,12 @@ export class MemoryComponent implements OnInit {
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(90%)'
     cardBox.style.transition = 'all .2s ease-in'
-    cardBox.style.marginTop = '5%'
+    cardBox.style.marginTop = '20px'
+    cardBox.style.border = '1px black solid'
+    cardBox.style.borderRadius = '50%'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover', 
     'col-xs-3')
+    cardBox.style.background = 'transparent'
 
 
     cardBox.addEventListener('mouseover', function (event) {
