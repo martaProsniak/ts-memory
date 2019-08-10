@@ -276,7 +276,8 @@ export class MemoryComponent implements OnInit {
     alertBoxWrapper.style.width = '100%'
     alertBoxWrapper.style.backgroundColor = 'transparent'
     alertBoxWrapper.style.textAlign = 'center'
-
+    
+    alertBoxText.style.marginBottom = '2%'
     alertBoxText.style.width = '100%'
     alertBoxText.style.height = '100%'
     alertBoxText.style.fontSize = '1.25em'
@@ -286,16 +287,16 @@ export class MemoryComponent implements OnInit {
     alertBoxText.classList.add('shake-constant-hover')
     board.appendChild(alertBox)
     alertBox.appendChild(alertBoxWrapper)
-    alertBoxWrapper.appendChild(alertBoxText)
     alertBoxWrapper.appendChild(MemoryComponent.displayImage(MemoryComponent.chooseImageAfterGame(result)))
+    alertBoxWrapper.appendChild(alertBoxText)
   }
 
   static chooseMessageAfterGame(result: boolean, bestScore: number): string{
     let message: string;
     if(result){
-      message = 'Congratulations!<br>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + 'turns!<br>Your best score so far is: ' + bestScore;
+      message = '<p>Congratulations!</p><p>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>Your best score so far is: ' + bestScore + '</p>'
     } else {
-      message = 'Oh no! You\'ve crashed escaping the aliens!<br>I\'s miracle you\'ve survived<br>Fortunately you\'ve landed in the lake on some awesome planet<br>Some short green gnome helped you repair the ship and you\'re ready to try again.'
+      message = '<p>Oh no! You\'ve crashed escaping the aliens!</p><p>I\'s miracle you\'ve survived</p><p>Fortunately you\'ve landed in the lake on some awesome planet</p><p>Some short green gnome helped you repair the ship and you\'re ready to try again.'
     }
     return message;
   }
@@ -312,7 +313,7 @@ export class MemoryComponent implements OnInit {
 
   static displayImage(source: string){
     const imageBox = document.createElement('div')
-    imageBox.style.width = '75px'
+    imageBox.style.width = '100px'
     imageBox.style.height = 'auto'
     imageBox.style.marginRight = 'auto'
     imageBox.style.marginLeft = 'auto'
@@ -330,7 +331,7 @@ export class MemoryComponent implements OnInit {
   styleCards(cardBox: any) {
     cardBox.style.textAlign = 'center'
     cardBox.style.cursor = 'pointer'
-    cardBox.style.filter = 'brightness(80%)'
+    cardBox.style.filter = '/pightness(80%)'
     cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',

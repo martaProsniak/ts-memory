@@ -12,6 +12,6 @@ export class GameState {
         this.visibleNr = null
         this.lock = false
         this.pairsLeft = 6
-        this.maxTurnCount = 15
+        this.maxTurnCount = 1
     }
 }
