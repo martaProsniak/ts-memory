@@ -346,7 +346,7 @@ export class MemoryComponent implements OnInit {
     cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
-      'col-xs-3')
+      'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
 
