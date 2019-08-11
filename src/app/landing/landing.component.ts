@@ -69,7 +69,7 @@ export class LandingComponent implements OnInit {
         } else if (screenWidth <= screenMd){
           textBox.style.fontSize = '16px'
         } else {
-          textBox.style.fontSize = '24px'
+          textBox.style.fontSize = '22px'
         }
         
         intro.appendChild(textBox);
