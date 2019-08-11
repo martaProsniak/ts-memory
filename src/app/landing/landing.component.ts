@@ -60,7 +60,6 @@ export class LandingComponent implements OnInit {
         const screenSm = 375
         const screenMd = 768
         let screenWidth = window.screen.width;
-        console.log(screenWidth)
 
         textBox.innerHTML = sentence
         textBox.style.textAlign = 'center'
@@ -109,7 +108,8 @@ export class LandingComponent implements OnInit {
   }
 
   play(){
-    this.router.navigate(['/game'])
+    clearInterval(LandingComponent.interval)
+    this.router.navigateByUrl('/game')
   }
 
 }

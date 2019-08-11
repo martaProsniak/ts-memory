@@ -296,6 +296,7 @@ export class MemoryComponent implements OnInit {
     alertBoxWrapper.appendChild(MemoryComponent.displayImage(MemoryComponent.chooseImageAfterGame(result)))
     alertBoxWrapper.appendChild(alertBoxText)
   }
+  
 
   static chooseMessageAfterGame(result: boolean, bestScore: number): string{
     let message: string;
