@@ -1,5 +1,6 @@
-.intro{
-    width: 100%;
+#intro{
+    width: 90%;
+    text-align: center;
 }
 .play-button{
     height: 75px;
@@ -29,6 +30,8 @@
     -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
     box-shadow: 1px 1px 15px 0px #2d71f0c4;
 }
+
+
 
 
 

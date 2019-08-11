@@ -280,7 +280,12 @@ export class MemoryComponent implements OnInit {
     alertBoxText.style.marginBottom = '2%'
     alertBoxText.style.width = '100%'
     alertBoxText.style.height = '100%'
-    alertBoxText.style.fontSize = '1.25em'
+    const screenMd = 768
+    if(window.screen.width >= screenMd){
+      alertBox.style.fontSize = '22px'
+    } else {
+      alertBox.style.fontSize = '14px'
+    }
     alertBoxText.style.color = 'white'
     alertBoxText.classList.add('shake-little')
     alertBoxText.classList.add('shake-constant')
@@ -313,7 +318,12 @@ export class MemoryComponent implements OnInit {
 
   static displayImage(source: string){
     const imageBox = document.createElement('div')
-    imageBox.style.width = '100px'
+    const screenMd = 768
+      if(window.screen.width > screenMd){
+        imageBox.style.width = '100px'
+      } else {
+        imageBox.style.width = '50px'
+      }
     imageBox.style.height = 'auto'
     imageBox.style.marginRight = 'auto'
     imageBox.style.marginLeft = 'auto'

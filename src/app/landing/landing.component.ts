@@ -27,7 +27,7 @@ export class LandingComponent implements OnInit {
     const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
-    let introFinalPosition = 100
+    let introFinalPosition = 110
     let introCurrentPosition = intro.offsetTop;
 
     if (introCurrentPosition <= introFinalPosition){
@@ -56,21 +56,38 @@ export class LandingComponent implements OnInit {
     displayImage(alienSrc)
 
     function displayText(sentence: string){
-        intro.className = "intro-start"
         const textBox = document.createElement('h3')
+        const screenXs = 320
+        const screenMd = 768
+        let screenWidth = window.screen.width;
+        console.log(screenWidth)
+
         textBox.innerHTML = sentence
         textBox.style.textAlign = 'center'
-        textBox.style.marginBottom = '5%'
+        textBox.style.marginBottom = '10px'
+        if (screenWidth <= screenXs ){
+          textBox.style.fontSize = '15px'
+        } else if (screenWidth <= screenMd){
+          textBox.style.fontSize = '18px'
+        } else {
+          textBox.style.fontSize = '24px'
+        }
         
         intro.appendChild(textBox);
     }
 
     function displayImage(source: string){
       const imageBox = document.createElement('div')
-      imageBox.style.width = '75px'
+      const screenMd = 768
+      if(window.screen.width > screenMd){
+        imageBox.style.width = '100px'
+      } else {
+        imageBox.style.width = '50px'
+      }
       imageBox.style.height = 'auto'
       imageBox.style.marginRight = 'auto'
       imageBox.style.marginLeft = 'auto'
+      imageBox.style.marginTop = '2%'
       imageBox.style.padding = '0'
 
       const heroImg = document.createElement('img')
@@ -83,8 +100,8 @@ export class LandingComponent implements OnInit {
     }
 
     function setIntroStartPosition(){
-      intro.style.position = 'absolute'
-      intro.style.top = '100%'
+       intro.style.position = 'absolute'
+       intro.style.top = '100%'
       intro.style.left = '50%'
       intro.style.transform = 'translateX(-50%)'
       intro.style.transition = 'all 0.1s ease-in'

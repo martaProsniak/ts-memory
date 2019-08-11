@@ -83,4 +83,10 @@
     transition: all 0.3s ease-in-out;
 }
 
+.memory-button:focus{
+    background: #017e97bd;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
 
