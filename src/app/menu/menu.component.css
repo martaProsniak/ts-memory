@@ -13,7 +13,7 @@
     margin: 0;
     letter-spacing: 0.2em;
     background: #050505;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);

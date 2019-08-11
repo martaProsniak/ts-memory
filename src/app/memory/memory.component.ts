@@ -14,7 +14,8 @@ export class MemoryComponent implements OnInit {
   content: Memory
   static cards: Card[];
   static song: any
-  static isMusicOn: boolean;
+  static isMusicOn: boolean = true;
+  static maxTurnCount: number = 10;
   static gameState: GameState
   static bestScore: number = 0;
 
@@ -22,7 +23,6 @@ export class MemoryComponent implements OnInit {
     this.content = require('../../assets/memory.json');
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
-    MemoryComponent.isMusicOn = true;
   }
 
   ngOnInit() {
@@ -190,21 +190,21 @@ export class MemoryComponent implements OnInit {
     if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 500);
+      }, 750);
     }
     else {
       // fail
       setTimeout(function () {
         MemoryComponent.restore2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 500);
+      }, 750);
     }
 
-    if (MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount) {
+    if (MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount) {
       MemoryComponent.endGame();
     }
     
     MemoryComponent.gameState.turnCounter++
-    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
+    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static unlockGame(){
@@ -222,8 +222,8 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.gameState.oneVisible = false
     MemoryComponent.unlockGame();
     // bonus turn for revealing card
-    MemoryComponent.gameState.maxTurnCount++;
-    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
+    MemoryComponent.maxTurnCount++;
+    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static restore2Cards(first: number, second: number) {
@@ -242,7 +242,7 @@ export class MemoryComponent implements OnInit {
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
     }
-    let gameResult = this.gameState.turnCounter < this.gameState.maxTurnCount
+    let gameResult = this.gameState.turnCounter < this.maxTurnCount
     this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
   }
