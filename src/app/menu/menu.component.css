@@ -4,7 +4,7 @@
 
 .menu__list{
     height: 120px;
-    width: 95%;
+    width: 100%;
     -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
     -moz-box-shadow: 1px 1px 10px 0px #217a8a;
     box-shadow: 1px 1px 10px 0px #217a8a;
@@ -12,7 +12,7 @@
     border-radius: 10px;
     margin: 0;
     letter-spacing: 0.2em;
-    background: #050505;
+    background: #070707e1;
     position: absolute;
     top: 0;
     left: 50%;
@@ -20,7 +20,7 @@
     transition: all 0.2s ease-in;
     list-style: none;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     padding: 0;
@@ -52,7 +52,7 @@
 
 .menu__item{
     margin: 1%;
-    width: 50px;
+    width: 100px;
     height: 50px;
     text-align: center;
     background: #217a8a;
@@ -61,7 +61,7 @@
     -moz-box-shadow: 1px 1px 2px 0px #000133;
     box-shadow: 1px 1px 2px 0px #000133;
     border: 1px #1a1a1a solid;
-    border-radius: 50%;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,6 +70,7 @@
 
 .menu__iconBox{
     padding-left: 5px;
+    font-size: 0.9em;
 }
 
 
@@ -84,7 +85,7 @@
 }
 
 .menu__icon{
-    font-size: 26px;
+    font-size: 1em;
     color: #ececec;
     transition: all 0.2s ease-in;
 }
