@@ -320,7 +320,7 @@ export class MemoryComponent implements OnInit {
     const imageBox = document.createElement('div')
     const screenMd = 768
       if(window.screen.width > screenMd){
-        imageBox.style.width = '100px'
+        imageBox.style.width = '75px'
       } else {
         imageBox.style.width = '50px'
       }

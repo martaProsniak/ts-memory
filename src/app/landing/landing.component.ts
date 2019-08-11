@@ -57,7 +57,7 @@ export class LandingComponent implements OnInit {
 
     function displayText(sentence: string){
         const textBox = document.createElement('h3')
-        const screenXs = 320
+        const screenSm = 375
         const screenMd = 768
         let screenWidth = window.screen.width;
         console.log(screenWidth)
@@ -65,10 +65,10 @@ export class LandingComponent implements OnInit {
         textBox.innerHTML = sentence
         textBox.style.textAlign = 'center'
         textBox.style.marginBottom = '10px'
-        if (screenWidth <= screenXs ){
-          textBox.style.fontSize = '15px'
+        if (screenWidth <= screenSm ){
+          textBox.style.fontSize = '14px'
         } else if (screenWidth <= screenMd){
-          textBox.style.fontSize = '18px'
+          textBox.style.fontSize = '16px'
         } else {
           textBox.style.fontSize = '24px'
         }
@@ -80,14 +80,14 @@ export class LandingComponent implements OnInit {
       const imageBox = document.createElement('div')
       const screenMd = 768
       if(window.screen.width > screenMd){
-        imageBox.style.width = '100px'
+        imageBox.style.width = '75px'
       } else {
         imageBox.style.width = '50px'
       }
       imageBox.style.height = 'auto'
       imageBox.style.marginRight = 'auto'
       imageBox.style.marginLeft = 'auto'
-      imageBox.style.marginTop = '2%'
+      imageBox.style.marginTop = '1%'
       imageBox.style.padding = '0'
 
       const heroImg = document.createElement('img')
