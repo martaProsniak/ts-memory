@@ -14,7 +14,7 @@ export class MemoryComponent implements OnInit {
   content: Memory
   static cards: Card[];
   static song: any
-  static isMusicOn: boolean = true;
+  static isMusicOn: boolean = false;
   static maxTurnCount: number = 10;
   static gameState: GameState
   static bestScore: number = 0;

@@ -1,7 +1,17 @@
+#event-handler{
+    width: 100%;
+    height: 700px;
+    position: absolute;
+    top: 120px;
+
+}
+
 #intro{
     width: 90%;
     text-align: center;
 }
+
+
 .play-button{
     height: 75px;
     width: 80%;;

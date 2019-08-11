@@ -22,9 +22,10 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.prepareIntro();
     LandingComponent.interval = setInterval(this.changeIntroPosition , this.tickDuration)
-      window.addEventListener('click', function(){
+    let container = document.getElementById('event-handler')
+      container.addEventListener('click', function(){
         LandingComponent.skipIntro()
-      })
+      }, {once: true})
   }
 
   changeIntroPosition(){
