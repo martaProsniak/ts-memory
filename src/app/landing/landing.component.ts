@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MemoryComponent } from '../memory/memory.component';
 
 @Component({
   selector: 'app-landing',
@@ -13,6 +14,7 @@ export class LandingComponent implements OnInit {
       "Unfortunately... he lost his way!", "Now he must crack the password by matching all pairs to turn on the autopilot...",
       "...everything's shaking and the aliens are following him!", "Would you help him?"]
   tickDuration: number = 10
+  static boardFinalPosition: number = 150
   static interval;
 
   constructor(private router: Router) { }
@@ -20,6 +22,9 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.prepareIntro();
     LandingComponent.interval = setInterval(this.changeIntroPosition , this.tickDuration)
+      window.addEventListener('click', function(){
+        LandingComponent.skipIntro()
+      })
   }
 
   changeIntroPosition(){
@@ -27,10 +32,9 @@ export class LandingComponent implements OnInit {
     const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
-    let introFinalPosition = 150
     let introCurrentPosition = intro.offsetTop;
 
-    if (introCurrentPosition <= introFinalPosition){
+    if (introCurrentPosition <= LandingComponent.boardFinalPosition){
       intro.style.top = introCurrentPosition + 'px'
       clearInterval(LandingComponent.interval)
       return
@@ -110,6 +114,13 @@ export class LandingComponent implements OnInit {
   play(){
     clearInterval(LandingComponent.interval)
     this.router.navigateByUrl('/game')
+  }
+
+  static skipIntro(){
+    const intro = document.getElementById('intro')
+    intro.style.transition = 'all 0.5s ease-in'
+    intro.style.top = LandingComponent.boardFinalPosition + 'px'
+    clearInterval(LandingComponent.interval)
   }
 
 }

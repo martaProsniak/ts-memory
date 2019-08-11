@@ -7,6 +7,7 @@ import { MemoryComponent } from './memory/memory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MenuComponent } from './menu/menu.component';
 import { InfoComponent } from './info/info.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { InfoComponent } from './info/info.component';
     MemoryComponent,
     LandingComponent,
     MenuComponent,
-    InfoComponent
+    InfoComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
