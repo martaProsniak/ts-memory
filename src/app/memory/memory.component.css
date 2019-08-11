@@ -3,6 +3,7 @@
     min-height: 400px;
     color: white;
     text-align: center;
+    
 }
 
 .gameContainer__board{
@@ -61,7 +62,7 @@
 
 .memory-button{
     height: 40px;
-    width: 200px;
+    width: 150px;
     font-family: 'Orbitron', sans-serif;
     font-size: 14px;
     letter-spacing: 0.2em;

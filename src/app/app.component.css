@@ -18,56 +18,6 @@
 	color: white;
 }
 
-.memory-title--red{
-	color: #b003b6;
-	font-size: 2.3rem;
-}
-
-@media(min-width:425px){
-    .memory-title{
-        font-size: 2.7rem;
-	}
-	
-	.memory-title--red{
-		font-size: 2.9rem;
-	}
-}
-
-@media(min-width:1024px){
-    .memory-title{
-        font-size: 4rem;
-	}
-	
-	.memory-title--red{
-		font-size: 4.2rem;
-	}
-}
-
-
-.memory-footer{
-	width: 80%;
-	height: 75px;
-	position: absolute;
-	bottom: -10px;
-	left: 50%;
-    transform: translateX(-50%);
-}
-
-
-.footer-container{
-	width: 100%;
-	-webkit-box-shadow: 1px 1px 10px 0px #2faac0;
-    -moz-box-shadow: 1px 1px 10px 0px #2faac0;
-    box-shadow: 1px 1px 10px 0px #2faac0;
-    border: 1px rgb(44, 44, 44) solid;
-    border-radius: 10px;
-    background: #161616;
-	font-size: 0.6rem;
-	color: #cce9f9;
-	text-align: center;
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
 
 .link{
 	text-decoration: none;

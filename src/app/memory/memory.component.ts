@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Memory } from '../models/memory';
 import { GameState } from '../models/game-state';
 import { Card } from './card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-memory',
@@ -17,7 +18,7 @@ export class MemoryComponent implements OnInit {
   static gameState: GameState
   static bestScore: number = 0;
 
-  constructor() {
+  constructor(private router: Router) {
     this.content = require('../../assets/memory.json');
     MemoryComponent.song = new Audio()
     MemoryComponent.song.src = '../../assets/song.wav'
@@ -345,7 +346,11 @@ export class MemoryComponent implements OnInit {
     cardBox.style.transition = 'all .3s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
-      'col-xs-4', 'col-sm-3')
+      'col-xs-3')
     cardBox.style.background = 'transparent'
+  }
+
+  goToContact(){
+    this.router.navigate(['/'])
   }
 }
