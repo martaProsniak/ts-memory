@@ -27,7 +27,7 @@ export class LandingComponent implements OnInit {
     const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
-    let introFinalPosition = 110
+    let introFinalPosition = 150
     let introCurrentPosition = intro.offsetTop;
 
     if (introCurrentPosition <= introFinalPosition){

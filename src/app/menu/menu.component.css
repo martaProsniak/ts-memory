@@ -3,18 +3,16 @@
 }
 
 .menu__list{
-    height: 75px;
-    width: 80%;
-    -webkit-box-shadow: 1px 1px 10px 0px #2faac0;
-    -moz-box-shadow: 1px 1px 10px 0px #2faac0;
-    box-shadow: 1px 1px 10px 0px #2faac0;
+    height: 120px;
+    width: 75%;
+    -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
+    -moz-box-shadow: 1px 1px 10px 0px #217a8a;
+    box-shadow: 1px 1px 10px 0px #217a8a;
     border: 1px rgb(44, 44, 44) solid;
     border-radius: 10px;
-    font-family: 'Orbitron', sans-serif;
     margin: 0;
     letter-spacing: 0.2em;
-    color: #dbe1ec;
-    background: #161616;
+    background: #050505;
     position: fixed;
     top: 0;
     left: 50%;
@@ -22,14 +20,14 @@
     transition: all 0.2s ease-in;
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     padding: 0;
 }
 
 .menu__list:hover{
-    background: #050505;
+    background: #030303;
     cursor: pointer;
     transition: all 0.2s ease-in;
     -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
@@ -37,23 +35,37 @@
     box-shadow: 1px 1px 15px 0px #2d71f0c4;
 }
 
+.menu__game-title{
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin: 0;
+    color:#6dc0d1;
+    border-top: 0.4px dashed #719ae669;
+}
+
+.menu__game-title:hover{
+    color:#ececec;
+    transition: all 0.2s ease-in;
+    text-shadow: 1px 1px 5px #029fbebd;
+}
 
 .menu__item{
     margin: 1%;
     width: 50px;
     height: 50px;
     text-align: center;
-    color: white;
-    background: #029fbebd;
+    background: #217a8a;
     transition: all 0.3s ease-in-out;
-    -webkit-box-shadow: 1px 1px 5px 0px #464646de;
-    -moz-box-shadow: 1px 1px 5px 0px #464646de;
-    box-shadow: 1px 1px 5px 0px #464646de;
+    -webkit-box-shadow: 1px 1px 2px 0px #000133;
+    -moz-box-shadow: 1px 1px 2px 0px #000133;
+    box-shadow: 1px 1px 2px 0px #000133;
     border: 1px #1a1a1a solid;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
 .menu__iconBox{
@@ -62,11 +74,18 @@
 
 
 .menu__item:hover{
-    background: #b41f6ad3;
+    background: #1c499e;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+    box-shadow: 1px 1px 15px 0px #2d71f0c4;
 }
 
 .menu__icon{
-    font-size: 25px;
+    font-size: 26px;
+    color: #ececec;
+    transition: all 0.2s ease-in;
 }
+
