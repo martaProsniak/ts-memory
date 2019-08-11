@@ -190,13 +190,13 @@ export class MemoryComponent implements OnInit {
     if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 750);
+      }, 500);
     }
     else {
       // fail
       setTimeout(function () {
         MemoryComponent.restore2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 1000);
+      }, 500);
     }
 
     MemoryComponent.gameState.turnCounter++
@@ -247,6 +247,9 @@ export class MemoryComponent implements OnInit {
   }
 
   static playSong(gameResult: boolean){
+    if (!MemoryComponent.isMusicOn){
+      return;
+    }
     if (gameResult){
       MemoryComponent.song.play();
     }
@@ -288,9 +291,6 @@ export class MemoryComponent implements OnInit {
       alertBox.style.fontSize = '14px'
     }
     alertBoxText.style.color = 'white'
-    alertBoxText.classList.add('shake-little')
-    alertBoxText.classList.add('shake-constant')
-    alertBoxText.classList.add('shake-constant-hover')
     board.appendChild(alertBox)
     alertBox.appendChild(alertBoxWrapper)
     alertBoxWrapper.appendChild(MemoryComponent.displayImage(MemoryComponent.chooseImageAfterGame(result)))
@@ -300,7 +300,7 @@ export class MemoryComponent implements OnInit {
   static chooseMessageAfterGame(result: boolean, bestScore: number): string{
     let message: string;
     if(result){
-      message = '<p>Congratulations!</p><p>You saved brave adventurer' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>Your best score so far is: ' + bestScore + '</p>'
+      message = '<p>Congratulations!</p><p>You\'ve successfully turned on the autopilot in ' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>The astronaut is back home</p><p>Your best score so far is: ' + bestScore + '</p>'
     } else {
       message = '<p>Oh no! You\'ve crashed escaping the aliens!</p><p>I\'s miracle you\'ve survived</p><p>Fortunately you\'ve landed in the lake on some awesome planet</p><p>Some short green gnome helped you repair the ship and you\'re ready to try again.'
     }
@@ -310,7 +310,7 @@ export class MemoryComponent implements OnInit {
   static chooseImageAfterGame(result: boolean): string{
     let imgSource: string;
     if(result){
-      imgSource = '../../assets/img/astronaut.png'
+      imgSource = '../../assets/img/flag.png'
     } else {
       imgSource = '../../assets/img/alien.png'
     }
@@ -343,7 +343,7 @@ export class MemoryComponent implements OnInit {
     cardBox.style.textAlign = 'center'
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(80%)'
-    cardBox.style.transition = 'all .3s ease-in'
+    cardBox.style.transition = 'all .1s ease-in'
     cardBox.style.marginTop = '20px'
     cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
       'col-xs-4', 'col-sm-3')
