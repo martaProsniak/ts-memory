@@ -57,7 +57,7 @@
 }
 
 .menu__iconBox{
-    text-align: center;
+    padding-left: 5px;
 }
 
 
@@ -69,5 +69,4 @@
 
 .menu__icon{
     font-size: 25px;
-
 }
