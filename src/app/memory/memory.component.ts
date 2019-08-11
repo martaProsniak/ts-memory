@@ -64,7 +64,7 @@ export class MemoryComponent implements OnInit {
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
     scoreBox.style.marginTop = '30px'
-    scoreBox.innerHTML = 'Turns till end: ?'
+    scoreBox.innerHTML = 'Turns till end: 10'
     scoreBox.style.fontSize = '24px;'
     scoreBox.style.letterSpacing = '0.1em'
     scoreBox.style.color = '#93efff'
@@ -199,12 +199,11 @@ export class MemoryComponent implements OnInit {
       }, 500);
     }
 
-    MemoryComponent.gameState.turnCounter++
-
     if (MemoryComponent.gameState.turnCounter === MemoryComponent.gameState.maxTurnCount) {
       MemoryComponent.endGame();
     }
-
+    
+    MemoryComponent.gameState.turnCounter++
     document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
@@ -221,8 +220,10 @@ export class MemoryComponent implements OnInit {
       MemoryComponent.endGame()
     }
     MemoryComponent.gameState.oneVisible = false
-    MemoryComponent.gameState.lock = false
-
+    MemoryComponent.unlockGame();
+    // bonus turn for revealing card
+    MemoryComponent.gameState.maxTurnCount++;
+    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.gameState.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static restore2Cards(first: number, second: number) {
@@ -319,6 +320,7 @@ export class MemoryComponent implements OnInit {
   }
 
   static displayImage(source: string){
+    const heroImg = document.createElement('img')
     const imageBox = document.createElement('div')
     const screenMd = 768
       if(window.screen.width > screenMd){
@@ -331,7 +333,6 @@ export class MemoryComponent implements OnInit {
     imageBox.style.marginLeft = 'auto'
     imageBox.style.padding = '0'
 
-    const heroImg = document.createElement('img')
     heroImg.setAttribute('src', source)
     heroImg.style.width = '100%'
     heroImg.style.height = '100%'
