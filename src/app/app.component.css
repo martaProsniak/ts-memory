@@ -18,13 +18,3 @@
 	color: white;
 }
 
-
-.link{
-	text-decoration: none;
-	color: #82d9e9;
-	transition: color 0.2s ease-in;
-}
-
-.link:hover{
-	color: #2faac0;
-}

@@ -351,8 +351,4 @@ export class MemoryComponent implements OnInit {
       'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
-
-  goToContact(){
-    this.router.navigate(['/'])
-  }
 }

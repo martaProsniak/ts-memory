@@ -40,12 +40,12 @@
     font-size: 16px;
     padding: 10px;
     margin: 0;
-    color:#6dc0d1;
+    color:#efefef;
     border-top: 0.4px dashed #719ae669;
 }
 
 .menu__game-title:hover{
-    color:#ececec;
+    color:#2faac0;
     transition: all 0.2s ease-in;
     text-shadow: 1px 1px 5px #029fbebd;
 }
@@ -74,7 +74,7 @@
 
 
 .menu__item:hover{
-    background: #1c499e;
+    background: #2faac0;
     cursor: pointer;
     transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
