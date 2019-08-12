@@ -5,6 +5,25 @@
     text-align: center;
 }
 
+.buttons-container{
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 120px;
+    -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
+    -moz-box-shadow: 1px 1px 10px 0px #217a8a;
+    box-shadow: 1px 1px 10px 0px #217a8a;
+    border: 1px rgb(44, 44, 44) solid;
+    border-radius: 10px;
+    background: #050505;
+    transition: all 0.2s ease-in;
+    padding: 1%;
+}
+
 .gameContainer__board{
     width: 90%;
     height: auto;

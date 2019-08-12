@@ -3,7 +3,7 @@
 }
 
 .menu__list{
-    height: 120px;
+    height: 100px;
     width: 100%;
     -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
     -moz-box-shadow: 1px 1px 10px 0px #217a8a;
@@ -11,7 +11,7 @@
     border: 1px rgb(44, 44, 44) solid;
     border-radius: 10px;
     margin: 0;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
     background: #070707e1;
     position: absolute;
     top: 0;
@@ -52,8 +52,8 @@
 
 .menu__item{
     margin: 1%;
-    width: 100px;
-    height: 50px;
+    width: 90px;
+    height: 30px;
     text-align: center;
     background: #217a8a;
     transition: all 0.3s ease-in-out;

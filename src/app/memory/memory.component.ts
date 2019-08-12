@@ -72,6 +72,7 @@ export class MemoryComponent implements OnInit {
     container.appendChild(scoreBox)
   }
 
+
   drawCards(container: any) {
     const revers = MemoryComponent.cards[0].revers;
 
@@ -190,13 +191,13 @@ export class MemoryComponent implements OnInit {
     if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 750);
+      }, 800);
     }
     else {
       // fail
       setTimeout(function () {
         MemoryComponent.restore2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 750);
+      }, 800);
     }
 
     if (MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount) {
