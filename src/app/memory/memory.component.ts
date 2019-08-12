@@ -54,7 +54,7 @@ export class MemoryComponent implements OnInit {
     this.startNewGame(MemoryComponent.currentDeck)
   }
 
-  setMaxTurnCount(){
+  setMaxTurnCount() {
     MemoryComponent.maxTurnCount = 10;
   }
 
@@ -68,18 +68,43 @@ export class MemoryComponent implements OnInit {
 
   drawScoreBox(container: any) {
     let scoreBox = document.createElement('div')
+    let scoreCounter = 'Current score: 0'
+    let turnCounter = 'Turns till end: ' + + MemoryComponent.maxTurnCount
     scoreBox.setAttribute('id', 'score')
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
-    scoreBox.style.marginTop = '30px'
-    scoreBox.innerHTML = 'Turns till end: '+ + MemoryComponent.maxTurnCount
-    scoreBox.style.fontSize = '24px;'
-    scoreBox.style.letterSpacing = '0.1em'
+    scoreBox.style.marginTop = '2%'
     scoreBox.style.color = '#93efff'
 
+    scoreBox.appendChild(MemoryComponent.drawScoreParagraph(scoreCounter))
+    scoreBox.appendChild(MemoryComponent.drawScoreParagraph(turnCounter))
     container.appendChild(scoreBox)
   }
 
+  static drawScoreParagraph(message: string) {
+    let paragraph = document.createElement('p')
+    paragraph.style.marginTop = '2%'
+    paragraph.style.marginBottom = '2%'
+    paragraph.style.fontSize = '0.7em;'
+    paragraph.style.letterSpacing = '0.1em'
+    paragraph.innerHTML = message
+    return paragraph;
+  }
+
+  static updateScore(scoreCount: number, isPair: boolean) {
+    let scoreBox = document.getElementById('score')
+    let turnCount = MemoryComponent.maxTurnCount - scoreCount
+    let scoreCountText = 'Current score: ' + scoreCount
+    let turnCountText
+    if (isPair){
+      turnCountText = 'Bonus turn! Turns till end: ' + + turnCount
+    } else{
+      turnCountText = 'Turns till end: ' + + turnCount
+    }
+    scoreBox.innerHTML = ''
+    scoreBox.appendChild(MemoryComponent.drawScoreParagraph(scoreCountText))
+    scoreBox.appendChild(MemoryComponent.drawScoreParagraph(turnCountText))
+  }
 
   drawCards(container: any) {
     const revers = MemoryComponent.cards[0].revers;
@@ -163,7 +188,7 @@ export class MemoryComponent implements OnInit {
     return deck;
   }
 
-  static isCardInPlay(index:number): boolean{
+  static isCardInPlay(index: number): boolean {
     const card = document.getElementById('c' + index)
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
@@ -183,11 +208,11 @@ export class MemoryComponent implements OnInit {
   static reactOnRevealedCard(index: number, cards: Card[]) {
     //lock the game in case one card is already visible
     MemoryComponent.gameState.lock = true
-    if (!MemoryComponent.isCardInPlay(index)){
+    if (!MemoryComponent.isCardInPlay(index)) {
       MemoryComponent.unlockGame();
       return;
     }
-    
+
     let isAnyCardRevealed = MemoryComponent.gameState.oneVisible === false
     if (isAnyCardRevealed) {
       MemoryComponent.gameState.visibleNr = index
@@ -205,6 +230,8 @@ export class MemoryComponent implements OnInit {
 
     let isPair = cards[MemoryComponent.gameState.visibleNr].face === cards[index].face
     if (isPair) {
+      // bonus turn for revealing card
+      MemoryComponent.maxTurnCount++;
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
       }, 750);
@@ -217,25 +244,22 @@ export class MemoryComponent implements OnInit {
     }
 
     MemoryComponent.gameState.turnCounter++
-    
-    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
+    MemoryComponent.updateScore(MemoryComponent.gameState.turnCounter, isPair)
 
     let isTurnCounterEqualThanMaxTurnCount = MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount
     let isGameOver = isTurnCounterEqualThanMaxTurnCount && !isPair && MemoryComponent.gameState.pairsLeft > 0
     if (isGameOver) {
-      setTimeout(function(){
+      setTimeout(function () {
         MemoryComponent.endGame();
       }, 500)
     }
   }
+
   static unlockGame() {
     MemoryComponent.gameState.lock = false;
   }
 
   static hide2Cards(first: number, second: number) {
-    // bonus turn for revealing card
-    MemoryComponent.maxTurnCount++;
-    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
     document.getElementById('c' + first).style.opacity = '0'
     document.getElementById('c' + second).style.opacity = '0'
 
@@ -360,13 +384,22 @@ export class MemoryComponent implements OnInit {
     return imageBox;
   }
 
+  static createBonusAlert(containerId: string){
+    let parentEl = document.getElementById(containerId)
+    let bonusAlertBox = document.createElement('p')
+    bonusAlertBox.style.marginLeft = 'auto'
+    bonusAlertBox.style.marginRight = 'auto'
+    bonusAlertBox.innerHTML = 'Bonus turn!'
+    parentEl.appendChild(bonusAlertBox)
+  }
+
   styleCards(cardBox: any) {
     cardBox.style.textAlign = 'center'
     cardBox.style.cursor = 'pointer'
     cardBox.style.filter = 'brightness(80%)'
     cardBox.style.transition = 'all .1s ease-in'
     cardBox.style.marginTop = '20px'
-    cardBox.classList.add('cardBox','col-xs-4', 'col-sm-3')
+    cardBox.classList.add('cardBox', 'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
 }
