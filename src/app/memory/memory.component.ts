@@ -189,6 +189,8 @@ export class MemoryComponent implements OnInit {
     }
 
     if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
+      MemoryComponent.maxTurnCount++;
+      document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
       }, 800);
@@ -215,8 +217,6 @@ export class MemoryComponent implements OnInit {
 
   static hide2Cards(first: number, second: number) {
     // bonus turn for revealing card
-    MemoryComponent.maxTurnCount++;
-    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
     document.getElementById('c' + first).style.opacity = '0'
     document.getElementById('c' + second).style.opacity = '0'
 
