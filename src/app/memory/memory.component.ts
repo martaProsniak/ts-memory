@@ -54,6 +54,10 @@ export class MemoryComponent implements OnInit {
     this.startNewGame(MemoryComponent.currentDeck)
   }
 
+  setMaxTurnCount(){
+    MemoryComponent.maxTurnCount = 10;
+  }
+
   drawBoard() {
     let board = document.getElementById('board')
     // clear board before starting a new game
@@ -110,10 +114,6 @@ export class MemoryComponent implements OnInit {
 
       return cardImage;
     }
-  }
-
-  setMaxTurnCount(){
-    MemoryComponent.maxTurnCount = 10;
   }
 
   startNewGame(cards: Card[]) {
@@ -285,7 +285,7 @@ export class MemoryComponent implements OnInit {
     //set new message
     alertBoxText.innerHTML = MemoryComponent.chooseMessageAfterGame(result, bestScore)
 
-    alertBox.style.width = '80%'
+    alertBox.style.width = '75%'
     alertBox.style.height = boardHeight
     alertBox.style.position = 'relative'
     alertBox.style.marginLeft = 'auto'
@@ -364,8 +364,7 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(80%)'
     cardBox.style.transition = 'all .1s ease-in'
     cardBox.style.marginTop = '20px'
-    cardBox.classList.add('cardBox',
-      'col-xs-4', 'col-sm-3')
+    cardBox.classList.add('cardBox','col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
 }

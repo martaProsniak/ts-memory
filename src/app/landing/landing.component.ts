@@ -14,7 +14,7 @@ export class LandingComponent implements OnInit {
       "Suddenly... He was attacked by the aliens!", "Now he must rush through their attack line and escape...",
       "He must shoot two the same targets at once to break one line.", "Would you help him?"]
   tickDuration: number = 10
-  static boardFinalPosition: number = 150
+  static introFinalPosition: number = 150
   static interval;
 
   constructor(private router: Router) { }
@@ -39,7 +39,7 @@ export class LandingComponent implements OnInit {
     const time = tickDuration / 1000
     let introCurrentPosition = intro.offsetTop;
 
-    if (introCurrentPosition <= LandingComponent.boardFinalPosition) {
+    if (introCurrentPosition <= LandingComponent.introFinalPosition) {
       intro.style.top = introCurrentPosition + 'px'
       clearInterval(LandingComponent.interval)
       return
@@ -47,9 +47,7 @@ export class LandingComponent implements OnInit {
 
     let introNewPosition = introCurrentPosition - speed * time + ((time * time) / 2)
     intro.style.top = introNewPosition + 'px'
-
   }
-
 
   prepareIntro() {
     const intro = document.getElementById('intro')
@@ -110,7 +108,7 @@ export class LandingComponent implements OnInit {
   static skipIntro() {
     const intro = document.getElementById('intro')
     intro.style.transition = 'all 0.5s ease-in'
-    intro.style.top = LandingComponent.boardFinalPosition + 'px'
+    intro.style.top = LandingComponent.introFinalPosition + 'px'
     clearInterval(LandingComponent.interval)
   }
 
