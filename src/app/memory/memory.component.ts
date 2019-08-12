@@ -73,8 +73,9 @@ export class MemoryComponent implements OnInit {
     scoreBox.setAttribute('id', 'score')
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
-    scoreBox.style.marginTop = '2%'
+    scoreBox.style.marginTop = '10px'
     scoreBox.style.color = '#93efff'
+    scoreBox.style.transition = 'all 0.2s ease-in'
 
     scoreBox.appendChild(MemoryComponent.drawScoreParagraph(scoreCounter))
     scoreBox.appendChild(MemoryComponent.drawScoreParagraph(turnCounter))
@@ -83,9 +84,9 @@ export class MemoryComponent implements OnInit {
 
   static drawScoreParagraph(message: string) {
     let paragraph = document.createElement('p')
-    paragraph.style.marginTop = '2%'
-    paragraph.style.marginBottom = '2%'
-    paragraph.style.fontSize = '0.7em;'
+    paragraph.style.marginTop = '5px'
+    paragraph.style.marginBottom = '5px'
+    paragraph.style.fontSize = '0.7em'
     paragraph.style.letterSpacing = '0.1em'
     paragraph.innerHTML = message
     return paragraph;
@@ -382,15 +383,6 @@ export class MemoryComponent implements OnInit {
 
     imageBox.appendChild(heroImg)
     return imageBox;
-  }
-
-  static createBonusAlert(containerId: string){
-    let parentEl = document.getElementById(containerId)
-    let bonusAlertBox = document.createElement('p')
-    bonusAlertBox.style.marginLeft = 'auto'
-    bonusAlertBox.style.marginRight = 'auto'
-    bonusAlertBox.innerHTML = 'Bonus turn!'
-    parentEl.appendChild(bonusAlertBox)
   }
 
   styleCards(cardBox: any) {
