@@ -16,7 +16,7 @@ export class MemoryComponent implements OnInit {
   static currentDeck: Card[];
   static song: any
   static isMusicOn: boolean = true;
-  static maxTurnCount: number = 7;
+  static maxTurnCount: number
   static gameState: GameState
   static bestScore: number = 0;
 
@@ -46,6 +46,7 @@ export class MemoryComponent implements OnInit {
   }
 
   start() {
+    this.setMaxTurnCount()
     this.drawBoard()
     this.resetMusic()
     MemoryComponent.currentDeck = this.shuffleCards(MemoryComponent.cards)
@@ -111,8 +112,13 @@ export class MemoryComponent implements OnInit {
     }
   }
 
+  setMaxTurnCount(){
+    MemoryComponent.maxTurnCount = 10;
+  }
+
   startNewGame(cards: Card[]) {
     this.resetMusic()
+    this.setMaxTurnCount()
     cards.forEach((card, index) => {
       document.getElementById('c' + index).addEventListener(
         'click', function () { MemoryComponent.revealCard(index); }
@@ -255,6 +261,7 @@ export class MemoryComponent implements OnInit {
     let gameResult = this.gameState.turnCounter < MemoryComponent.maxTurnCount
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
+
     }
     this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
@@ -357,7 +364,7 @@ export class MemoryComponent implements OnInit {
     cardBox.style.filter = 'brightness(80%)'
     cardBox.style.transition = 'all .1s ease-in'
     cardBox.style.marginTop = '20px'
-    cardBox.classList.add('cardBox', 'shake-little', 'shake-constant', 'shake-constant--hover',
+    cardBox.classList.add('cardBox',
       'col-xs-4', 'col-sm-3')
     cardBox.style.background = 'transparent'
   }
