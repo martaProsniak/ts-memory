@@ -13,6 +13,7 @@ export class MemoryComponent implements OnInit {
 
   content: Memory
   static cards: Card[];
+  static currentDeck: Card[];
   static song: any
   static isMusicOn: boolean = true;
   static maxTurnCount: number = 7;
@@ -47,8 +48,9 @@ export class MemoryComponent implements OnInit {
   start() {
     this.drawBoard()
     this.resetMusic()
+    MemoryComponent.currentDeck = this.shuffleCards(MemoryComponent.cards)
     MemoryComponent.gameState = new GameState()
-    this.startNewGame(this.shuffleCards(MemoryComponent.cards))
+    this.startNewGame(MemoryComponent.currentDeck)
   }
 
   drawBoard() {
@@ -111,9 +113,9 @@ export class MemoryComponent implements OnInit {
 
   startNewGame(cards: Card[]) {
     this.resetMusic()
-    cards.forEach((card, index, Array) => {
+    cards.forEach((card, index) => {
       document.getElementById('c' + index).addEventListener(
-        'click', function () { MemoryComponent.revealCard(index, Array); }
+        'click', function () { MemoryComponent.revealCard(index); }
       )
     });
   }
@@ -154,27 +156,31 @@ export class MemoryComponent implements OnInit {
     return deck;
   }
 
-  static revealCard(index: number, array: Card[]) {
+  static isCardInPlay(index:number): boolean{
     const card = document.getElementById('c' + index)
-    const cardImage = document.getElementById('img' + index)
-    let cards = array
     let cardStyle = getComputedStyle(card);
     let opacityValue = parseInt(cardStyle['opacity'])
+    return opacityValue > 0;
+  }
 
-    if (opacityValue != 0 && MemoryComponent.gameState.lock == false) {
+  static revealCard(index: number) {
+    const cardImage = document.getElementById('img' + index)
+    if (MemoryComponent.isCardInPlay(index) && MemoryComponent.gameState.lock == false) {
       //change card image to face
-      let image = cards[index].face
+      let image = MemoryComponent.currentDeck[index].face
       cardImage.setAttribute('src', image)
     }
-
-    MemoryComponent.reactOnRevealedCard(index, cards)
+    MemoryComponent.reactOnRevealedCard(index, MemoryComponent.currentDeck)
   }
 
   static reactOnRevealedCard(index: number, cards: Card[]) {
     //lock the game in case one card is already visible
     MemoryComponent.gameState.lock = true
+    if (!MemoryComponent.isCardInPlay(index)){
+      return;
+    }
     
-    let isAnyCardRevealed = MemoryComponent.gameState.oneVisible == false
+    let isAnyCardRevealed = MemoryComponent.gameState.oneVisible === false
     if (isAnyCardRevealed) {
       MemoryComponent.gameState.visibleNr = index
       MemoryComponent.gameState.oneVisible = true
@@ -182,14 +188,14 @@ export class MemoryComponent implements OnInit {
     }
 
     // check if the most recently revealed card is the same as the visible one
-    let isRevealedCardClickedAgain = MemoryComponent.gameState.visibleNr == index
+    let isRevealedCardClickedAgain = MemoryComponent.gameState.visibleNr === index
     if (isRevealedCardClickedAgain) {
       MemoryComponent.gameState.oneVisible = true;
       MemoryComponent.unlockGame();
       return;
     }
 
-    let isPair = cards[MemoryComponent.gameState.visibleNr].face == cards[index].face
+    let isPair = cards[MemoryComponent.gameState.visibleNr].face === cards[index].face
     if (isPair) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
@@ -209,10 +215,11 @@ export class MemoryComponent implements OnInit {
     let isTurnCounterEqualThanMaxTurnCount = MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount
     let isGameOver = isTurnCounterEqualThanMaxTurnCount && !isPair && MemoryComponent.gameState.pairsLeft > 0
     if (isGameOver) {
-      MemoryComponent.endGame();
+      setTimeout(function(){
+        MemoryComponent.endGame();
+      }, 500)
     }
   }
-
   static unlockGame() {
     MemoryComponent.gameState.lock = false;
   }
@@ -246,11 +253,9 @@ export class MemoryComponent implements OnInit {
 
   static endGame() {
     let gameResult = this.gameState.turnCounter < MemoryComponent.maxTurnCount
-
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
     }
-    MemoryComponent.maxTurnCount = this.bestScore
     this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
   }
