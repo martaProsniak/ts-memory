@@ -249,8 +249,8 @@ export class MemoryComponent implements OnInit {
 
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
-      MemoryComponent.maxTurnCount = this.bestScore
     }
+    MemoryComponent.maxTurnCount = this.bestScore
     this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
   }
