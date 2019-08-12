@@ -1,11 +1,8 @@
-<div class="memory-buttonsBox">
-    <button (click)="goToContact()" class='memory-button'>INTRO</button>
-    <button (click)="start()" class='memory-button'>NEW GAME</button>
-    <button (click)="controlMusic()" class='memory-button memory-button--music'>MUSIC: ON</button>
-</div>
 <section class="container">
-    <div class="gameContainer__boardWrapper">
-        <div class="gameContainer__board row" id="board">
-        </div>
+    <div class="buttons-container memory-style-theme">
+        <button (click)="start()" class='button button--new-game'>New game</button>
+        <button (click)="controlMusic()" class="button button--music">Music: on</button>
+    </div>
+    <div class="gameContainer__board row memory-style-theme" id="board">
     </div>
 </section>

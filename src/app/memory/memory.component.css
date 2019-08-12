@@ -1,9 +1,31 @@
+
 .container{
     width: 100%;
-    min-height: 400px;
     color: white;
     text-align: center;
-    
+}
+
+.memory-style-theme{
+    -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
+    -moz-box-shadow: 1px 1px 10px 0px #217a8a;
+    box-shadow: 1px 1px 10px 0px #217a8a;
+    border: 1px rgb(44, 44, 44) solid;
+    border-radius: 10px;
+    background: #050505;
+    transition: all 0.2s ease-in;
+    padding: 5px;
+}
+
+.buttons-container{
+    width: 90%;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    top: 130px;
 }
 
 .gameContainer__board{
@@ -15,78 +37,51 @@
     justify-content: space-between;
     flex-wrap: row wrap;
     position: relative;
-    top: 100px;
+    top: 150px;
 }
 
 @media(min-width:375px){
-    .gameContainer__board{
+    .gameContainer__board, .buttons-container{
         width: 290px;
     }
 }
 
 @media(min-width:768px){
-    .gameContainer__board{
+    .gameContainer__board, .buttons-container{
         width: 70%;
     }
 }
 
 @media(min-width:950px){
-    .gameContainer__board{
+    .gameContainer__board, .buttons-container{
         width: 55%;
     }
 }
 
 @media(min-width:1200px){
-    .gameContainer__board{
+    .gameContainer__board, .buttons-container{
         width: 42%;
     }
 }
 
-.memory-buttonsBox{
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 75px;
-    -webkit-box-shadow: 1px 1px 10px 0px #2faac0;
-    -moz-box-shadow: 1px 1px 10px 0px #2faac0;
-    box-shadow: 1px 1px 10px 0px #2faac0;
-    border: 1px rgb(44, 44, 44) solid;
-    border-radius: 10px;
-    background: #161616;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
-.memory-button{
-    height: 40px;
-    width: 150px;
+.button{
+    margin: 1%;
+    width: 90px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 60%;
+    font-size: 0.6em;
     letter-spacing: 0.2em;
     color: white;
-    background: #029fbebd;
+    background: #217a8a;
     transition: all 0.3s ease-in-out;
-    margin-left: 2%;
-    margin-right: 2%;
-    -webkit-box-shadow: 1px 1px 5px 0px #464646de;
-    -moz-box-shadow: 1px 1px 5px 0px #464646de;
-    box-shadow: 1px 1px 5px 0px #464646de;
+    -webkit-box-shadow: 1px 1px 5px 0px #217a8a;
+    -moz-box-shadow: 1px 1px 5px 0px #217a8a;
+    box-shadow: 1px 1px 5px 0px #217a8a;
     border: 1px #1a1a1a solid;
     border-radius: 5px;
 }
 
-.memory-button:hover{
+.button:hover{
     background: #db3c37d3;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.memory-button:focus{
-    background: #017e97bd;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
