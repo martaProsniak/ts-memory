@@ -1,10 +1,8 @@
 <section class="container">
-    <div class="buttons-container">
-        <button (click)="start()">New game</button>
-        <button>Music</button>
+    <div class="buttons-container memory-style-theme">
+        <button (click)="start()" class='button button--new-game'>New game</button>
+        <button (click)="controlMusic()" class="button button--music">Music: on</button>
     </div>
-    <div class="gameContainer__boardWrapper">
-        <div class="gameContainer__board row" id="board">
-        </div>
+    <div class="gameContainer__board row memory-style-theme" id="board">
     </div>
 </section>

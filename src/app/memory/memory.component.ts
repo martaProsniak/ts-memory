@@ -14,19 +14,19 @@ export class MemoryComponent implements OnInit {
   content: Memory
   static cards: Card[];
   static song: any
-  static isMusicOn: boolean = false;
+  static isMusicOn: boolean = true;
   static maxTurnCount: number = 10;
   static gameState: GameState
   static bestScore: number = 0;
 
   constructor(private router: Router) {
     this.content = require('../../assets/memory.json');
-    MemoryComponent.song = new Audio()
-    MemoryComponent.song.src = '../../assets/song.wav'
   }
 
   ngOnInit() {
     MemoryComponent.cards = this.loadCards();
+    MemoryComponent.song = new Audio()
+    MemoryComponent.song.src = '../../assets/song.wav'
     this.start()
   }
 
@@ -46,6 +46,7 @@ export class MemoryComponent implements OnInit {
 
   start() {
     this.drawBoard()
+    this.resetMusic()
     MemoryComponent.gameState = new GameState()
     this.startNewGame(this.shuffleCards(MemoryComponent.cards))
   }
@@ -125,15 +126,14 @@ export class MemoryComponent implements OnInit {
   controlMusic() {
     let target = event.target as HTMLButtonElement
     if (MemoryComponent.isMusicOn) {
-      MemoryComponent.song.pause()
-      MemoryComponent.song.currentTime = 0
+      this.resetMusic();
       MemoryComponent.isMusicOn = false;
-      target.innerHTML = 'MUSIC: OFF'
+      target.innerHTML = 'Music: off'
     } else {
       MemoryComponent.isMusicOn = true;
-      target.innerHTML = 'MUSIC: ON'
+      target.innerHTML = 'Music: on'
     }
-
+    console.log(MemoryComponent.song, MemoryComponent.isMusicOn)
   }
 
   shuffleCards(deck: Card[]): Card[] {
@@ -171,7 +171,7 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.reactOnRevealedCard(index, cards)
   }
 
-  static reactOnRevealedCard(index: number, cards: Card[]){
+  static reactOnRevealedCard(index: number, cards: Card[]) {
     //lock the game in case one card is already visible
     MemoryComponent.gameState.lock = true
 
@@ -190,7 +190,7 @@ export class MemoryComponent implements OnInit {
 
     if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
       setTimeout(function () {
-        MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr)
+        MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
       }, 800);
     }
     else {
@@ -200,19 +200,23 @@ export class MemoryComponent implements OnInit {
       }, 800);
     }
 
+    MemoryComponent.gameState.turnCounter++
+
     if (MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount) {
       MemoryComponent.endGame();
     }
-    
-    MemoryComponent.gameState.turnCounter++
+
     document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
-  static unlockGame(){
+  static unlockGame() {
     MemoryComponent.gameState.lock = false;
   }
 
   static hide2Cards(first: number, second: number) {
+    // bonus turn for revealing card
+    MemoryComponent.maxTurnCount++;
+    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
     document.getElementById('c' + first).style.opacity = '0'
     document.getElementById('c' + second).style.opacity = '0'
 
@@ -222,9 +226,6 @@ export class MemoryComponent implements OnInit {
     }
     MemoryComponent.gameState.oneVisible = false
     MemoryComponent.unlockGame();
-    // bonus turn for revealing card
-    MemoryComponent.maxTurnCount++;
-    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static restore2Cards(first: number, second: number) {
@@ -236,7 +237,7 @@ export class MemoryComponent implements OnInit {
     });
 
     MemoryComponent.gameState.oneVisible = false
-    MemoryComponent.gameState.lock = false;
+    MemoryComponent.unlockGame()
   }
 
   static endGame() {
@@ -248,11 +249,8 @@ export class MemoryComponent implements OnInit {
     MemoryComponent.playSong(gameResult)
   }
 
-  static playSong(gameResult: boolean){
-    if (!MemoryComponent.isMusicOn){
-      return;
-    }
-    if (gameResult){
+  static playSong(gameResult: boolean) {
+    if (MemoryComponent.isMusicOn && gameResult) {
       MemoryComponent.song.play();
     }
   }
@@ -268,7 +266,7 @@ export class MemoryComponent implements OnInit {
     board.innerHTML = ''
     //set new message
     alertBoxText.innerHTML = MemoryComponent.chooseMessageAfterGame(result, bestScore)
-    
+
     alertBox.style.width = '80%'
     alertBox.style.height = boardHeight
     alertBox.style.position = 'relative'
@@ -282,12 +280,12 @@ export class MemoryComponent implements OnInit {
     alertBoxWrapper.style.width = '100%'
     alertBoxWrapper.style.backgroundColor = 'transparent'
     alertBoxWrapper.style.textAlign = 'center'
-    
+
     alertBoxText.style.marginBottom = '2%'
     alertBoxText.style.width = '100%'
     alertBoxText.style.height = '100%'
     const screenMd = 768
-    if(window.screen.width >= screenMd){
+    if (window.screen.width >= screenMd) {
       alertBox.style.fontSize = '22px'
     } else {
       alertBox.style.fontSize = '14px'
@@ -298,11 +296,11 @@ export class MemoryComponent implements OnInit {
     alertBoxWrapper.appendChild(MemoryComponent.displayImage(MemoryComponent.chooseImageAfterGame(result)))
     alertBoxWrapper.appendChild(alertBoxText)
   }
-  
 
-  static chooseMessageAfterGame(result: boolean, bestScore: number): string{
+
+  static chooseMessageAfterGame(result: boolean, bestScore: number): string {
     let message: string;
-    if(result){
+    if (result) {
       message = '<p>Congratulations!</p><p>You\'ve successfully turned on the autopilot in ' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>The astronaut is back home</p><p>Your best score so far is: ' + bestScore + '</p>'
     } else {
       message = '<p>Oh no! You\'ve crashed escaping the aliens!</p><p>I\'s miracle you\'ve survived</p><p>Fortunately you\'ve landed in the lake on some awesome planet</p><p>Some short green gnome helped you repair the ship and you\'re ready to try again.'
@@ -310,9 +308,9 @@ export class MemoryComponent implements OnInit {
     return message;
   }
 
-  static chooseImageAfterGame(result: boolean): string{
+  static chooseImageAfterGame(result: boolean): string {
     let imgSource: string;
-    if(result){
+    if (result) {
       imgSource = '../../assets/img/flag.png'
     } else {
       imgSource = '../../assets/img/alien.png'
@@ -320,15 +318,15 @@ export class MemoryComponent implements OnInit {
     return imgSource;
   }
 
-  static displayImage(source: string){
+  static displayImage(source: string) {
     const heroImg = document.createElement('img')
     const imageBox = document.createElement('div')
     const screenMd = 768
-      if(window.screen.width > screenMd){
-        imageBox.style.width = '75px'
-      } else {
-        imageBox.style.width = '50px'
-      }
+    if (window.screen.width > screenMd) {
+      imageBox.style.width = '75px'
+    } else {
+      imageBox.style.width = '50px'
+    }
     imageBox.style.height = 'auto'
     imageBox.style.marginRight = 'auto'
     imageBox.style.marginLeft = 'auto'
@@ -337,7 +335,7 @@ export class MemoryComponent implements OnInit {
     heroImg.setAttribute('src', source)
     heroImg.style.width = '100%'
     heroImg.style.height = '100%'
-    
+
     imageBox.appendChild(heroImg)
     return imageBox;
   }
