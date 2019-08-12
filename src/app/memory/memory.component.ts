@@ -15,7 +15,7 @@ export class MemoryComponent implements OnInit {
   static cards: Card[];
   static song: any
   static isMusicOn: boolean = true;
-  static maxTurnCount: number = 15;
+  static maxTurnCount: number = 7;
   static gameState: GameState
   static bestScore: number = 0;
 
@@ -65,7 +65,7 @@ export class MemoryComponent implements OnInit {
     scoreBox.style.marginLeft = 'auto'
     scoreBox.style.marginRight = 'auto'
     scoreBox.style.marginTop = '30px'
-    scoreBox.innerHTML = 'Turns till end: 10'
+    scoreBox.innerHTML = 'Turns till end: '+ + MemoryComponent.maxTurnCount
     scoreBox.style.fontSize = '24px;'
     scoreBox.style.letterSpacing = '0.1em'
     scoreBox.style.color = '#93efff'
@@ -133,7 +133,6 @@ export class MemoryComponent implements OnInit {
       MemoryComponent.isMusicOn = true;
       target.innerHTML = 'Music: on'
     }
-    console.log(MemoryComponent.song, MemoryComponent.isMusicOn)
   }
 
   shuffleCards(deck: Card[]): Card[] {
@@ -174,23 +173,24 @@ export class MemoryComponent implements OnInit {
   static reactOnRevealedCard(index: number, cards: Card[]) {
     //lock the game in case one card is already visible
     MemoryComponent.gameState.lock = true
-
-    // if no card was visible -> unlock game and check visible card
-    if (MemoryComponent.gameState.oneVisible == false) {
+    
+    let isAnyCardRevealed = MemoryComponent.gameState.oneVisible == false
+    if (isAnyCardRevealed) {
       MemoryComponent.gameState.visibleNr = index
       MemoryComponent.gameState.oneVisible = true
       MemoryComponent.unlockGame();
     }
+
     // check if the most recently revealed card is the same as the visible one
-    if (MemoryComponent.gameState.visibleNr == index) {
+    let isRevealedCardClickedAgain = MemoryComponent.gameState.visibleNr == index
+    if (isRevealedCardClickedAgain) {
       MemoryComponent.gameState.oneVisible = true;
       MemoryComponent.unlockGame();
       return;
     }
 
-    if (cards[MemoryComponent.gameState.visibleNr].face == cards[index].face) {
-      MemoryComponent.maxTurnCount++;
-      document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
+    let isPair = cards[MemoryComponent.gameState.visibleNr].face == cards[index].face
+    if (isPair) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
       }, 800);
@@ -203,12 +203,14 @@ export class MemoryComponent implements OnInit {
     }
 
     MemoryComponent.gameState.turnCounter++
+    
+    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
 
-    if (MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount) {
+    let isTurnCounterEqualThanMaxTurnCount = MemoryComponent.gameState.turnCounter === MemoryComponent.maxTurnCount
+    let isGameOver = isTurnCounterEqualThanMaxTurnCount && !isPair && MemoryComponent.gameState.pairsLeft > 0
+    if (isGameOver) {
       MemoryComponent.endGame();
     }
-
-    document.getElementById('score').innerHTML = 'Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
   }
 
   static unlockGame() {
@@ -217,11 +219,13 @@ export class MemoryComponent implements OnInit {
 
   static hide2Cards(first: number, second: number) {
     // bonus turn for revealing card
+    MemoryComponent.maxTurnCount++;
+    document.getElementById('score').innerHTML = 'Bonus turn! Turns till end: ' + (MemoryComponent.maxTurnCount - MemoryComponent.gameState.turnCounter)
     document.getElementById('c' + first).style.opacity = '0'
     document.getElementById('c' + second).style.opacity = '0'
 
     MemoryComponent.gameState.pairsLeft--;
-    if (MemoryComponent.gameState.pairsLeft == 0) {
+    if (MemoryComponent.gameState.pairsLeft === 0) {
       MemoryComponent.endGame()
     }
     MemoryComponent.gameState.oneVisible = false
@@ -241,11 +245,12 @@ export class MemoryComponent implements OnInit {
   }
 
   static endGame() {
+    let gameResult = this.gameState.turnCounter < MemoryComponent.maxTurnCount
+
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
-      MemoryComponent.maxTurnCount--
+      MemoryComponent.maxTurnCount = this.bestScore
     }
-    let gameResult = this.gameState.turnCounter < this.maxTurnCount
     this.displayAlert(gameResult, this.bestScore);
     MemoryComponent.playSong(gameResult)
   }
