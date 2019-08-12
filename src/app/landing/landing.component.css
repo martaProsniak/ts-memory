@@ -3,12 +3,13 @@
     height: 800px;
     position: absolute;
     top: 100px;
-
 }
 
 #intro{
     width: 90%;
     text-align: center;
+    color: #dbe1ec;
+    letter-spacing: 0.1em;
 }
 
 

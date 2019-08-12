@@ -11,8 +11,8 @@ export class LandingComponent implements OnInit {
 
   textsToDisplay: string[] =
     ["A long time ago in a galaxy far far away...", "A young, brave adventurer started his cosmic journey...",
-      "Unfortunately... he lost his way!", "Now he must crack the password by matching all pairs to turn on the autopilot...",
-      "...everything's shaking and the aliens are following him!", "Would you help him?"]
+      "Suddenly... He was attacked by the aliens!", "Now he must rush through their attack line and escape...",
+      "He must shoot two the same targets at once to break one line.", "Would you help him?"]
   tickDuration: number = 10
   static boardFinalPosition: number = 150
   static interval;
@@ -66,20 +66,11 @@ export class LandingComponent implements OnInit {
 
     function displayText(sentence: string) {
       const textBox = document.createElement('h3')
-      const screenSm = 375
-      const screenMd = 768
-      let screenWidth = window.screen.width;
 
       textBox.innerHTML = sentence
       textBox.style.textAlign = 'center'
       textBox.style.marginBottom = '10px'
-      if (screenWidth <= screenSm) {
-        textBox.style.fontSize = '14px'
-      } else if (screenWidth <= screenMd) {
-        textBox.style.fontSize = '16px'
-      } else {
-        textBox.style.fontSize = '22px'
-      }
+      textBox.style.fontSize = '0.9em'
 
       intro.appendChild(textBox);
     }
