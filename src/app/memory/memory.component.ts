@@ -102,6 +102,7 @@ export class MemoryComponent implements OnInit {
       cardImage.style.objectFit = 'cover'
       cardImage.style.border = '1px black solid'
       cardImage.style.borderRadius = '50%'
+      cardImage.style.transition = 'all 0.2s ease-in-out'
       cardImage.className = 'cardImage'
 
       cardImage.addEventListener('mouseover', function () {
@@ -120,7 +121,7 @@ export class MemoryComponent implements OnInit {
     this.resetMusic()
     this.setMaxTurnCount()
     cards.forEach((card, index) => {
-      document.getElementById('c' + index).addEventListener(
+      document.getElementById('img' + index).addEventListener(
         'click', function () { MemoryComponent.revealCard(index); }
       )
     });
@@ -183,6 +184,7 @@ export class MemoryComponent implements OnInit {
     //lock the game in case one card is already visible
     MemoryComponent.gameState.lock = true
     if (!MemoryComponent.isCardInPlay(index)){
+      MemoryComponent.unlockGame();
       return;
     }
     
@@ -205,13 +207,13 @@ export class MemoryComponent implements OnInit {
     if (isPair) {
       setTimeout(function () {
         MemoryComponent.hide2Cards(index, MemoryComponent.gameState.visibleNr);
-      }, 800);
+      }, 750);
     }
     else {
       // fail
       setTimeout(function () {
         MemoryComponent.restore2Cards(index, MemoryComponent.gameState.visibleNr)
-      }, 800);
+      }, 750);
     }
 
     MemoryComponent.gameState.turnCounter++
