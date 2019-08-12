@@ -15,7 +15,7 @@ export class MemoryComponent implements OnInit {
   static cards: Card[];
   static song: any
   static isMusicOn: boolean = true;
-  static maxTurnCount: number = 10;
+  static maxTurnCount: number = 15;
   static gameState: GameState
   static bestScore: number = 0;
 
@@ -243,6 +243,7 @@ export class MemoryComponent implements OnInit {
   static endGame() {
     if (this.bestScore === 0 || this.bestScore > this.gameState.turnCounter) {
       this.bestScore = this.gameState.turnCounter
+      MemoryComponent.maxTurnCount--
     }
     let gameResult = this.gameState.turnCounter < this.maxTurnCount
     this.displayAlert(gameResult, this.bestScore);

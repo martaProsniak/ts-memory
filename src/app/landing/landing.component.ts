@@ -30,6 +30,10 @@ export class LandingComponent implements OnInit {
 
   changeIntroPosition() {
     const intro = document.getElementById('intro')
+    if (!intro){
+      clearInterval(LandingComponent.interval)
+      return;
+    }
     const speed = 2000
     const tickDuration = 10
     const time = tickDuration / 1000
