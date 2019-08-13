@@ -21,7 +21,7 @@
     list-style: none;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-content: stretch;
     flex-wrap: wrap;
     padding: 0;
 }
@@ -37,13 +37,14 @@
 
 .menu__game-title{
     width: 100%;
-    font-size: 16px;
-    padding: 1em;;
-    margin: 0;
+    font-size: 0.9rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-bottom: 5px;
     color:#efefef;
     border-bottom: 0.5px dashed #719ae669;
-}
 
+}
 .menu__game-title:hover{
     color:#2faac0;
     transition: all 0.2s ease-in;
@@ -51,7 +52,8 @@
 }
 
 .menu__item{
-    margin: 0;
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: 1%;
     margin-right: 1%;
     width: 90px;
@@ -90,5 +92,24 @@
     font-size: 1em;
     color: #ececec;
     transition: all 0.2s ease-in;
+}
+
+
+@media(min-width:375px){
+    .menu__game-title{
+        font-size: 1rem;
+    }
+}
+
+@media(min-width:425px){
+    .menu__game-title{
+        font-size: 1.3rem;
+    }
+}
+
+@media(min-width:1024px){
+    .menu__game-title{
+        font-size: 1.6rem;
+    }
 }
 

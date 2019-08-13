@@ -346,7 +346,7 @@ export class MemoryComponent implements OnInit {
   static chooseMessageAfterGame(result: boolean, bestScore: number): string {
     let message: string;
     if (result) {
-      message = '<p>Congratulations!</p><p>You\'ve successfully turned on the autopilot in ' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>The astronaut is back home</p><p>Your best score so far is: ' + bestScore + '</p>'
+      message = '<p>Congratulations!</p><p>You\'ve braked through the alien lines in ' + MemoryComponent.gameState.turnCounter + ' turns!</p><p>Thanks to you the astronaut is back home!</p><p>Your best score so far is: ' + bestScore + '</p>'
     } else {
       message = '<p>Oh no! You\'ve crashed escaping the aliens!</p><p>I\'s miracle you\'ve survived</p><p>Fortunately you\'ve landed in the lake on some awesome planet</p><p>Some short green gnome helped you repair the ship and you\'re ready to try again.'
     }

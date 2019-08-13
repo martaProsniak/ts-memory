@@ -68,7 +68,7 @@ export class LandingComponent implements OnInit {
       textBox.innerHTML = sentence
       textBox.style.textAlign = 'center'
       textBox.style.marginBottom = '10px'
-      textBox.style.fontSize = '0.9em'
+      textBox.style.fontSize = '1em'
 
       intro.appendChild(textBox);
     }
