@@ -7,6 +7,8 @@ import { MemoryComponent } from './memory/memory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MenuComponent } from './menu/menu.component';
 import { InfoComponent } from './info/info.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { InfoComponent } from './info/info.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
