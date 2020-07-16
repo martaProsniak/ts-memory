@@ -7,34 +7,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  pixelsPerFrame;
 
   ngOnInit() {
-    const container = document.getElementById('event-handler')
-    container.addEventListener('click', function () {
-      const intro = document.getElementById('intro');
-      window.requestAnimationFrame(() => {
-        intro.style.setProperty("transition", 'none');
-      })
-    }, { once: true })
+    this.pixelsPerFrame = 8;
     this.checkIntro();
   }
 
   checkIntro() {
-    let isIntro = false;
+    const maxTopPosition = 150;
+    const intro = document.getElementById('intro');
+    const container = document.getElementById('event-handler');
 
-    startIntro(isIntro);
+    container.addEventListener('click', () => {
+      this.pixelsPerFrame = 20;
+    }, { once: true });
 
-    function startIntro(isIntro: boolean) {
-      if(!isIntro) {
-        isIntro = true;
-        window.requestAnimationFrame(() => {startIntro(isIntro)});
-      } else {
-        const introContainer = document.getElementById('intro');
-        introContainer.style.filter = 'opacity(1)';
-        introContainer.style.transform = 'translateY(0)';
-      }
+    const animateIntro = () => {
+        let currentPosition = intro.offsetTop;
+
+        if (currentPosition <= maxTopPosition) {
+          return;
+        }
+        else {
+          intro.style.top = `${currentPosition - this.pixelsPerFrame}px`;
+          window.requestAnimationFrame(animateIntro);
+        }
     }
+
+    animateIntro();
   }
 }

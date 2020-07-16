@@ -12,13 +12,9 @@
     color: #dbe1ec;
     letter-spacing: 0.1em;
     position: relative;
-    top: 130px;
+    top: 100vh;
     bottom: 0;
-    transform: translateY(100vh);
-    transition: transform 5s linear;
-    filter: opacity(0);
 }
-
 
 .imgBox {
   width: 50px;
