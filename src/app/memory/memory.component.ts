@@ -369,10 +369,11 @@ export class MemoryComponent implements OnInit {
     const screenMd = 768
     if (window.screen.width > screenMd) {
       imageBox.style.width = '75px'
+      imageBox.style.height = '75px'
     } else {
       imageBox.style.width = '50px'
+      imageBox.style.height = '50px'
     }
-    imageBox.style.height = 'auto'
     imageBox.style.marginRight = 'auto'
     imageBox.style.marginLeft = 'auto'
     imageBox.style.padding = '0'
