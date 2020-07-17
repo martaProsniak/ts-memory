@@ -42,8 +42,6 @@ export class LandingComponent implements OnInit {
   }
 
   animate = () => {
-    console.log(this.startingPosition, this.globalId);
-
     if (!!!this.startingPosition) {
       this.globalId = window.requestAnimationFrame(() => this.animate());
     } else if (this.startingPosition >= this.maxHeight) {
