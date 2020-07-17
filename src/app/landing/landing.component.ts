@@ -1,40 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: "app-landing",
+  templateUrl: "./landing.component.html",
+  styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-  pixelsPerFrame;
+  intro;
+  maxHeight = 140;
+  startingPosition;
+  pixelsPerFrame = 2;
+  globalId = null;
 
   ngOnInit() {
-    this.pixelsPerFrame = 8;
-    this.checkIntro();
+    this.setStartData();
+    let container = document.getElementById("event-handler");
+    container.addEventListener(
+      "click",
+      () => {
+        this.pixelsPerFrame = 20;
+      },
+      { once: true }
+    );
+    this.globalId = window.requestAnimationFrame(() => this.animate());
   }
 
-  checkIntro() {
-    const maxTopPosition = 150;
-    const intro = document.getElementById('intro');
-    const container = document.getElementById('event-handler');
+  ngOnDestroy() {
+    this.cancelAnimation();
+  }
 
-    container.addEventListener('click', () => {
-      this.pixelsPerFrame = 20;
-    }, { once: true });
-
-    const animateIntro = () => {
-        let currentPosition = intro.offsetTop;
-
-        if (currentPosition <= maxTopPosition) {
-          return;
-        }
-        else {
-          intro.style.top = `${currentPosition - this.pixelsPerFrame}px`;
-          window.requestAnimationFrame(animateIntro);
-        }
+  cancelAnimation() {
+    if (!!this.globalId) {
+      cancelAnimationFrame(this.globalId);
     }
-
-    animateIntro();
   }
+
+  setStartData() {
+    this.intro = document.getElementById("intro");
+    this.startingPosition = this.intro.offsetTop;
+    this.intro.style.top = `${this.startingPosition}px`;
+  }
+
+  animate = () => {
+    console.log(this.startingPosition, this.globalId);
+
+    if (!!!this.startingPosition) {
+      this.globalId = window.requestAnimationFrame(() => this.animate());
+    } else if (this.startingPosition >= this.maxHeight) {
+      this.startingPosition = this.startingPosition - this.pixelsPerFrame;
+      this.intro.style.top = `${this.startingPosition}px`;
+      this.globalId = window.requestAnimationFrame(() => this.animate());
+    } else {
+      this.cancelAnimation();
+    }
+  };
 }
