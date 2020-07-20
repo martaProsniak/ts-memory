@@ -12,6 +12,7 @@ export class GameComponent implements OnInit {
   cardBack: string = '../../assets/img/alien.png';
   gameState: GameState;
   bestScore: number;
+  hiddenClass: string = 'card--matched';
 
   constructor() {
     this.cards = this.shuffleCards(new Cards().cards);
@@ -30,9 +31,7 @@ export class GameComponent implements OnInit {
 
     // For each index in deck
     for (let i = 0; i < deck.length; i++) {
-
       const randomChoiceIndex = getRandom(i, deck.length - 1);
-
       // place our random choice in the spot by swapping
       [deck[i], deck[randomChoiceIndex]] = [deck[randomChoiceIndex], deck[i]];
 
@@ -42,12 +41,53 @@ export class GameComponent implements OnInit {
 
   startGame() {
     this.gameState = new GameState();
+    console.log(this.gameState);
 
   }
 
   revealCard(index: number) {
     const card = document.getElementById(`card${index}`);
-    card.style.backgroundImage = `url(${this.cards[index]})`;
+    const cardFace = this.cards[index];
+    card.style.backgroundImage = `url(${cardFace})`;
+
+    if (this.gameState.visibleCardIndex < 0) {
+      this.gameState.visibleCardIndex = index;
+    } else {
+      const cardVisible = document.getElementById(`card${this.gameState.visibleCardIndex}`);
+
+      if (this.cards[this.gameState.visibleCardIndex] === cardFace) {
+        setTimeout(() => {
+          card.classList.add(this.hiddenClass);
+          cardVisible.classList.add(this.hiddenClass);
+          this.gameState.result++;
+          this.gameState.visibleCardIndex = -1;
+          this.gameState.maxTurnCount++;
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          card.style.backgroundImage = `url(${this.cardBack})`;
+          cardVisible.style.backgroundImage = `url(${this.cardBack})`;
+          this.gameState.visibleCardIndex = -1;
+          this.gameState.maxTurnCount--;
+        }, 1000);
+      }
+    }
+  }
+
+  handlePairReveal(isMatch: boolean) {
+
+  }
+
+  handleMatch() {
+
+  }
+
+  handleFail() {
+
+  }
+
+  getCardElement(index: number): HTMLDivElement {
+    return <HTMLDivElement >document.getElementById(`card${index}`);
   }
 
 }
