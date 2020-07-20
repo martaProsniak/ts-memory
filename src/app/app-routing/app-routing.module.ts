@@ -4,14 +4,14 @@ import {RouterModule, Routes} from '@angular/router';
 import { LandingComponent } from '../landing/landing.component';
 import { MemoryComponent } from '../memory/memory.component';
 import { InfoComponent } from '../info/info.component';
+import { GameComponent } from './../game/game.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent},
   { path: 'game', component: MemoryComponent},
+  { path: 'memory', component: GameComponent},
   { path: 'info', component: InfoComponent},
-  { path: '*', redirectTo: '', pathMatch: 'full'}
-   
-  
+  { path: '**', component: LandingComponent}
 ];
 
 @NgModule({

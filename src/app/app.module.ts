@@ -9,6 +9,7 @@ import { MenuComponent } from './menu/menu.component';
 import { InfoComponent } from './info/info.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { environment } from '../environments/environment';
     MemoryComponent,
     LandingComponent,
     MenuComponent,
-    InfoComponent
+    InfoComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

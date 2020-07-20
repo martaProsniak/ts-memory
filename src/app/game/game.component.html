@@ -1,0 +1,9 @@
+<section class="container">
+  <div class="buttons-container memory-style-theme">
+  </div>
+  <div class="board memory-style-theme" id="board">
+    <div *ngFor="let card of cards; index as i" class="cardBox">
+      <div id="card{{i}}" class="card"></div>
+    </div>
+  </div>
+</section>

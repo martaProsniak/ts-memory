@@ -1,0 +1,108 @@
+.container {
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+.memory-style-theme {
+  -webkit-box-shadow: 1px 1px 10px 0px #217a8a;
+  -moz-box-shadow: 1px 1px 10px 0px #217a8a;
+  box-shadow: 1px 1px 10px 0px #217a8a;
+  border: 1px rgb(44, 44, 44) solid;
+  border-radius: 10px;
+  background: #050505;
+  transition: all 0.2s ease-in;
+  padding: 5px;
+}
+
+.buttons-container {
+  width: 90%;
+  max-width: 700px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  top: 135px;
+}
+
+.board {
+  width: 90%;
+  max-width: 700px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+  padding: 5px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  position: relative;
+  top: 150px;
+}
+
+.button {
+  margin: 1%;
+  width: 40%;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+  color: white;
+  background: #217a8a;
+  transition: all 0.3s ease-in-out;
+  -webkit-box-shadow: 1px 1px 5px 0px #217a8a;
+  -moz-box-shadow: 1px 1px 5px 0px #217a8a;
+  box-shadow: 1px 1px 5px 0px #217a8a;
+  border: 1px #1a1a1a solid;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: #2faac0;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  -webkit-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+  -moz-box-shadow: 1px 1px 15px 0px #2d71f0c4;
+  box-shadow: 1px 1px 15px 0px #2d71f0c4;
+}
+
+.card {
+  height: 75px;
+  width: 75px;
+  background-image: url("../../assets/img/alien.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0.5rem auto;
+  transition-property: background-image;
+}
+
+@media screen and (min-width: 426px) {
+  .board, .buttons-container {
+    width: 80%;
+  }
+  .card {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 595px) {
+  .board {
+    grid-template-columns: repeat(4, 25%);
+  }
+  .card {
+    height: 110px;
+    width: 110px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .card {
+    height: 130px;
+    width: 130px;
+    margin: 1rem auto;
+  }
+}

@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 @Component({
   selector: "app-landing",
   templateUrl: "./landing.component.html",
-  styleUrls: ["./landing.component.css", "../../../node_modules/purecss/build/pure-min.css"],
+  styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
   intro;
