@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cards } from './cards';
+import { GameState } from './gameState';
 
 @Component({
   selector: 'app-game',
@@ -9,14 +10,15 @@ import { Cards } from './cards';
 export class GameComponent implements OnInit {
   cards: string[] = [];
   cardBack: string = '../../assets/img/alien.png';
+  gameState: GameState;
+  bestScore: number;
 
   constructor() {
     this.cards = this.shuffleCards(new Cards().cards);
   }
 
   ngOnInit(): void {
-    console.log(this.cards);
-
+    this.startGame();
   }
 
   shuffleCards(deck: string[]): string[] {
@@ -36,6 +38,16 @@ export class GameComponent implements OnInit {
 
     }
     return deck;
+  }
+
+  startGame() {
+    this.gameState = new GameState();
+
+  }
+
+  revealCard(index: number) {
+    const card = document.getElementById(`card${index}`);
+    card.style.backgroundImage = `url(${this.cards[index]})`;
   }
 
 }

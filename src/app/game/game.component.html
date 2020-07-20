@@ -3,7 +3,7 @@
   </div>
   <div class="board memory-style-theme" id="board">
     <div *ngFor="let card of cards; index as i" class="cardBox">
-      <div id="card{{i}}" class="card"></div>
+      <div id="card{{i}}" class="card" (click)="revealCard(i)"></div>
     </div>
   </div>
 </section>
