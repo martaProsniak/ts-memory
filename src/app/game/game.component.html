@@ -2,11 +2,11 @@
   <div class="buttons-container memory-style-theme"></div>
   <div class="game memory-style-theme" >
     <div id="board" class="board">
-      <div *ngFor="let card of cards; index as i" class="cardBox">
+      <div *ngFor="let card of gameState.deck; index as i" class="cardBox">
         <div id="card{{ i }}" class="card" (click)="revealCard(i)"></div>
       </div>
     </div>
-    <p>Current score: {{ this.gameState.result }}</p>
+    <p>Current score: {{ this.gameState.score }}</p>
     <p>Turns till end: {{ this.gameState.maxTurnCount }}</p>
   </div>
 </section>

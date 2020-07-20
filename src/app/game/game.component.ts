@@ -14,80 +14,53 @@ export class GameComponent implements OnInit {
   bestScore: number;
   hiddenClass: string = 'card--matched';
 
-  constructor() {
-    this.cards = this.shuffleCards(new Cards().cards);
-  }
-
   ngOnInit(): void {
     this.startGame();
   }
 
-  shuffleCards(deck: string[]): string[] {
-    function getRandom(floor: number, ceiling: number) {
-      return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
-    }
-    // if it's 1 or 0 items, just return
-    if (deck.length <= 1) return deck;
-
-    // For each index in deck
-    for (let i = 0; i < deck.length; i++) {
-      const randomChoiceIndex = getRandom(i, deck.length - 1);
-      // place our random choice in the spot by swapping
-      [deck[i], deck[randomChoiceIndex]] = [deck[randomChoiceIndex], deck[i]];
-
-    }
-    return deck;
-  }
-
   startGame() {
     this.gameState = new GameState();
-    console.log(this.gameState);
-
   }
 
-  revealCard(index: number) {
-    const card = document.getElementById(`card${index}`);
-    const cardFace = this.cards[index];
-    card.style.backgroundImage = `url(${cardFace})`;
+  revealCard(currentCard: number) {
+    const cardElement = this.getCardElement(currentCard);
+    const currentImage = this.gameState.deck[currentCard];
+    cardElement.style.backgroundImage = `url(${currentImage})`;
 
     if (this.gameState.visibleCardIndex < 0) {
-      this.gameState.visibleCardIndex = index;
+      this.gameState.visibleCardIndex = currentCard;
     } else {
-      const cardVisible = document.getElementById(`card${this.gameState.visibleCardIndex}`);
-
-      if (this.cards[this.gameState.visibleCardIndex] === cardFace) {
-        setTimeout(() => {
-          card.classList.add(this.hiddenClass);
-          cardVisible.classList.add(this.hiddenClass);
-          this.gameState.result++;
-          this.gameState.visibleCardIndex = -1;
-          this.gameState.maxTurnCount++;
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          card.style.backgroundImage = `url(${this.cardBack})`;
-          cardVisible.style.backgroundImage = `url(${this.cardBack})`;
-          this.gameState.visibleCardIndex = -1;
-          this.gameState.maxTurnCount--;
-        }, 1000);
-      }
+      this.handlePairReveal(currentCard);
     }
   }
 
-  handlePairReveal(isMatch: boolean) {
+  handlePairReveal(currentCard: number) {
+    const currentImage = this.gameState.deck[currentCard];
+    const pair = [this.getCardElement(currentCard), this.getCardElement(this.gameState.visibleCardIndex)];
+    const isMatch = this.gameState.isMatch(currentImage);
 
+    if (isMatch) {
+      this.handleMatch(pair);
+    } else this.handleFail(pair);
+
+    this.gameState.resetVisibleCard();
+    this.gameState.calculateMaxTurnCount(isMatch);
+    this.gameState.increaseScore();
   }
 
-  handleMatch() {
-
+  handleMatch(cardsArray: HTMLDivElement[]) {
+    setTimeout(() => {
+      cardsArray.forEach((card) => card.classList.add(this.hiddenClass));
+    }, 1000);
   }
 
-  handleFail() {
-
+  handleFail(cardsArray: HTMLDivElement[]) {
+    setTimeout(() => {
+      cardsArray.forEach((card) => card.style.backgroundImage = `url(${this.cardBack})`);
+    }, 1000);
   }
 
   getCardElement(index: number): HTMLDivElement {
     return <HTMLDivElement >document.getElementById(`card${index}`);
   }
-
 }
