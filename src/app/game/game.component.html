@@ -1,14 +1,18 @@
 <section class="container">
-  <div class="buttons-container memory-style-theme"></div>
+  <div class="buttons-container memory-style-theme">
+    <button class="button" (click)="startGame()">New game</button>
+  </div>
   <div class="game memory-style-theme" *ngIf="!isGameOver">
     <div id="board" class="board">
       <div *ngFor="let card of gameState.deck; index as i" class="cardBox">
         <div id="card{{ i }}" class="card" (click)="revealCard(i)"></div>
       </div>
     </div>
-    <p>Current score: {{ this.gameState.score }}</p>
-    <p *ngIf="isBonus">Bonus turn! Turns till end: {{ this.gameState.maxTurnCount }}</p>
-    <p *ngIf="!isBonus">Turns till end: {{ this.gameState.maxTurnCount }}</p>
+    <div class='score'>
+      <p>Current score: {{ this.gameState.score }}</p>
+      <p *ngIf="isBonus">Bonus turn! Turns till end: {{ this.gameState.maxTurnCount }}</p>
+      <p *ngIf="!isBonus">Turns till end: {{ this.gameState.maxTurnCount }}</p>
+    </div>
   </div>
   <div style="margin-top: 150px">
     <p *ngIf="isGameOver && isWin">Yo won!</p>
