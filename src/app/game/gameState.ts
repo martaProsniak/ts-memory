@@ -3,6 +3,7 @@ export class GameState {
   maxTurnCount: number = 10;
   visibleCardIndex: number = -1;
   gameLock: boolean = false;
+  pairsCount: number;
   deck: string[] = [
     "../../assets/img/rocket.png",
     "../../assets/img/rocket.png",
@@ -20,6 +21,7 @@ export class GameState {
 
   constructor() {
     this.deck = this.shuffleCards(this.deck);
+    this.pairsCount = this.deck.length / 2;
   }
 
   shuffleCards(deck: string[]): string[] {

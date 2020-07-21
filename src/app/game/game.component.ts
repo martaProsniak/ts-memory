@@ -15,9 +15,14 @@ export class GameComponent implements OnInit {
   hiddenClass: string = 'card--matched';
   isBonus: boolean = false;
   gameLock: boolean = false;
+  pairCounter: number = 0;
+  isWin: boolean;
+  isGameOver: boolean = false;
 
   //TODO
-  // win/lose mechanics including messages after game
+  // win/lose messages after game - finish alerts
+  // menu buttons
+  // music
   // best score stored in localstorage
   // css effects
   // unit tests
@@ -67,6 +72,8 @@ export class GameComponent implements OnInit {
   handleMatch(cardsArray: HTMLDivElement[]) {
     setTimeout(() => {
       cardsArray.forEach((card) => card.classList.add(this.hiddenClass));
+      this.pairCounter++;
+      this.checkWin();
       this.gameState.unlockGame();
     }, 1000);
   }
@@ -74,6 +81,7 @@ export class GameComponent implements OnInit {
   handleFail(cardsArray: HTMLDivElement[]) {
     setTimeout(() => {
       cardsArray.forEach((card) => card.style.backgroundImage = `url(${this.cardBack})`);
+      this.checkLoose();
       this.gameState.unlockGame();
     }, 1000);
   }
@@ -85,4 +93,23 @@ export class GameComponent implements OnInit {
   setBonus(isMatch: boolean) {
     this.isBonus = isMatch;
   }
+
+  checkWin() {
+    if (this.pairCounter === this.gameState.pairsCount) {
+      this.isWin = true;
+      this.endGame();
+    }
+  }
+
+  checkLoose() {
+    if (this.gameState.maxTurnCount === 0) {
+      this.isWin = false;
+      this.endGame();
+    }
+  }
+
+  endGame() {
+    this.isGameOver = true;
+  }
+
 }
