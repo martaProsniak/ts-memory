@@ -7,6 +7,7 @@
       </div>
     </div>
     <p>Current score: {{ this.gameState.score }}</p>
-    <p>Turns till end: {{ this.gameState.maxTurnCount }}</p>
+    <p *ngIf="isBonus">Bonus turn! Turns till end: {{ this.gameState.maxTurnCount }}</p>
+    <p *ngIf="!isBonus">Turns till end: {{ this.gameState.maxTurnCount }}</p>
   </div>
 </section>

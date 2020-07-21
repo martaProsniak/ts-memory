@@ -2,6 +2,7 @@ export class GameState {
   score: number = 0;
   maxTurnCount: number = 10;
   visibleCardIndex: number = -1;
+  gameLock: boolean = false;
   deck: string[] = [
     "../../assets/img/rocket.png",
     "../../assets/img/rocket.png",
@@ -54,5 +55,13 @@ export class GameState {
 
   resetVisibleCard() {
     this.visibleCardIndex = -1;
+  }
+
+  lockGame() {
+    this.gameLock = true;
+  }
+
+  unlockGame() {
+    this.gameLock = false;
   }
 }
