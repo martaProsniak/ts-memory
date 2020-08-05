@@ -1,3 +1,4 @@
+import { MainPageComponent } from './../main-page/main-page.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
@@ -7,11 +8,12 @@ import { InfoComponent } from '../info/info.component';
 import { GameComponent } from './../game/game.component';
 
 const appRoutes: Routes = [
-  { path: '', component: LandingComponent},
-  { path: 'game', component: MemoryComponent},
-  { path: 'memory', component: GameComponent},
+  { path: '', component: MainPageComponent},
+  { path: 'game', component: GameComponent},
+  { path: 'memory', component: MemoryComponent},
+  { path: 'intro', component: LandingComponent},
   { path: 'info', component: InfoComponent},
-  { path: '**', component: LandingComponent}
+  { path: '**', component: MainPageComponent}
 ];
 
 @NgModule({

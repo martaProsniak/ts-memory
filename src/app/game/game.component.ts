@@ -142,9 +142,6 @@ export class GameComponent implements OnInit {
   }
 
   endGame() {
-    // document.querySelectorAll('.card').forEach(card => {
-    //   card.classList.add(this.hiddenClass);
-    //  });
     document.querySelectorAll(`.${this.hiddenClass}`).forEach(card => {
       card.classList.remove(this.hiddenClass);
      });
