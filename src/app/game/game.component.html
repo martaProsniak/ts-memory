@@ -1,9 +1,9 @@
 <section class="container">
   <div class="buttons-container memory-style-theme">
-    <button class="button" (click)="startGame()">New game</button>
+    <button class="button" (click)="restartGame()">New game</button>
   </div>
   <div class="game memory-style-theme" *ngIf="!isGameOver">
-    <div class="score">
+    <div class="score" >
       <p>Score: {{ this.gameState.score }}</p>
       <p>Best score: {{ this.bestScore }}</p>
     </div>

@@ -1,5 +1,6 @@
 :root {
-  --maxBoard: 800px;
+  --maxBoard: 1200px;
+  --minWidth: 300px;
 }
 
 html {
@@ -8,7 +9,6 @@ html {
     font-size: 10px;
     }
     ::-webkit-scrollbar {
-    width: 0px; /* remove scrollbar space */
     background: transparent; /* optional: just make scrollbar invisible */
     }
 

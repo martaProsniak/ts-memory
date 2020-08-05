@@ -26,11 +26,15 @@ export class GameComponent implements OnInit {
   // win/lose messages after game - finish alerts
   // menu buttons
   // music
-  // best score stored in localstorage
   // css effects
   // unit tests
 
   ngOnInit(): void {
+    this.startGame();
+  }
+
+  restartGame() {
+    this.endGame();
     this.startGame();
   }
 
@@ -49,12 +53,14 @@ export class GameComponent implements OnInit {
   }
 
   startGame() {
-    this.isGameOver = false;
     this.pairCounter = 0;
     this.gameState = new GameState();
     this.isNewBestScore = false;
     this.getBestScore();
     this.checkAndSetBestScore();
+    setTimeout(() => {
+      this.isGameOver = false;
+    }, 0);
   }
 
   revealCard(currentCard: number) {
@@ -94,7 +100,10 @@ export class GameComponent implements OnInit {
 
   handleMatch(cardsArray: HTMLDivElement[]) {
     setTimeout(() => {
-      cardsArray.forEach((card) => card.classList.add(this.hiddenClass));
+      cardsArray.forEach((card) => {
+        card.classList.add(this.hiddenClass);
+        card.style.backgroundImage = `url(${this.cardBack})`;
+      });
       this.pairCounter++;
       this.checkWin();
       this.gameState.unlockGame();
@@ -133,7 +142,13 @@ export class GameComponent implements OnInit {
   }
 
   endGame() {
-    this.isGameOver = true;
+    // document.querySelectorAll('.card').forEach(card => {
+    //   card.classList.add(this.hiddenClass);
+    //  });
+    document.querySelectorAll(`.${this.hiddenClass}`).forEach(card => {
+      card.classList.remove(this.hiddenClass);
+     });
+     this.isGameOver = true;
   }
 
   checkBestScore() {
