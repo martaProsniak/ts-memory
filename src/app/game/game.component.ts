@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cards } from './cards';
 import { GameState } from './gameState';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 @Component({
   selector: 'app-game',
@@ -18,6 +19,7 @@ export class GameComponent implements OnInit {
   pairCounter: number = 0;
   isWin: boolean;
   isGameOver: boolean = false;
+  personalBestScore: number = 0;
 
   //TODO
   // win/lose messages after game - finish alerts
@@ -31,8 +33,18 @@ export class GameComponent implements OnInit {
     this.startGame();
   }
 
+  getPersonalBestScore() {
+    const personalBest = localStorage.getItem('bestScore') || null;
+    if (personalBest) {
+      this.personalBestScore = Number.parseInt(personalBest);
+    }
+  }
+
   startGame() {
+    this.isGameOver = false;
+    this.pairCounter = 0;
     this.gameState = new GameState();
+    this.getPersonalBestScore();
   }
 
   revealCard(currentCard: number) {
@@ -54,6 +66,7 @@ export class GameComponent implements OnInit {
   }
 
   handlePairReveal(currentCard: number) {
+    console.log(this.pairCounter);
     this.gameState.lockGame();
     const currentImage = this.gameState.deck[currentCard];
     const pair = [this.getCardElement(currentCard), this.getCardElement(this.gameState.visibleCardIndex)];
@@ -97,6 +110,7 @@ export class GameComponent implements OnInit {
   checkWin() {
     if (this.pairCounter === this.gameState.pairsCount) {
       this.isWin = true;
+      this.checkPersonalBestScore();
       this.endGame();
     }
   }
@@ -110,6 +124,13 @@ export class GameComponent implements OnInit {
 
   endGame() {
     this.isGameOver = true;
+  }
+
+  checkPersonalBestScore() {
+    const currentScore = this.gameState.score;
+    if (currentScore >= this.personalBestScore) {
+      localStorage.setItem('bestScore', currentScore.toString());
+    }
   }
 
 }

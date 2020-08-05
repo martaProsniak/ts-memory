@@ -1,3 +1,7 @@
+:root {
+  --maxBoard: 800px;
+}
+
 html {
     overflow: scroll;
     overflow-x: hidden;
