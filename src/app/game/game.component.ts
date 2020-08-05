@@ -128,7 +128,7 @@ export class GameComponent implements OnInit {
 
   checkPersonalBestScore() {
     const currentScore = this.gameState.score;
-    if (currentScore >= this.personalBestScore) {
+    if (currentScore <= this.personalBestScore) {
       localStorage.setItem('bestScore', currentScore.toString());
     }
   }
