@@ -12,14 +12,15 @@ export class GameComponent implements OnInit {
   cards: string[] = [];
   cardBack: string = '../../assets/img/alien.png';
   gameState: GameState;
-  bestScore: number;
   hiddenClass: string = 'card--matched';
   isBonus: boolean = false;
   gameLock: boolean = false;
   pairCounter: number = 0;
   isWin: boolean;
   isGameOver: boolean = false;
-  personalBestScore: number = 0;
+  isBestScore: boolean;
+  bestScore: number = 0;
+  isNewBestScore: boolean = false;
 
   //TODO
   // win/lose messages after game - finish alerts
@@ -33,10 +34,17 @@ export class GameComponent implements OnInit {
     this.startGame();
   }
 
-  getPersonalBestScore() {
-    const personalBest = localStorage.getItem('bestScore') || null;
-    if (personalBest) {
-      this.personalBestScore = Number.parseInt(personalBest);
+  getBestScore() {
+    const localBestScore = localStorage.getItem('bestScore') || null;
+    this.isBestScore = !!localBestScore;
+    if (this.isBestScore) {
+      this.bestScore = Number.parseInt(localBestScore);
+    }
+  }
+
+  checkAndSetBestScore() {
+    if (!this.isBestScore) {
+      this.bestScore = this.gameState.score;
     }
   }
 
@@ -44,7 +52,9 @@ export class GameComponent implements OnInit {
     this.isGameOver = false;
     this.pairCounter = 0;
     this.gameState = new GameState();
-    this.getPersonalBestScore();
+    this.isNewBestScore = false;
+    this.getBestScore();
+    this.checkAndSetBestScore();
   }
 
   revealCard(currentCard: number) {
@@ -66,7 +76,6 @@ export class GameComponent implements OnInit {
   }
 
   handlePairReveal(currentCard: number) {
-    console.log(this.pairCounter);
     this.gameState.lockGame();
     const currentImage = this.gameState.deck[currentCard];
     const pair = [this.getCardElement(currentCard), this.getCardElement(this.gameState.visibleCardIndex)];
@@ -79,6 +88,7 @@ export class GameComponent implements OnInit {
     this.gameState.resetVisibleCard();
     this.gameState.calculateMaxTurnCount(isMatch);
     this.gameState.increaseScore();
+    this.checkAndSetBestScore();
     this.setBonus(isMatch);
   }
 
@@ -110,7 +120,7 @@ export class GameComponent implements OnInit {
   checkWin() {
     if (this.pairCounter === this.gameState.pairsCount) {
       this.isWin = true;
-      this.checkPersonalBestScore();
+      this.checkBestScore();
       this.endGame();
     }
   }
@@ -126,10 +136,11 @@ export class GameComponent implements OnInit {
     this.isGameOver = true;
   }
 
-  checkPersonalBestScore() {
+  checkBestScore() {
     const currentScore = this.gameState.score;
-    if (currentScore <= this.personalBestScore) {
+    if (!this.isBestScore || currentScore <= this.bestScore) {
       localStorage.setItem('bestScore', currentScore.toString());
+      this.isNewBestScore = true;
     }
   }
 

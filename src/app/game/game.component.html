@@ -5,7 +5,7 @@
   <div class="game memory-style-theme" *ngIf="!isGameOver">
     <div class="score">
       <p>Score: {{ this.gameState.score }}</p>
-      <p>Best ever: {{ this.personalBestScore }}</p>
+      <p>Best score: {{ this.bestScore }}</p>
     </div>
     <div id="board" class="board">
       <div *ngFor="let card of gameState.deck; index as i" class="cardBox">
@@ -17,9 +17,10 @@
       <p *ngIf="!isBonus">Turns till end: {{ this.gameState.maxTurnCount }}</p>
     </div>
   </div>
-  <div style="margin-top: 150px">
-    <p *ngIf="isGameOver && isWin">Yo won!</p>
-    <p *ngIf="isGameOver && !isWin">Yo loose!</p>
+  <div *ngIf="isGameOver" style="margin-top: 150px">
+    <p *ngIf="isWin">Yo won!</p>
+    <p *ngIf="isNewBestScore">You've bitten your best score! New best score is: {{ this.gameState.score }}</p>
+    <p *ngIf="!isWin">Yo loose!</p>
   </div>
 </section>
 
